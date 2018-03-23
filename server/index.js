@@ -1,0 +1,17 @@
+// environment variables from .env file
+require('dotenv').config();
+
+const Koa = require('koa');
+const app = new Koa();
+const PORT = 3000;
+
+
+app.use(async ctx => {
+  ctx.body = 'initial app';
+});
+
+const server = app.listen(PORT, () => {
+    console.log('Server listening on port: ' + PORT);
+});
+
+module.exports = server;
