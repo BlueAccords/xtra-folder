@@ -7,11 +7,14 @@ const PORT = 3000;
 
 
 app.use(async ctx => {
-  ctx.body = 'initial app';
+  ctx.body = {
+    status: 'success',
+    message: 'initial app'
+  };
 });
 
 const server = app.listen(PORT, () => {
-    console.log('Server listening on port: ' + PORT);
+  console.log('Server listening on port: ' + PORT);
 });
 
 module.exports = server;
