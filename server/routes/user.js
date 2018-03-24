@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const queries = require.main.require('server/db/queries/user');
+const queries = require.main.require('./db/queries/user');
 
 const router = new Router();
 const BASE_URL = `/api/user`;
@@ -20,12 +20,22 @@ router.get(BASE_URL + '/:id', async (ctx) => {
   try {
     const id = ctx.params.id;
     const user = await queries.getSingleUser(id);
-    ctx.body = {
-      status: 'success',
-      data: user
-    };
+    if (user.length) {
+      ctx.body = {
+        status: 'success',
+        data: user
+      };
+    } else {
+      // TODO: add dict of http error codes to replace this magic number
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That user does not exist.'
+      };
+    }
   } catch (err) {
-    console.log(err)
+    console.log('err');
+    console.log(err);
   }
 });
 

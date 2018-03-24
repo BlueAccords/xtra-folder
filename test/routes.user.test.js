@@ -59,7 +59,7 @@ describe('GET /api/user', () => {
  * get a single user
  */
 describe('GET /api/user/:id', () => {
-  it('should return a single users', (done) => {
+  it('should return a single user', (done) => {
     chai.request(server)
     .get('/api/user/1')
     .end((err, res) => {
@@ -77,6 +77,26 @@ describe('GET /api/user/:id', () => {
       res.body.data[0].should.include.keys(
         'id', 'username', 'email', 'role'
       );
+      done();
+    });
+  });
+
+  it('should throw an error if the user does not exist', (done) => {
+    chai.request(server)
+    .get('/api/v1/user/999999')
+    .end((err, res) => {
+      // there should an error
+      should.exist(err);
+      // there should be a 404 status code
+      res.status.should.equal(404);
+      // the response should be JSON
+      res.type.should.equal('application/json');
+      // the JSON response body should have a
+      // key-value pair of {"status": "error"}
+      res.body.status.should.eql('error');
+      // the JSON response body should have a
+      // key-value pair of {"message": "That user does not exist."}
+      res.body.message.should.eql('That user does not exist.');
       done();
     });
   });

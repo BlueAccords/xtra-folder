@@ -1,14 +1,14 @@
-const knex = require.main.require('server/db/connection');
+const knex = require.main.require('./db/connection');
 
 function getAllUsers() {
   return knex('user')
-    .select('*');
+    .select('id', 'email', 'username', 'role', 'created_at');
 }
 
 function getSingleUser(id) {
   return knex('user')
     .where('id', parseInt(id))
-    .select('*');
+    .select('id', 'email', 'username', 'role', 'created_at');
 }
 
 
