@@ -5,6 +5,14 @@ function getAllUsers() {
     .select('*');
 }
 
+function getSingleUser(id) {
+  return knex('user')
+    .where('id', parseInt(id))
+    .select('*');
+}
+
+
 module.exports = {
-  getAllUsers
+  getAllUsers,
+  getSingleUser
 };
