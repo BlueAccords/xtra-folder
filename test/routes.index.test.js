@@ -8,7 +8,6 @@ chai.use(chaiHttp);
 const server = require.main.require('server/index');
 
 describe('routes : index', () => {
-
   describe('GET /', () => {
     it('should return json', (done) => {
       chai.request(server)
