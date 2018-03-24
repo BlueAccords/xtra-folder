@@ -1,5 +1,5 @@
 const Model = require('objection').Model;
-const knex = require.main.require('server/db/connection')
+const knex = require('../db/connection')
 Model.knex(knex)
 
 class User extends Model {

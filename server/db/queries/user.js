@@ -1,4 +1,4 @@
-const knex = require.main.require('./db/connection');
+const knex = require('../connection');
 
 function getAllUsers() {
   return knex('user')

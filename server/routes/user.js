@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const queries = require.main.require('./db/queries/user');
+const queries = require('../db/queries/user');
 
 const router = new Router();
 const BASE_URL = `/api/user`;
@@ -27,6 +27,7 @@ router.get(BASE_URL + '/:id', async (ctx) => {
       };
     } else {
       // TODO: add dict of http error codes to replace this magic number
+      // ctx.throw(404, 'That user does not exist.');
       ctx.status = 404;
       ctx.body = {
         status: 'error',
@@ -34,8 +35,12 @@ router.get(BASE_URL + '/:id', async (ctx) => {
       };
     }
   } catch (err) {
-    console.log('err');
     console.log(err);
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err.message || 'An error has occurred'
+    };
   }
 });
 
