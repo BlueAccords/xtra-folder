@@ -12,13 +12,17 @@ const LocalStrategy = require('passport-local').Strategy;
 
 
 passport.serializeUser((user, done) => {
-   done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
   return knex('user').where({id}).first()
-  .then((user) => { done(null, user); })
-  .catch((err) => { done(err,null); });
+    .then((user) => { 
+      done(null, user);
+    })
+    .catch((err) => { 
+      done(err,null); 
+  });
 });
 
 passport.use(new LocalStrategy({
