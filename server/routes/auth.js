@@ -14,7 +14,7 @@ router.post(`${BASE_URL}/register`, async (ctx) => {
       ctx.status = 400;
       ctx.body = {
         status: 'error',
-        message: err || 'something went wrong'
+        message: info || 'something went wrong'
       };
     }
     if (user) {
@@ -29,7 +29,7 @@ router.post(`${BASE_URL}/register`, async (ctx) => {
       ctx.status = 400;
       ctx.body = {
         status: 'error',
-        message: 'something went wrong'
+        message: info || 'something went wrong'
       };
     }
   })(ctx);
@@ -39,6 +39,16 @@ router.post(`${BASE_URL}/register`, async (ctx) => {
 // POST#login
 router.post(`${BASE_URL}/login`, async (ctx) => {
   return passport.authenticate('local', (err, user, info, status) => {
+    // error checking
+    if(err) {
+      ctx.status = 400;
+      ctx.body = {
+        status: 'error',
+        message: info || 'something went wrong'
+      };
+    }
+
+    // successful path
     if(user) {
       ctx.login(user);
       ctx.status = 200;
@@ -50,7 +60,7 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
       ctx.status = 400;
       ctx.body = {
         status: 'error',
-        message: 'something went wrong'
+        message: info || 'something went wrong'
       };
     }
   })(ctx);
