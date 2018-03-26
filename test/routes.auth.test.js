@@ -26,12 +26,14 @@ describe('routes : auth', () => {
       chai.request(server)
       .post('/api/auth/register')
       .send({
-        username: 'testusername',
+        username: 'validusername',
         password_digest: 'validpassword',
         email: 'validemail@gmail.com'
       })
       .end((err, res) => {
         should.not.exist(err);
+        // .text contains validation error messages
+        // console.log(res.text);
         res.body.message.should.eql('successfully registered and logged in');
         res.status.should.equal(200);
         res.type.should.equal('application/json');

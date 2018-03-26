@@ -12,18 +12,20 @@ const BASE_URL = `/api/auth`;
 // registers a new user and logins them in
 router.post(`${BASE_URL}/register`, async (ctx) => {
   // const user = await queries.addUser(ctx.request.body);
-  // const user = {}
-  // create new user
   try {
     const user = await Person
       .query()
       .insert(ctx.request.body);
   } catch(err) {
+    // model validation errors thrown here
     ctx.status = 400;
     ctx.body = {
       status: 'error',
       message: err || 'something went wrong'
     };
+
+    // TODO: pretty this up, so a status is set as well
+    ctx.throw(401, err);
   }
 
   // authenticate/login user
