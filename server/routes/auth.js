@@ -11,6 +11,7 @@ router.post(`${BASE_URL}/register`, async (ctx) => {
   const user = await queries.addUser(ctx.request.body);
   return passport.authenticate('local', (err, user, info, status) => {
     if(err) {
+      console.log(err);
       ctx.status = 400;
       ctx.body = {
         status: 'error',
@@ -26,6 +27,10 @@ router.post(`${BASE_URL}/register`, async (ctx) => {
         message: 'successfully registered and logged in'
       };
     } else {
+      console.log('user not found?');
+      console.log(user);
+      console.log(info);
+      
       ctx.status = 400;
       ctx.body = {
         status: 'error',
@@ -41,13 +46,17 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
   return passport.authenticate('local', (err, user, info, status) => {
     // error checking
     if(err) {
+      console.log('========================');
+      console.log(err);
+      console.log(info);
+      
+      
       ctx.status = 400;
       ctx.body = {
         status: 'error',
         message: info || 'something went wrong'
       };
     }
-
     // successful path
     if(user) {
       ctx.login(user);
@@ -57,6 +66,9 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
         message: 'successfully logged in'
       };
     } else {
+      console.log('user failed======================');
+      console.log(info);
+      console.log(err);
       ctx.status = 400;
       ctx.body = {
         status: 'error',

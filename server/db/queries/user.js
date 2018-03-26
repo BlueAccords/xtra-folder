@@ -1,4 +1,5 @@
 const knex = require('../connection');
+const bcrypt = require('bcryptjs');
 
 function getAllUsers() {
   return knex('user')
@@ -12,11 +13,13 @@ function getSingleUser(id) {
 }
 
 function addUser(user) {
+  const salt = bcrypt.genSaltSync();
+  const hash = bcrypt.hashSync(user.password_digest, salt);
   return knex('user')
     .insert({
       username: user.username,
       email: user.email,
-      password_digest: user.password_digest,
+      password_digest: hash,
       // password_confirmation: user.password_confirmation,
     }).then((x) => {
       return knex('user')
