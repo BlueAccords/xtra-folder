@@ -64,6 +64,22 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
       };
     }
   })(ctx);
+});
+
+// POST#logout
+router.get(`${BASE_URL}/logout`, async (ctx) => {
+  if (ctx.isAuthenticated()) {
+    ctx.logout();
+    ctx.body = {
+      status: 'success',
+      message: 'successfully logged out'
+    }
+  } else {
+    ctx.body = { 
+      success: false 
+    };
+    ctx.throw(401, 'failed to logout');
+  }
 })
 
 module.exports = router;
