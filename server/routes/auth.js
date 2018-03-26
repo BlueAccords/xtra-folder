@@ -2,16 +2,33 @@ const Router = require('koa-router');
 const queries = require('../db/queries/user');
 const passport = require('koa-passport');
 
+// model
+const Person = require('../models/user');
+
 const router = new Router();
 const BASE_URL = `/api/auth`;
 
 // POST#register
 // registers a new user and logins them in
 router.post(`${BASE_URL}/register`, async (ctx) => {
-  const user = await queries.addUser(ctx.request.body);
+  // const user = await queries.addUser(ctx.request.body);
+  // const user = {}
+  // create new user
+  try {
+    const user = await Person
+      .query()
+      .insert(ctx.request.body);
+  } catch(err) {
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err || 'something went wrong'
+    };
+  }
+
+  // authenticate/login user
   return passport.authenticate('local', (err, user, info, status) => {
     if(err) {
-      console.log(err);
       ctx.status = 400;
       ctx.body = {
         status: 'error',
@@ -27,10 +44,6 @@ router.post(`${BASE_URL}/register`, async (ctx) => {
         message: 'successfully registered and logged in'
       };
     } else {
-      console.log('user not found?');
-      console.log(user);
-      console.log(info);
-      
       ctx.status = 400;
       ctx.body = {
         status: 'error',
@@ -46,11 +59,6 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
   return passport.authenticate('local', (err, user, info, status) => {
     // error checking
     if(err) {
-      console.log('========================');
-      console.log(err);
-      console.log(info);
-      
-      
       ctx.status = 400;
       ctx.body = {
         status: 'error',
@@ -66,9 +74,6 @@ router.post(`${BASE_URL}/login`, async (ctx) => {
         message: 'successfully logged in'
       };
     } else {
-      console.log('user failed======================');
-      console.log(info);
-      console.log(err);
       ctx.status = 400;
       ctx.body = {
         status: 'error',

@@ -42,7 +42,7 @@ passport.use(new LocalStrategy({
         return done(null, false, 'user with that username does not exist');
       }
 
-      // esle check if hashed passwords are the same
+      // else check if hashed passwords are the same
       if(comparePassword(password, user.password_digest)) {
         return done(null, user, 'success');
       } else {

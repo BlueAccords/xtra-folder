@@ -32,6 +32,7 @@ describe('routes : auth', () => {
       })
       .end((err, res) => {
         should.not.exist(err);
+        res.body.message.should.eql('successfully registered and logged in');
         res.status.should.equal(200);
         res.type.should.equal('application/json');
         res.body.status.should.eql('success');

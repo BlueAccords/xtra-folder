@@ -1,4 +1,5 @@
 const Model = require('objection').Model;
+const bcrypt = require('bcryptjs');
 
 class User extends Model {
   // require property
@@ -32,7 +33,7 @@ class User extends Model {
           type: 'string',
           minLength: 3,
           maxLength: 40,
-          pattern: /[a-z0-9\_\-]*/i,
+          // pattern: /[a-z0-9\_\-]*/i,
         },
         email: {
           type: 'string',
@@ -57,8 +58,13 @@ class User extends Model {
       }
     }
   }
-  
-  
+
+  async $beforeInsert(queryContext) {
+    await super.$beforeInsert(queryContext);
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(this.password_digest, salt);
+    this.password_digest = hash;
+  }
 }
 
 module.exports = User;
