@@ -47,8 +47,14 @@ router.get(BASE_URL + '/:id', async (ctx) => {
 
 router.post(BASE_URL, async(ctx) => {
   try {
+    folderParams = ctx.request.body;
+
+    // set folder user, author id if logged in
+    if(ctx.isAuthenticated()) {
+      folderParams.author_id = ctx.state.user.id;
+    }
     const folder = await Folder.query()
-      .insert(ctx.request.body);
+      .insert(folderParams);
     
     // success route
     ctx.status = 201;
