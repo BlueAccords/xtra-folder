@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 
-describe('routes : user', () => {
+describe('routes : folder', () => {
   
   // seed before each test
   beforeEach(() => {
@@ -24,30 +24,18 @@ describe('routes : user', () => {
 /**
  * =================== TESTS ====================================
  */
-  /**
-   * Basic test to get all users from api
-   */
-  describe('GET /api/user', () => {
-    it('should return all users', (done) => {
+  describe('GET /api/folder', () => {
+    it('should return all folders', (done) => {
       chai.request(server)
-      .get('/api/user')
+      .get('/api/folder')
       .end((err, res) => {
-        // there should be no errors
         should.not.exist(err);
-        // there should be a 200 status code
         res.status.should.equal(200);
-        // the response should be JSON
         res.type.should.equal('application/json');
-        // the JSON response body should have a
-        // key-value pair of {"status": "success"}
         res.body.status.should.eql('success');
-        // the JSON response body should have a
-        // key-value pair of {"data": [3 user objects]}
         res.body.data.length.should.eql(3);
-        // the first object in the data array should
-        // have the right keys
         res.body.data[0].should.include.keys(
-          'id', 'username', 'email', 'role'
+          'id', 'title', 'description', 'author_id'
         );
         done();
       });
@@ -57,30 +45,26 @@ describe('routes : user', () => {
   /**
    * get a single user
    */
-  describe('GET /api/user/:id', () => {
-    it('should return a single user', (done) => {
-      chai.request(server)
-      .get('/api/user/1')
-      .end((err, res) => {
-        // there should be no errors
-        should.not.exist(err);
-        // there should be a 200 status code
-        res.status.should.equal(200);
-        // the response should be JSON
-        res.type.should.equal('application/json');
-        // the JSON response body should have a
-        // key-value pair of {"status": "success"}
-        res.body.status.should.eql('success');
-        // the JSON response body should have a
-        // key-value pair of {"data": [3 user objects]}
-        res.body.data[0].should.include.keys(
-          'id', 'username', 'email', 'role'
-        );
-        done();
-      });
+  describe('GET /api/folder/:id', () => {
+    it('should return a single folder', (done) => {
+      knex('folder').select('*').first().then((singleFolder) => {
+        chai.request(server)
+          .get('/api/folder/' + singleFolder.id)
+          .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.status.should.eql('success');
+          res.body.data.should.include.keys(
+            'id', 'title', 'description', 'author_id'
+          );
+
+          done();
+        });
+      })
     });
 
-    it('should throw an error if the user does not exist', (done) => {
+    it.skip('should throw an error if the user does not exist', (done) => {
       chai.request(server)
       .get('/api/user/999999')
       .end((err, res) => {

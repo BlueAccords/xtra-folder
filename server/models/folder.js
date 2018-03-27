@@ -67,4 +67,4 @@ class Folder extends Model {
   }
 }
 
-module.exports = User;
+module.exports = Folder;
