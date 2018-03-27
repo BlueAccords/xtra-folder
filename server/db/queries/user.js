@@ -20,7 +20,6 @@ function addUser(user) {
       username: user.username,
       email: user.email,
       password_digest: hash,
-      // password_confirmation: user.password_confirmation,
     }).then((x) => {
       return knex('user')
         .where('username', user.username).first();

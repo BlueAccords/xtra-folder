@@ -1,4 +1,5 @@
 const Model = require('objection').Model;
+const knex = require('../db/connection');
 
 class Folder extends Model {
   static get tableName() {
@@ -55,14 +56,14 @@ class Folder extends Model {
     };
   }
 
-  async $beforeInsert() {
-    this.created_at = new Date().toISOString();
+  $beforeInsert() {
+    // this.created_at = knex.fn.now();
     delete this.updated_at;
   }
 
-  async $beforeUpdate() {
+  $beforeUpdate() {
     // await super.$beforeUpdate(opt, queryContext);
-    this.updated_at = new Date().toISOString();
+    // this.updated_at = knex.fn.now();
     delete this.created_at;
   }
 }

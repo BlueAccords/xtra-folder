@@ -45,6 +45,32 @@ router.get(BASE_URL + '/:id', async (ctx) => {
   }
 });
 
+router.post(BASE_URL, async(ctx) => {
+  try {
+    const folder = await Folder.query()
+      .insert(ctx.request.body);
+    
+    // success route
+    ctx.status = 201;
+      ctx.body = {
+        status: 'success',
+        data: folder
+      }; 
+    // error route
+  } catch(err) {
+    console.log(err);
+    // model validation errors thrown here
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err || 'something went wrong'
+    };
+
+    // TODO: pretty this up, so a status is set as well
+    ctx.throw(401, err);
+  }
+})
+
 
 
 

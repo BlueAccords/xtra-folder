@@ -43,7 +43,7 @@ describe('routes : folder', () => {
   });
 
   /**
-   * get a single user
+   * get a single folder
    */
   describe('GET /api/folder/:id', () => {
     it('should return a single folder', (done) => {
@@ -74,6 +74,29 @@ describe('routes : folder', () => {
         res.body.message.should.eql('That folder does not exist.');
         done();
       });
+    });
+  });
+
+  // POST#folder
+  describe('POST /api/folder/', () => {
+    it('should create a single NEW folder', (done) => {
+      chai.request(server)
+        .post('/api/folder')
+        .send({
+          title: 'my folder name',
+          description: 'a simple folder description',
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(201);
+          res.type.should.equal('application/json');
+          res.body.status.should.eql('success');
+          res.body.data.should.include.keys(
+            'id', 'title', 'description'
+          );
+          res.body.data.title.should.equal('my folder name');
+          done();
+        });
     });
   });
 });
