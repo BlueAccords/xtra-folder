@@ -58,28 +58,20 @@ describe('routes : folder', () => {
           res.body.data.should.include.keys(
             'id', 'title', 'description', 'author_id'
           );
-
           done();
         });
       })
     });
 
-    it.skip('should throw an error if the user does not exist', (done) => {
+    it('should throw an error if the folder does not exist', (done) => {
       chai.request(server)
-      .get('/api/user/999999')
+      .get('/api/folder/999999')
       .end((err, res) => {
-        // there should be an error
         // should.exist(err);
-        // there should be a 404 status code
         res.status.should.equal(404);
-        // the response should be JSON
         res.type.should.equal('application/json');
-        // the JSON response body should have a
-        // key-value pair of {"status": "error"}
         res.body.status.should.eql('error');
-        // the JSON response body should have a
-        // key-value pair of {"message": "That user does not exist."}
-        res.body.message.should.eql('That user does not exist.');
+        res.body.message.should.eql('That folder does not exist.');
         done();
       });
     });
