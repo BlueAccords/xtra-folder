@@ -18,9 +18,11 @@
 - Create model file for model validation
     - `server/models/{model_name}`
 - Create seed data if applicable
-    - `server/db/seeds/{model_name}`
+    - `server/db/seeds/data/{model_name}`
+    - update `server/db/seeds/data/master_seed.js`
 - Create routes file for api routes
     - `server/routes/{model_name}`
-- create queries file for SQL queries
+    - also update `server/index.js` to include new route
+- create queries file for SQL queries(if needed)
     - `server/db/queries/{model_name}`
 
