@@ -99,24 +99,32 @@ describe('routes : folder', () => {
           done();
         });
     });
-    it.skip('should update a current folder', (done) => {
+  });
+
+  describe('PUT /api/folder/', () => {
+    it('should update a current folder', (done) => {
+      knex('folder').select('*').first().then((singleFolder) => {
       chai.request(server)
-        .put('/api/folder')
+        .put(`/api/folder/${singleFolder.id}`)
         .send({
-          title: 'my folder name',
-          description: 'a simple folder description',
+          description: 'updated folder description',
         })
         .end((err, res) => {
           should.not.exist(err);
-          res.status.should.equal(201);
+          res.status.should.equal(200);
           res.type.should.equal('application/json');
           res.body.status.should.eql('success');
           res.body.data.should.include.keys(
             'id', 'title', 'description'
           );
-          res.body.data.title.should.equal('my folder name');
+          res.body.data.description.should.equal('updated folder description');
           done();
         });
+      });
     });
+
+    it.skip('should throw an error if folder id does not exist', (done) => {
+
+    })
   });
 });

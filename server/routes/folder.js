@@ -75,7 +75,47 @@ router.post(BASE_URL, async(ctx) => {
     // TODO: pretty this up, so a status is set as well
     ctx.throw(401, err);
   }
+});
+
+router.put(`${BASE_URL}/:id`, async(ctx) => {
+  try {
+    const id = ctx.params.id;
+    const folder = await Folder.query().findById(id);
+    const folderParams = ctx.request.body;
+    // check if folder was found
+    if(folder) {
+      // TODO: add authorization by author id, or moderator/admin role
+      const updatedFolder = await Folder.query()
+        .patchAndFetchById(folder.id, folderParams);
+      // success route
+      ctx.status = 200;
+        ctx.body = {
+          status: 'success',
+          data: updatedFolder
+        }; 
+
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That folder does not exist.'
+      };
+    }
+    // error route
+  } catch(err) {
+    console.log(err);
+    // model validation errors thrown here
+    ctx.status = 400;
+    ctx.body = {
+      status: 'error',
+      message: err || 'something went wrong'
+    };
+
+    // TODO: pretty this up, so a status is set as well
+    ctx.throw(400, err);
+  }
 })
+
 
 
 

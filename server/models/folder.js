@@ -63,7 +63,7 @@ class Folder extends Model {
 
   $beforeUpdate() {
     // await super.$beforeUpdate(opt, queryContext);
-    // this.updated_at = knex.fn.now();
+    this.updated_at = knex.fn.now();
     delete this.created_at;
   }
 }
