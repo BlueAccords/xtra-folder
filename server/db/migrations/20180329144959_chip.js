@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
       'recovery', 'block']);
     t.enu('type', [
       'standard', 'mega', 'giga', 'dark'
-    ])
+    ]);
     t.integer('damage').unsigned().nullable();
     t.integer('memory').unsigned().nullable();
     // references the main game(typically mmbn3, mmbn4, mmbn5, mmbn6)
