@@ -10,6 +10,7 @@ const Model = require('objection').Model;
 const indexRoutes = require('./routes/index');
 const userRoutes = require('./routes/user');
 const folderRoutes = require('./routes/folder');
+const gameRoutes = require('./routes/game');
 const authRoutes = require('./routes/auth');
 
 const app = new Koa();
@@ -34,6 +35,7 @@ app.use(passport.session());
 app.use(indexRoutes.routes());
 app.use(userRoutes.routes());
 app.use(folderRoutes.routes());
+app.use(gameRoutes.routes());
 app.use(authRoutes.routes());
 
 
