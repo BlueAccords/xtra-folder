@@ -14,6 +14,7 @@ class Game extends Model {
   // NOT the db schema, used only for input model validation
   // more info here: http://json-schema.org/.
   static get jsonSchema() {
+    // TODO: add 'alias' column used in urls
     return {
       type: 'object',
       required: ['title'],
