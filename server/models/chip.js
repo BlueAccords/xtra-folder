@@ -50,9 +50,9 @@ class Chip extends Model {
         },
         element: {
           type: ['string', null],
-          enum: ['null', 'fire', 'aqua', 'elec', 'wood', 
-        'sword', 'wind', 'cursor', 'break', 'plus_minus', 
-        'recovery', 'block']
+          enum: ['fire', 'aqua', 'elec', 'wood', 
+      'sword', 'wind', 'cursor', 'break', 'plus', 
+      'recovery', 'obstacle', 'invisible', 'ground_cracking']
         },
         'type': {
           type: ['string', null],
