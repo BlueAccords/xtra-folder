@@ -2693,7 +2693,7 @@ module.exports = [
     "original_name": "HeatMan",
     "element": "fire",
     "Damage": "100",
-
+    "sub_game_id": 3,
 
     "memory": "32",
     "Rarity": 3,
@@ -2705,7 +2705,7 @@ module.exports = [
     "original_name": "HeatManEX",
     "element": "fire",
     "Damage": "130",
-
+    "sub_game_id": 3,
 
     "memory": "55",
     "Rarity": 4,
@@ -2718,6 +2718,7 @@ module.exports = [
     "element": "fire",
     "Damage": 0,
 
+    "sub_game_id": 3,
 
     "memory": "70",
     "Rarity": 5,
@@ -2730,6 +2731,7 @@ module.exports = [
     "element": "elec",
     "Damage": "120",
 
+    "sub_game_id": 3,
 
     "memory": "38",
     "Rarity": 3,
@@ -2742,6 +2744,7 @@ module.exports = [
     "element": "elec",
     "Damage": "140",
 
+    "sub_game_id": 3,
 
     "memory": "52",
     "Rarity": 4,
@@ -2754,6 +2757,7 @@ module.exports = [
     "element": "elec",
     "Damage": 0,
 
+    "sub_game_id": 3,
 
     "memory": "79",
     "Rarity": 5,
@@ -2766,6 +2770,7 @@ module.exports = [
     "element": "sword",
     "Damage": "80",
 
+    "sub_game_id": 3,
 
     "memory": "42",
     "Rarity": 3,
@@ -2778,6 +2783,7 @@ module.exports = [
     "element": "sword",
     "Damage": "100",
 
+    "sub_game_id": 3,
 
     "memory": "65",
     "Rarity": 4,
@@ -2790,6 +2796,7 @@ module.exports = [
     "element": "sword",
     "Damage": 0,
 
+    "sub_game_id": 3,
 
     "memory": "79",
     "Rarity": 5,
@@ -2802,6 +2809,7 @@ module.exports = [
     "element": "cursor",
     "Damage": "120",
 
+    "sub_game_id": 3,
 
     "memory": "51",
     "Rarity": 3,
@@ -2814,6 +2822,7 @@ module.exports = [
     "element": "cursor",
     "Damage": "140",
 
+    "sub_game_id": 3,
 
     "memory": "65",
     "Rarity": 4,
@@ -2826,6 +2835,7 @@ module.exports = [
     "element": "cursor",
     "Damage": 0,
 
+    "sub_game_id": 3,
 
     "memory": "79",
     "Rarity": 5,
@@ -2838,6 +2848,7 @@ module.exports = [
     "element": "fire",
     "Damage": "60",
 
+    "sub_game_id": 3,
 
     "memory": "42",
     "Rarity": 3,
@@ -2850,6 +2861,7 @@ module.exports = [
     "element": "fire",
     "Damage": "70",
 
+    "sub_game_id": 3,
 
     "memory": "63",
     "Rarity": 4,
@@ -2862,6 +2874,7 @@ module.exports = [
     "element": "fire",
     "Damage": 0,
 
+    "sub_game_id": 3,
 
     "memory": "81",
     "Rarity": 5,
@@ -2874,6 +2887,7 @@ module.exports = [
     "element": "aqua",
     "Damage": "50",
 
+    "sub_game_id": 2,
 
     "memory": "42",
     "Rarity": 3,
@@ -2886,6 +2900,7 @@ module.exports = [
     "element": "aqua",
     "Damage": "60",
 
+    "sub_game_id": 2,
 
     "memory": "56",
     "Rarity": 4,
@@ -2897,6 +2912,7 @@ module.exports = [
     "original_name": "SpoutMnSP",
     "element": "aqua",
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "78",
@@ -2909,6 +2925,7 @@ module.exports = [
     "original_name": "TmhkMan",
     "element": "wood",
     "Damage": "140",
+    "sub_game_id": 2,
 
 
     "memory": "40",
@@ -2921,6 +2938,7 @@ module.exports = [
     "original_name": "TmhkManEX",
     "element": "wood",
     "Damage": "160",
+    "sub_game_id": 2,
 
 
     "memory": "60",
@@ -2933,6 +2951,7 @@ module.exports = [
     "original_name": "TmhkManSP",
     "element": "wood",
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "80",
@@ -2945,6 +2964,7 @@ module.exports = [
     "original_name": "TenguMan",
     "element": "wind",
     "Damage": "70",
+    "sub_game_id": 2,
 
 
     "memory": "43",
@@ -2957,6 +2977,7 @@ module.exports = [
     "original_name": "TenguMnEX",
     "element": "wind",
     "Damage": "90",
+    "sub_game_id": 2,
 
 
     "memory": "61",
@@ -2969,6 +2990,7 @@ module.exports = [
     "original_name": "TenguMnSP",
     "element": "wind",
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "74",
@@ -2981,6 +3003,7 @@ module.exports = [
     "original_name": "GrndMan",
     "element": "break",
     "Damage": "60",
+    "sub_game_id": 2,
 
 
     "memory": "41",
@@ -2993,6 +3016,7 @@ module.exports = [
     "original_name": "GrndManEX",
     "element": "break",
     "Damage": "70",
+    "sub_game_id": 2,
 
 
     "memory": "66",
@@ -3005,6 +3029,7 @@ module.exports = [
     "original_name": "GrndManSP",
     "element": "break",
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "85",
@@ -3017,6 +3042,7 @@ module.exports = [
     "original_name": "DustMan",
     "element": "break",
     "Damage": "110",
+    "sub_game_id": 2,
 
 
     "memory": "39",
@@ -3029,6 +3055,7 @@ module.exports = [
     "original_name": "DustManEX",
     "element": "break",
     "Damage": "130",
+    "sub_game_id": 2,
 
 
     "memory": "56",
@@ -3041,6 +3068,7 @@ module.exports = [
     "original_name": "DustManSP",
     "element": "break",
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "74",
@@ -3053,6 +3081,7 @@ module.exports = [
     "original_name": "Bass",
     "element": null,
     "Damage": "60",
+    "sub_game_id": 3,
 
 
     "memory": "95",
@@ -3065,6 +3094,7 @@ module.exports = [
     "original_name": "BigHook",
     "element": "break",
     "Damage": "240",
+    "sub_game_id": 3,
 
 
     "memory": "92",
@@ -3077,6 +3107,7 @@ module.exports = [
     "original_name": "DeltaRay",
     "element": "sword",
     "Damage": "260",
+    "sub_game_id": 3,
 
 
     "memory": "82",
@@ -3089,6 +3120,7 @@ module.exports = [
     "original_name": "ColForce",
     "element": null,
     "Damage": "30",
+    "sub_game_id": 3,
 
 
     "memory": "90",
@@ -3101,6 +3133,7 @@ module.exports = [
     "original_name": "BugRSwrd",
     "element": "sword",
     "Damage": 0,
+    "sub_game_id": 3,
 
 
     "memory": "80",
@@ -3113,6 +3146,7 @@ module.exports = [
     "original_name": "BassAnly",
     "element": null,
     "Damage": "160",
+    "sub_game_id": 2,
 
 
     "memory": "95",
@@ -3125,6 +3159,7 @@ module.exports = [
     "original_name": "MetrKnuk",
     "element": "break",
     "Damage": "100",
+    "sub_game_id": 2,
 
 
     "memory": "90",
@@ -3137,6 +3172,7 @@ module.exports = [
     "original_name": "CrossDiv",
     "element": null,
     "Damage": "250",
+    "sub_game_id": 2,
 
 
     "memory": "93",
@@ -3149,6 +3185,7 @@ module.exports = [
     "original_name": "HubBatc",
     "element": null,
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "99",
@@ -3161,6 +3198,7 @@ module.exports = [
     "original_name": "BgDthThd",
     "element": "elec",
     "Damage": 0,
+    "sub_game_id": 2,
 
 
     "memory": "80",
