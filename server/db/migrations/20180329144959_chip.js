@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
     t.string('long_description', 200).nullable();
     t.integer('chip_number').unsigned().nullable();
     t.string('image_path', 200).nullable();
+    // TODO: remove null from enum list
     t.enu('element', [
       'null', 'fire', 'aqua', 'elec', 'wood', 
       'sword', 'wind', 'cursor', 'break', 'plus_minus', 
@@ -14,6 +15,8 @@ exports.up = function(knex, Promise) {
     t.enu('type', [
       'standard', 'mega', 'giga', 'dark'
     ]);
+
+    // TODO: make damage signed, -1 = ???? for muramasa and numberball
     t.integer('damage').unsigned().nullable();
     t.integer('memory').unsigned().nullable();
     // references the main game(typically mmbn3, mmbn4, mmbn5, mmbn6)
@@ -27,6 +30,8 @@ exports.up = function(knex, Promise) {
     t.foreign('sub_game_id').references('id').inTable('game')
       .onDelete('SET NULL').onUpdate('CASCADE');
   });
+
+  // TODO: add rarity column, 1-5 integer
 };
 
 exports.down = function(knex, Promise) {
