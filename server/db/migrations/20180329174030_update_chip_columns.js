@@ -14,10 +14,10 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex.schema.alterTable('chip', function(t) {
     t.enu('element', [
-      'null', 'fire', 'aqua', 'elec', 'wood', 
-      'sword', 'wind', 'cursor', 'break', 'plus_minus', 
-      'recovery', 'block']
+      'fire', 'aqua', 'elec', 'wood', 
+      'sword', 'wind', 'cursor', 'break', 'plus', 
+      'recovery', 'obstacle', 'invisible', 'ground_cracking']
     ).alter();
-    t.integer('damage').unsigned().nullable().alter();
+    t.integer('damage').nullable().alter();
   });
 };

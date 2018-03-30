@@ -12,6 +12,7 @@ const userRoutes = require('./routes/user');
 const folderRoutes = require('./routes/folder');
 const gameRoutes = require('./routes/game');
 const authRoutes = require('./routes/auth');
+const chipRoutes = require('./routes/chip');
 
 const app = new Koa();
 const PORT = 3000;
@@ -36,6 +37,7 @@ app.use(indexRoutes.routes());
 app.use(userRoutes.routes());
 app.use(folderRoutes.routes());
 app.use(gameRoutes.routes());
+app.use(chipRoutes.routes());
 app.use(authRoutes.routes());
 
 
