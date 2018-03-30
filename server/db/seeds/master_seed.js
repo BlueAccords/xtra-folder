@@ -2,16 +2,31 @@
 const userData = require('./data/user_data');
 const folderData = require('./data/folder_data');
 const gameData = require('./data/game_data');
+const chipData = require('./data/chip_data');
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('user').del()
+  return knex('chip').del()
     .then(function () {
-      // Delete all folders
+      return knex.raw('ALTER TABLE chip AUTO_INCREMENT = 0')
+    })
+    .then(function () {
       return knex('folder').del();
     })
     .then(function() {
+      return knex.raw('ALTER TABLE folder AUTO_INCREMENT = 0')
+    })
+    .then(function () {
       return knex('game').del();
+    })
+    .then(function() {
+      return knex.raw('ALTER TABLE game AUTO_INCREMENT = 0')
+    })
+    .then(function () {
+      return knex('user').del();
+    })
+    .then(function() {
+      return knex.raw('ALTER TABLE user AUTO_INCREMENT = 0')
     })
     .then(function() {
       // Inserts seed entries
@@ -30,4 +45,12 @@ exports.seed = function(knex, Promise) {
         return knex('folder').insert(folderData(oneUser));
       });
     })
+    .then(function() {
+      chipData.forEach(function(chip, index, arr) {
+       chipData[index].primary_game_id = 1; 
+      });
+
+      return knex('chip').insert(chipData);
+    })
+
 };

@@ -60,7 +60,7 @@ class Chip extends Model {
         },
         damage: {
           type: ['integer', null],
-          minimum: 0
+          minimum: -1
         },
         memory: {
           type: ['integer', null],
