@@ -1,9 +1,11 @@
 const Router = require('koa-router');
 const Chip = require('../models/chip');
+const Game = require('../models/game');
 
 const router = new Router();
 const BASE_URL = `/api/chip`;
 
+// get all chips
 router.get(BASE_URL, async (ctx) => {
   try {
     const chips = await Chip.query();
@@ -17,6 +19,93 @@ router.get(BASE_URL, async (ctx) => {
   }
 });
 
+// get all chips by single primary game
+router.get(`${BASE_URL}/primary/:id`, async (ctx) => {
+  try {
+    const gameId = ctx.params.id
+    const game = await Game.query().findById(gameId);
+
+    if(game) {
+      const chips = await Chip.query().where('primary_game_id', gameId);
+
+      ctx.body = {
+        status: 'success',
+        data: chips
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That game does not exist'
+      };
+    }
+  } catch (err) {
+    console.log(err);
+    ctx.throw(500, err);
+  }
+});
+
+// get all chips by sub game
+router.get(`${BASE_URL}/sub/:id`, async (ctx) => {
+  try {
+    const gameId = ctx.params.id
+    const game = await Game.query().findById(gameId);
+
+    if(game) {
+      const chips = await Chip.query().where('sub_game_id', gameId);
+
+      ctx.body = {
+        status: 'success',
+        data: chips
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That game does not exist'
+      };
+    }
+  } catch (err) {
+    console.log(err);
+    ctx.throw(500, err);
+  }
+});
+
+// get all chips by primary game + sub game
+router.get(`${BASE_URL}/all_chips/:main/:sub`, async (ctx) => {
+  try {
+    const primaryGameId = ctx.params.main;
+    const subGameId = ctx.params.sub;
+    const primaryGame = await Game.query().findById(primaryGameId);
+    const subGame = await Game.query().findById(subGameId);
+
+    if(primaryGame && subGame) {
+      const primaryChips = await Chip.query().where('primary_game_id', primaryGame.id)
+                                             .andWhere('sub_game_id', null);
+      const subChips     = await Chip.query().where('sub_game_id', subGame.id);
+
+      const allChips = primaryChips.concat(subChips);
+
+
+      ctx.body = {
+        status: 'success',
+        data: allChips
+      };
+    } else {
+      ctx.status = 404;
+      ctx.body = {
+        status: 'error',
+        message: 'That game and subgame do not exist'
+      };
+    }
+  } catch (err) {
+    console.log(err);
+    ctx.throw(500, err);
+  }
+});
+
+
+// get individual chip by id
 router.get(BASE_URL + '/:id', async (ctx) => {
   try {
     const id = ctx.params.id;
