@@ -102,6 +102,8 @@ describe('routes : chip', () => {
     });
   });
 
+  // PUT#chip
+  // update a chip
   describe('PUT /api/chip/', () => {
     it('should update a current chip', (done) => {
       knex('chip').select('*').first().then((singleChip) => {
