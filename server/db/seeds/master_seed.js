@@ -28,6 +28,12 @@ exports.seed = function(knex, Promise) {
     .then(function() {
       return knex.raw('ALTER TABLE user AUTO_INCREMENT = 0')
     })
+    .then(function () {
+      return knex('chip_copy').del();
+    })
+    .then(function() {
+      return knex.raw('ALTER TABLE chip_copy AUTO_INCREMENT = 0')
+    })
     .then(function() {
       // Inserts seed entries
       return knex('user').insert(userData);

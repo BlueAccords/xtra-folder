@@ -1,5 +1,7 @@
 const Router = require('koa-router');
 const Folder = require('../models/folder');
+const ChipCopy = require('../models/chip_copy');
+const Chip = require('../models/chip');
 
 const router = new Router();
 const BASE_URL = `/api/folder`;
@@ -16,6 +18,49 @@ router.get(BASE_URL, async (ctx) => {
     ctx.throw(500, err);
   }
 });
+
+// create a new chip copy for a folder
+router.post(`${BASE_URL}/:id/chips`, async(ctx) => {
+  const id = ctx.params.id;
+  const chipCopyParams = ctx.request.body;
+  const newChipCopy = await ChipCopy.query().insert(chipCopyParams);
+
+  ctx.body = {
+    status: 'success',
+    data: newChipCopy
+  };
+});
+
+// create a new chip copy for a folder
+router.put(`${BASE_URL}/:folderId/chips/:chipCopyId`, async(ctx) => {
+  const folderId = ctx.params.folderId;
+  const chipCopyId = ctx.params.chipCopyId
+
+  const chipCopyParams = ctx.request.body;
+  const updatedChipCopy = await ChipCopy.query()
+    .patchAndFetchById(chipCopyId, chipCopyParams);
+
+
+  ctx.body = {
+    status: 'success',
+    data: updatedChipCopy
+  };
+});
+
+router.del(`${BASE_URL}/:folderId/chips/:chipCopyId`, async(ctx) => {
+  const chipCopyId = ctx.params.chipCopyId;
+  const result = await ChipCopy.query()
+    .delete()
+    .where('id', chipCopyId);
+
+  ctx.body = {
+    status: 'success',
+    data: result
+  }; 
+});
+
+
+
 
 router.get(BASE_URL + '/:id', async (ctx) => {
   try {
@@ -77,6 +122,7 @@ router.post(BASE_URL, async(ctx) => {
   }
 });
 
+// update folder
 router.put(`${BASE_URL}/:id`, async(ctx) => {
   try {
     const id = ctx.params.id;
@@ -114,7 +160,9 @@ router.put(`${BASE_URL}/:id`, async(ctx) => {
     // TODO: pretty this up, so a status is set as well
     ctx.throw(400, err);
   }
-})
+});
+
+
 
 
 

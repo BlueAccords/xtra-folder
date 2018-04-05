@@ -162,6 +162,7 @@ router.post(BASE_URL, async(ctx) => {
   }
 });
 
+// update single chip
 router.put(`${BASE_URL}/:id`, async(ctx) => {
   try {
     const id = ctx.params.id;

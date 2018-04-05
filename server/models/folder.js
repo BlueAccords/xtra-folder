@@ -52,6 +52,23 @@ class Folder extends Model {
           from: 'folder.author_id',
           to: 'user.id'
         }
+      },
+      child_chips: {
+        relation: Model.ManyToManyRelation,
+        modelClass: __dirname + '/chip',
+        join: {
+          from: 'folder.id',
+          // ManyToMany relation needs the `through` object
+          // to describe the join table.
+          through: {
+            // If you have a model class for the join table
+            // you need to specify it like this:
+            // modelClass: PersonMovie,
+            from: 'chip_copy.folder_id',
+            to: 'chip_copy.chip_id'
+          },
+          to: 'chip.id'
+        }
       }
     };
   }
