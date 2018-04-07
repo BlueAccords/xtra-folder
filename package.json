@@ -11,7 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "dotenv": "^5.0.1",
+    "express": "^4.16.3",
     "joi": "^13.1.2",
     "knex": "^0.14.4",
     "koa": "^2.5.0",
@@ -19,8 +22,10 @@
     "koa-passport": "^4.0.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.8.1",
+    "morgan": "^1.9.0",
     "mysql2": "^1.5.3",
     "objection": "^1.0.1",
+    "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "schwifty": "^4.0.0"
   },
