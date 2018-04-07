@@ -26,7 +26,8 @@ router.get(`${BASE_URL}/primary/:id`, async (ctx) => {
     const game = await Game.query().findById(gameId);
 
     if(game) {
-      const chips = await Chip.query().where('primary_game_id', gameId);
+      const chips = await Chip.query().where('primary_game_id', gameId)
+        .eager('chip_codes');
 
       ctx.body = {
         status: 'success',

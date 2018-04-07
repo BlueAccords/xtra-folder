@@ -65,6 +65,8 @@ exports.seed = function(knex, Promise) {
     return knex('chip').insert(chipData);
   })
   .then(function() {
+
+    // selects all chips, so we can use their ids
     return knex.select('*').from('chip').then(function(firstTenChips) {
       // create list of valid chip_code objects
       listOfCodes = [];
@@ -73,6 +75,14 @@ exports.seed = function(knex, Promise) {
         const chipName = chipCodeData[index].original_name;
         const chipCodes = chipCodeData[index]["Code(s)"];
         const codesList = chipCodes.split(",");
+
+        /**
+         * rObj in the format of:
+         * {
+         *  code: [A-Z\*],
+         *  chip_id: [foreign key to chip id]
+         * }
+         */
         const codeObj = codesList.map(obj => {
           let rObj = {};
           rObj.code = obj.trim();
@@ -80,10 +90,12 @@ exports.seed = function(knex, Promise) {
           
           return rObj;
         });
+
+        // concat list of valid objects so we have a flat list of chip_code objects
         listOfCodes = listOfCodes.concat(codeObj);
       });
-      // console.log(listOfCodes);
       
+      // insert entire list of chip_code objects generated
       return knex('chip_code').insert(listOfCodes);
     });
   })

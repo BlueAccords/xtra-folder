@@ -95,6 +95,14 @@ class Chip extends Model {
           from: 'chip.sub_game_id',
           to: 'game.id'
         }
+      },
+      chip_codes: {
+        relation: Model.HasManyRelation,
+        modelClass: __dirname + '/chip_code',
+        join: {
+          from: 'chip_code.chip_id',
+          to: 'chip.id'
+        }
       }
     };
   }
