@@ -21,14 +21,14 @@ router.get(BASE_URL, async (ctx) => {
 
 // create a new chip copy for a folder
 router.post(`${BASE_URL}/:id/chips`, async(ctx) => {
-  const id = ctx.params.id;
-  const chipCopyParams = ctx.request.body;
-  const newChipCopy = await ChipCopy.query().insert(chipCopyParams);
+    const id = ctx.params.id;
+    const chipCopyParams = ctx.request.body;
+    const newChipCopy = await ChipCopy.query().insert(chipCopyParams);
 
-  ctx.body = {
-    status: 'success',
-    data: newChipCopy
-  };
+    ctx.body = {
+      status: 'success',
+      data: newChipCopy
+    };
 });
 
 // create a new chip copy for a folder

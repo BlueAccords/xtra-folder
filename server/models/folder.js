@@ -1,7 +1,9 @@
 const Model = require('objection').Model;
 const knex = require('../db/connection');
+const Joi = require('joi');
+const Sch = require('schwifty');
 
-class Folder extends Model {
+class Folder extends Sch.Model {
   static get tableName() {
     return 'folder';
   }
@@ -11,33 +13,16 @@ class Folder extends Model {
   static get idColumn() {
     return 'id';
   }
-  
-  // schema model validation
-  // NOT the db schema, used only for input model validation
-  // more info here: http://json-schema.org/.
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['title'],
-      properties: {
-        id: {
-          type: 'integer'
-        },
-        title: {
-          type: 'string',
-          minLength: 3,
-          maxLength: 100,
-        },
-        description: {
-          type: ['string', null],
-          maxLength: 1000,
-        },
-        author_id: {
-          type: ['integer', null],
-        },
 
-      }
-    }
+  // schema validation using joi
+  static get joiSchema() {
+    return Joi.object({
+        id: Joi.number().forbidden(),
+        title: Joi.string().min(3).max(100).required(),
+        // allows empty, or null description as well
+        description: Joi.string().allow('', null).max(1000).optional(),
+        author_id: Joi.number().allow(null).min(0).optional(),
+    });
   }
 
   static get relationMappings() {
