@@ -27,7 +27,9 @@ const PORT = 3000;
 Model.knex(knex)
 
 // server logger
-app.use(logger('dev'));
+if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
+  app.use(logger('dev'));
+}
 
 // sessions
 app.keys = [process.env.SESSION_SECRET_KEY];
