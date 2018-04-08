@@ -15,6 +15,7 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-async-errors": "^2.1.2",
     "express-session": "^1.15.6",
     "joi": "^13.1.2",
     "knex": "^0.14.4",

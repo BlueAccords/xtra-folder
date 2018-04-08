@@ -1,33 +1,15 @@
-const passport = require('koa-passport');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const knex = require('../db/connection');
-const bcrypt = require('bcryptjs');
 
+
+const init = require('./passport-serialization');
+const authHelpers = require('./_helpers');
 const options = {};
 
-
-// strategies
-const LocalStrategy = require('passport-local').Strategy;
+init();
 
 
-
-
-function comparePassword(userPassword, dbPassword) {
-  return bcrypt.compareSync(userPassword, dbPassword);
-}
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  return knex('user').where({id}).first()
-    .then((user) => { 
-      done(null, user);
-    })
-    .catch((err) => { 
-      done(err,null); 
-  });
-});
 
 // local strategy, for db backed username/password
 passport.use(new LocalStrategy({
@@ -43,7 +25,7 @@ passport.use(new LocalStrategy({
       }
 
       // else check if hashed passwords are the same
-      if(comparePassword(password, user.password_digest)) {
+      if(authHelpers.comparePassword(password, user.password_digest)) {
         return done(null, user, 'success');
       } else {
         return done(null, false, 'passwords do not match');
@@ -51,3 +33,6 @@ passport.use(new LocalStrategy({
     })
     .catch((err) => { return done(err); });
 }));
+
+module.exports = passport;
+
