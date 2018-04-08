@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 
-describe('routes : folder', () => {
+describe.only('routes : folder', () => {
   
   // seed before each test
   beforeEach(() => {

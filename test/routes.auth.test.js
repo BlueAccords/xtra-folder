@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 
-describe.only('routes : auth', () => {
+describe('routes : auth', () => {
 
   beforeEach(() => {
     return knex.migrate.rollback()
@@ -34,7 +34,7 @@ describe.only('routes : auth', () => {
         should.not.exist(err);
         // .text contains validation error messages
         // console.log(res.text);
-        res.body.data.should.eql('successfully registered and logged in');
+        res.body.message.should.eql('successfully registered and logged in');
         res.status.should.equal(201);
         res.type.should.equal('application/json');
         res.body.success.should.eql(true);
@@ -57,7 +57,7 @@ describe.only('routes : auth', () => {
           res.status.should.equal(200);
           res.type.should.equal('application/json');
           res.body.success.should.eql(true);
-          res.body.data.should.eql('successfully logged in');
+          res.body.message.should.eql('successfully logged in');
           done();
         });
     });

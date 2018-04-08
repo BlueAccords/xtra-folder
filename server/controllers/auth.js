@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
-// const queries = require('../db/queries/user');
 const passport = require('passport');
+const Boom = require('boom');
 
 // model
 const Person = require('../models/user');
@@ -12,7 +12,7 @@ const BASE_URL = `/api/auth`;
 function handleResponse(success, res, code, statusMsg) {
   res.status(code).json({
     success: success,
-    data: statusMsg
+    message: statusMsg
   });
 }
 
@@ -22,17 +22,17 @@ function __promisifiedPassportAuthentication(req, res, successMsg, successCode) 
   return new Promise((resolve, reject) => {
       passport.authenticate('local', (err, user, info) => {
         if(err) {
-          reject(err);
+          reject(Boom.badImplementation(err));
         }
         if (user) {
           req.login(user, function(err) {
-            if(err) reject(err);
+            if(err) reject(Boom.badRequest(err));
             handleResponse(true, res, successCode, successMsg);
           });
         } else if(info) {
-          reject(info);
+          reject(Boom.badRequest(info));
         } else {
-          reject('Encountered an error while logging in user');
+          reject(Boom.badImplementation('Encountered an error while logging in user'));
         }
       })(req, res)
   })

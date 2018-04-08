@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
+const Boom = require('boom');
+
 const routes = require('./routes/v1');
 
 // const indexRoutes = require('./routes/index');
@@ -75,8 +77,14 @@ app.use('/api', routes);
 
 // catch all error handler
 app.use(function (err, req, res, next) {
-  // console.error(err.stack)
-  if(err.message) {
+  if(process.env.NODE_ENV == 'development') {
+    console.error(err.stack)
+  }
+  if(Boom.isBoom(err)) {
+    res.status(err.output.statusCode)
+      .json(err.output.payload);
+
+  } else if(err.message) {
     res.status(500).json({
       success: false,
       data: err
