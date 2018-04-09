@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 
-describe('routes : folder', () => {
+describe.only('routes : folder', () => {
   
   // seed before each test
   beforeEach(() => {
@@ -56,7 +56,8 @@ describe('routes : folder', () => {
           should.not.exist(err);
           res.status.should.equal(200);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.statusCode.should.eql(200);
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
             'id', 'title', 'description', 'author_id'
           );

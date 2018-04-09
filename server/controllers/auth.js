@@ -40,14 +40,9 @@ module.exports = {
   // POST#register
   // registers and logins a new user
   register: async function(req, res) {
-    // const user = await queries.addUser(ctx.request.body);
-    // try {
-      const user = await Person
-        .query()
-        .insert(req.body);
-    // } catch(err) {
-    //   throw Boom.badRequest(err.message);
-    // }
+    const user = await Person
+      .query()
+      .insert(req.body);
     
     await __promisifiedPassportAuthentication(req, res, 'successfully registered and logged in', 201);
   },

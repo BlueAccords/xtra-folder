@@ -65,14 +65,6 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-// routes
-// app.use(indexRoutes.routes());
-// app.use(userRoutes.routes());
-// app.use(folderRoutes.routes());
-// app.use(gameRoutes.routes());
-// app.use(chipRoutes.routes());
-// app.use(authRoutes.routes());
-
 // v1 api routes
 app.use('/api', routes);
 
@@ -86,11 +78,14 @@ app.use(function (err, req, res, next) {
   }
 
   if(Boom.isBoom(err)) {
+    console.error(err);
     res.status(err.output.statusCode)
       .json(err.output.payload);
   } else {
+    console.log(err);
     res.status(500).json({
       success: false,
+      error: err,
       data: err
     });
   }

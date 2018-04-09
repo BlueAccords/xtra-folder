@@ -9,12 +9,21 @@ const Boom = require('boom');
 const BASE_URL = `/api/folder`;
 
 module.exports = {
-  get: async function(req, res) {
+  getAll: async function(req, res) {
     try {
       const folders = await Folder.query();
       ctrlHelpers.handleResponse(true, res, 200, 'success', folders);
     } catch (err) {
       throw Boom.badRequest(err);
+    }
+  },
+  get: async function(req, res) {
+    const id = req.params.id;
+    const folder = await Folder.query().findById(id);
+    if(folder) {
+      ctrlHelpers.handleResponse(true, res, 200, 'success', folder);
+    } else {
+      throw Boom.badRequest('No folder with that id was found');
     }
   },
   create: async function(req, res) {

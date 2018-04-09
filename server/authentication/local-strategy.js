@@ -14,7 +14,7 @@ init();
 // local strategy, for db backed username/password
 passport.use(new LocalStrategy({
   usernameField: 'username',
-  passwordField: 'password_digest'
+  passwordField: 'password'
 }, (username, password, done) => {
 
   knex('user').where({ username }).first()

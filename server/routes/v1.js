@@ -30,7 +30,8 @@ router.get(`${authBaseUrl}/logout`, authController.logout);
 
 // folders
 const folderBaseUrl = '/folder'
-router.get(folderBaseUrl, folderController.get);
+router.get(folderBaseUrl, folderController.getAll);
+router.get(`${folderBaseUrl}/:id`, folderController.get);
 
 
 // router.post(    '/users',           UserController.create);                                                    // C

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server/index.js",
-    "test": "./node_modules/mocha/bin/_mocha"
+    "test": "./node_modules/mocha/bin/_mocha",
+    "seed": "knex seed:run --env development"
   },
   "author": "Ryan Tran",
   "license": "MIT",
