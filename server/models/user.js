@@ -1,7 +1,9 @@
 const Model = require('objection').Model;
 const bcrypt = require('bcryptjs');
+const Sch = require('schwifty');
+const { DbErrors } = require('objection-db-errors');
 
-class User extends Model {
+class User extends DbErrors(Sch.Model) {
   // require property
   static get tableName() {
     return 'user';

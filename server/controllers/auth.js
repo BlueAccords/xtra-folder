@@ -2,6 +2,7 @@ const express = require('express');
 const Router = express.Router();
 const passport = require('passport');
 const Boom = require('boom');
+const ctrlHelpers = require('./_helpers');
 
 // model
 const Person = require('../models/user');
@@ -9,12 +10,7 @@ const Person = require('../models/user');
 // const router = new Router();
 const BASE_URL = `/api/auth`;
 
-function handleResponse(success, res, code, statusMsg) {
-  res.status(code).json({
-    success: success,
-    message: statusMsg
-  });
-}
+
 
 // async/await compatible version of passport
 // source: https://stackoverflow.com/questions/42382498/how-to-get-passport-authenticate-local-strategy-working-with-async-await-pattern
@@ -26,8 +22,10 @@ function __promisifiedPassportAuthentication(req, res, successMsg, successCode) 
         }
         if (user) {
           req.login(user, function(err) {
-            if(err) reject(Boom.badRequest(err));
-            handleResponse(true, res, successCode, successMsg);
+            if(err){
+              reject(Boom.badRequest(err));
+            }
+            ctrlHelpers.handleResponse(true, res, successCode, successMsg);
           });
         } else if(info) {
           reject(Boom.badRequest(info));
@@ -43,9 +41,13 @@ module.exports = {
   // registers and logins a new user
   register: async function(req, res) {
     // const user = await queries.addUser(ctx.request.body);
-    const user = await Person
-      .query()
-      .insert(req.body);
+    // try {
+      const user = await Person
+        .query()
+        .insert(req.body);
+    // } catch(err) {
+    //   throw Boom.badRequest(err.message);
+    // }
     
     await __promisifiedPassportAuthentication(req, res, 'successfully registered and logged in', 201);
   },
@@ -57,9 +59,9 @@ module.exports = {
   logout: async function(req, res) {
     if(req.isAuthenticated()) {
       req.logout();
-      handleResponse(true, res, 200, 'successfully logged out');
+      ctrlHelpers.handleResponse(true, res, 200, 'successfully logged out');
     } else {
-      handleResponse(true, res, 403, 'no user is currently logged in');
+      ctrlHelpers.handleResponse(true, res, 403, 'no user is currently logged in');
     }
   }
 }

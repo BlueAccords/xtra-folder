@@ -1,7 +1,7 @@
 // environment variables from .env file
 require('dotenv').config();
+require('express-async-errors'); // middleware used to support async/await error propogation in routes
 
-require('express-async-errors'); // used to support async/await functions in routes
 const knex = require('./db/connection')
 const Model = require('objection').Model;
 
@@ -12,8 +12,10 @@ const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
 const Boom = require('boom');
+const dbErrorHandler = require('./middlewares/dbErrorHandler');
 
 const routes = require('./routes/v1');
+
 
 // const indexRoutes = require('./routes/index');
 // const userRoutes = require('./routes/user');
@@ -74,28 +76,19 @@ app.use(cors(corsOptions));
 // v1 api routes
 app.use('/api', routes);
 
+// db error handler
+app.use(dbErrorHandler.errorHandler);
 
 // catch all error handler
 app.use(function (err, req, res, next) {
   if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
-  if(Boom.isBoom(err)) {
-    res.status(err.output.statusCode)
-      .json(err.output.payload);
-
-  } else if(err.message) {
-    res.status(500).json({
-      success: false,
-      data: err
-    });
-  } else {
-    res.status(500).json({
-      success: false,
-      data: err
-    });
-  }
-})
+  res.status(500).json({
+    success: false,
+    data: err
+  });
+});
 
 const server = app.listen(PORT, () => {
   console.log('Server listening on port: ' + PORT);

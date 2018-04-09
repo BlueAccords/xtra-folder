@@ -4,7 +4,7 @@ const router  = express.Router();
 // controllers
 // const indexController = require('./../controllers/index');
 // const userController = require('./../controllers/user');
-// const folderController = require('./../controllers/folder');
+const folderController = require('./../controllers/folder');
 // const gameController = require('./../controllers/game');
 const authController = require('./../controllers/auth');
 // const chipController = require('./../controllers/chip');
@@ -27,6 +27,10 @@ const authBaseUrl = '/auth'
 router.post(`${authBaseUrl}/register`, authController.register);
 router.post(`${authBaseUrl}/login`, authController.login);
 router.get(`${authBaseUrl}/logout`, authController.logout);
+
+// folders
+const folderBaseUrl = '/folder'
+router.get(folderBaseUrl, folderController.get);
 
 
 // router.post(    '/users',           UserController.create);                                                    // C

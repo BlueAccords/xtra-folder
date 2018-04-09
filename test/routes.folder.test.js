@@ -32,7 +32,9 @@ describe.only('routes : folder', () => {
         should.not.exist(err);
         res.status.should.equal(200);
         res.type.should.equal('application/json');
-        res.body.status.should.eql('success');
+        res.body.status.should.eql(200);
+        res.body.success.should.eql(true);
+        res.body.message.should.eql('success');
         res.body.data.length.should.eql(3);
         res.body.data[0].should.include.keys(
           'id', 'title', 'description', 'author_id'
