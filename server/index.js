@@ -84,10 +84,16 @@ app.use(function (err, req, res, next) {
   if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
-  res.status(500).json({
-    success: false,
-    data: err
-  });
+
+  if(Boom.isBoom(err)) {
+    res.status(err.output.statusCode)
+      .json(err.output.payload);
+  } else {
+    res.status(500).json({
+      success: false,
+      data: err
+    });
+  }
 });
 
 const server = app.listen(PORT, () => {

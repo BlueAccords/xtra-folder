@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 
-describe('routes : auth', () => {
+describe.only('routes : auth', () => {
 
   beforeEach(() => {
     return knex.migrate.rollback()
