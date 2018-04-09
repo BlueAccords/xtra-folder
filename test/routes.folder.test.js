@@ -32,7 +32,7 @@ describe.only('routes : folder', () => {
         should.not.exist(err);
         res.status.should.equal(200);
         res.type.should.equal('application/json');
-        res.body.status.should.eql(200);
+        res.body.statusCode.should.eql(200);
         res.body.success.should.eql(true);
         res.body.message.should.eql('success');
         res.body.data.length.should.eql(3);
@@ -70,11 +70,10 @@ describe.only('routes : folder', () => {
       chai.request(server)
       .get('/api/folder/999999')
       .end((err, res) => {
-        // should.exist(err);
         res.status.should.equal(404);
         res.type.should.equal('application/json');
-        res.body.status.should.eql('error');
-        res.body.message.should.eql('That folder does not exist.');
+        res.body.statusCode.should.eql(404);
+        res.body.message.should.eql('No folder with that id was found');
         done();
       });
     });
@@ -94,7 +93,7 @@ describe.only('routes : folder', () => {
           should.not.exist(err);
           res.status.should.equal(201);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
             'id', 'title', 'description'
           );
@@ -116,7 +115,7 @@ describe.only('routes : folder', () => {
           should.not.exist(err);
           res.status.should.equal(200);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
             'id', 'title', 'description'
           );
@@ -126,8 +125,20 @@ describe.only('routes : folder', () => {
       });
     });
 
-    it.skip('should throw an error if folder id does not exist', (done) => {
-
+    it('should throw an error if folder id does not exist', (done) => {
+      const invalidFolderId = 99999;
+      chai.request(server)
+        .put(`/api/folder/${invalidFolderId}`)
+        .send({
+          description: 'updated folder description',
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(404);
+          res.type.should.equal('application/json');
+          res.body.message.should.eql('NotFoundError');
+          done();
+        });
     })
   });
 });

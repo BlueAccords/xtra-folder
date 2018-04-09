@@ -32,8 +32,8 @@ router.get(`${authBaseUrl}/logout`, authController.logout);
 const folderBaseUrl = '/folder'
 router.get(folderBaseUrl, folderController.getAll);
 router.get(`${folderBaseUrl}/:id`, folderController.get);
-
-
+router.put(`${folderBaseUrl}/:id`, folderController.update);
+router.post(`${folderBaseUrl}`, folderController.create);
 // router.post(    '/users',           UserController.create);                                                    // C
 // router.get(     '/users',           passport.authenticate('jwt', {session:false}), UserController.get);        // R
 // router.put(     '/users',           passport.authenticate('jwt', {session:false}), UserController.update);     // U
