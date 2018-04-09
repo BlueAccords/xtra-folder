@@ -1,12 +1,8 @@
-const express = require('express');
-const Router = express.Router();
 const Folder = require('../models/folder');
 const ChipCopy = require('../models/chip_copy');
 const Chip = require('../models/chip');
 const ctrlHelpers = require('./_helpers');
 const Boom = require('boom');
-
-const BASE_URL = `/api/folder`;
 
 module.exports = {
   getAll: async function(req, res) {

@@ -1,84 +1,31 @@
-const Router = require('koa-router');
 const Game = require('../models/game');
+const ctrlHelpers = require('./_helpers');
+const Boom = require('boom');
 
-const router = new Router();
-const BASE_URL = `/api/game`;
 
-// get all games
-router.get(BASE_URL, async (ctx) => {
-  try {
+
+module.exports = {
+  getAll: async function(req, res) {
     const games = await Game.query();
-    ctx.body = {
-      status: 'success',
-      data: games
-    };
-  } catch (err) {
-    console.log(err);
-    ctx.throw(400, err);
-  }
-});
+    ctrlHelpers.handleResponse(true, res, 200, 'success', games);
+  },
+  get: async function(req, res) {
+    const id = req.params.id;
+    const game = await Game.query()
+      .findById(id)
+      .eager('sub_games')
+      .throwIfNotFound();
 
-router.get(BASE_URL + '/subgames', async (ctx) => {
-  try {
+    ctrlHelpers.handleResponse(true, res, 200, 'success', game);
+  },
+  getSubGames: async function(req, res) {
     const games = await Game
       .query()
       .whereNull('parent_game_id')
       .eager('sub_games')
+      .throwIfNotFound()
       // .$relatedQuery('sub_games');
 
-    // check if game was found
-    if(games) {
-      ctx.body = {
-        status: 'success',
-        data: games
-      };
-    } else {
-      ctx.status = 404;
-      ctx.body = {
-        status: 'error',
-        message: 'That game does not exist.'
-      };
-    }
-  } catch (err) {
-    console.log(err);
-    ctx.status = 400;
-    ctx.body = {
-      status: 'error',
-      message: err.message || 'An error has occurred'
-    };
+    ctrlHelpers.handleResponse(true, res, 200, 'success', games);
   }
-});
-
-
-
-router.get(BASE_URL + '/:id', async (ctx) => {
-  try {
-    const id = ctx.params.id;
-    const game = await Game.query()
-      .findById(id)
-      .eager('sub_games');
-
-    // check if game was found
-    if(game) {
-      ctx.body = {
-        status: 'success',
-        data: game
-      };
-    } else {
-      ctx.status = 404;
-      ctx.body = {
-        status: 'error',
-        message: 'That game does not exist.'
-      };
-    }
-  } catch (err) {
-    console.log(err);
-    ctx.status = 400;
-    ctx.body = {
-      status: 'error',
-      message: err.message || 'An error has occurred'
-    };
-  }
-});
-
-module.exports = router;
+}

@@ -32,7 +32,7 @@ describe('routes : game', () => {
         should.not.exist(err);
         res.status.should.equal(200);
         res.type.should.equal('application/json');
-        res.body.status.should.eql('success');
+        res.body.message.should.eql('success');
         res.body.data.length.should.eql(3);
         res.body.data[0].should.include.keys(
           'id', 'title', 'description'
@@ -54,7 +54,7 @@ describe('routes : game', () => {
           should.not.exist(err);
           res.status.should.equal(200);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
             'id', 'title', 'description', 'parent_game_id'
           );
@@ -69,8 +69,7 @@ describe('routes : game', () => {
       .end((err, res) => {
         res.status.should.equal(404);
         res.type.should.equal('application/json');
-        res.body.status.should.eql('error');
-        res.body.message.should.eql('That game does not exist.');
+        res.body.message.should.eql('NotFoundError');
         done();
       });
     });
