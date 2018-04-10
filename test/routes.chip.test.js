@@ -32,7 +32,7 @@ describe('routes : chip', () => {
         should.not.exist(err);
         res.status.should.equal(200);
         res.type.should.equal('application/json');
-        res.body.status.should.eql('success');
+        res.body.message.should.eql('success');
         res.body.data.length.should.eql(264);
         res.body.data[0].should.include.keys(
           'id', 'original_name', 'original_description', 'chip_number'
@@ -51,10 +51,9 @@ describe('routes : chip', () => {
         chai.request(server)
           .get('/api/chip/' + singleChip.id)
           .end((err, res) => {
-          should.not.exist(err);
           res.status.should.equal(200);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
           'id', 'original_name', 'original_description', 'chip_number'
           );
@@ -70,8 +69,7 @@ describe('routes : chip', () => {
         // should.exist(err);
         res.status.should.equal(404);
         res.type.should.equal('application/json');
-        res.body.status.should.eql('error');
-        res.body.message.should.eql('That chip does not exist.');
+        res.body.message.should.eql('NotFoundError');
         done();
       });
     });
@@ -92,7 +90,7 @@ describe('routes : chip', () => {
           should.not.exist(err);
           res.status.should.equal(201);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
           'id', 'original_name', 'original_description', 'chip_number'
           );
@@ -116,7 +114,7 @@ describe('routes : chip', () => {
           should.not.exist(err);
           res.status.should.equal(200);
           res.type.should.equal('application/json');
-          res.body.status.should.eql('success');
+          res.body.message.should.eql('success');
           res.body.data.should.include.keys(
             'id', 'original_name', 'original_description', 'chip_number'
           );
@@ -126,8 +124,20 @@ describe('routes : chip', () => {
       });
     });
 
-    it.skip('should throw an error if chip id does not exist', (done) => {
-
+    it('should throw an error if chip id does not exist', (done) => {
+      const invalidId = 999999;
+      chai.request(server)
+        .put(`/api/chip/${invalidId}`)
+        .send({
+          original_description: 'updated chip description',
+        })
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(404);
+          res.type.should.equal('application/json');
+          res.body.message.should.eql('NotFoundError');
+          done();
+        });
     })
   });
 });

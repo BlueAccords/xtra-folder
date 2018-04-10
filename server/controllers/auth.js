@@ -17,6 +17,7 @@ const BASE_URL = `/api/auth`;
 function __promisifiedPassportAuthentication(req, res, successMsg, successCode) {
   return new Promise((resolve, reject) => {
       passport.authenticate('local', (err, user, info) => {
+
         if(err) {
           reject(Boom.badImplementation(err));
         }
@@ -28,6 +29,7 @@ function __promisifiedPassportAuthentication(req, res, successMsg, successCode) 
             ctrlHelpers.handleResponse(true, res, successCode, successMsg);
           });
         } else if(info) {
+          // TODO: add better handling here to tell user api request was formatted wrong, maybe use joi
           reject(Boom.badRequest(info));
         } else {
           reject(Boom.badImplementation('Encountered an error while logging in user'));

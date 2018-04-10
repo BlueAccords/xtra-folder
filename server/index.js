@@ -78,11 +78,9 @@ app.use(function (err, req, res, next) {
   }
 
   if(Boom.isBoom(err)) {
-    console.error(err);
     res.status(err.output.statusCode)
       .json(err.output.payload);
   } else {
-    console.log(err);
     res.status(500).json({
       success: false,
       error: err,

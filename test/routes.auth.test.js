@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 
-describe.only('routes : auth', () => {
+describe('routes : auth', () => {
 
   beforeEach(() => {
     return knex.migrate.rollback()
@@ -27,7 +27,8 @@ describe.only('routes : auth', () => {
       .post('/api/auth/register')
       .send({
         username: 'validusername',
-        password_digest: 'validpassword',
+        password: 'validpassword',
+        password_confirmation: 'validpassword',
         email: 'validemail@gmail.com'
       })
       .end((err, res) => {
@@ -49,7 +50,8 @@ describe.only('routes : auth', () => {
         .post('/api/auth/login')
         .send({
           username: 'ro1username',
-          password_digest: 'password111',
+          password: 'password111',
+          password_confirmation: 'password111',
           email: 'ro1email@gmail.com'
         })
         .end((err, res) => {
@@ -66,7 +68,8 @@ describe.only('routes : auth', () => {
         .post('/api/auth/login')
         .send({
           username: 'ro1username',
-          password_digest: 'wrongpassword',
+          password: 'wrongpassword',
+          password_confirmation: 'wrongpassword',
           email: 'ro1email@gmail.com'
         })
         .end((err, res) => {
@@ -82,7 +85,8 @@ describe.only('routes : auth', () => {
         .post('/api/auth/login')
         .send({
           username: 'invalidusername',
-          password_digest: 'password111',
+          password: 'password111',
+          password_confirmation: 'password111',
           email: 'ro1email@gmail.com'
         })
         .end((err, res) => {

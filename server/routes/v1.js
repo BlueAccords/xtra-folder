@@ -7,7 +7,7 @@ const router  = express.Router();
 const folderController = require('./../controllers/folder');
 const gameController = require('./../controllers/game');
 const authController = require('./../controllers/auth');
-// const chipController = require('./../controllers/chip');
+const chipController = require('./../controllers/chip');
 
 // const custom 	        = require('./../middleware/custom');
 // const passport = require('passport');
@@ -37,9 +37,18 @@ router.get(`${gameBaseUrl}/:id`, gameController.get);
 // folders
 const folderBaseUrl = '/folder';
 router.get(folderBaseUrl, folderController.getAll);
+router.post(`${folderBaseUrl}`, folderController.create);
 router.get(`${folderBaseUrl}/:id`, folderController.get);
 router.put(`${folderBaseUrl}/:id`, folderController.update);
-router.post(`${folderBaseUrl}`, folderController.create);
+
+// chips
+const chipBaseUrl = '/chip';
+router.get(chipBaseUrl, chipController.getAll);
+router.get(`${chipBaseUrl}/primary/:id`, chipController.getByPrimaryGame);
+router.post(`${chipBaseUrl}`, chipController.create);
+router.get(`${chipBaseUrl}/:id`, chipController.get);
+router.put(`${chipBaseUrl}/:id`, chipController.update);
+
 
 // router.post(    '/users',           UserController.create);                                                    // C
 // router.get(     '/users',           passport.authenticate('jwt', {session:false}), UserController.get);        // R
