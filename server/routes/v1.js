@@ -2,8 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 // controllers
-// const indexController = require('./../controllers/index');
-// const userController = require('./../controllers/user');
+const userController = require('./../controllers/user');
 const folderController = require('./../controllers/folder');
 const gameController = require('./../controllers/game');
 const authController = require('./../controllers/auth');
@@ -48,6 +47,11 @@ router.get(`${chipBaseUrl}/primary/:id`, chipController.getByPrimaryGame);
 router.post(`${chipBaseUrl}`, chipController.create);
 router.get(`${chipBaseUrl}/:id`, chipController.get);
 router.put(`${chipBaseUrl}/:id`, chipController.update);
+
+// users
+const userBaseUrl = '/user';
+router.get(userBaseUrl, userController.getAll);
+router.get(`${userBaseUrl}/:id`, userController.get);
 
 
 // router.post(    '/users',           UserController.create);                                                    // C
