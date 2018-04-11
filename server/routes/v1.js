@@ -35,7 +35,7 @@ router.get(`${gameBaseUrl}/:id`, gameController.get);
 
 // folders
 const folderBaseUrl = '/folder';
-router.get(folderBaseUrl, folderController.getAll);
+router.get(folderBaseUrl, authenticate, folderController.getAll);
 router.post(`${folderBaseUrl}`, folderController.create);
 router.get(`${folderBaseUrl}/:id`, folderController.get);
 router.put(`${folderBaseUrl}/:id`, folderController.update);
@@ -52,6 +52,11 @@ router.put(`${chipBaseUrl}/:id`, chipController.update);
 const userBaseUrl = '/user';
 router.get(userBaseUrl, userController.getAll);
 router.get(`${userBaseUrl}/:id`, userController.get);
+
+async function authenticate(req, res, next) {
+  next();
+}
+
 
 
 // router.post(    '/users',           UserController.create);                                                    // C

@@ -8,7 +8,7 @@ module.exports = function() {
   });
 
   passport.deserializeUser((id, done) => {
-    return knex('user').where({id}).first()
+    return knex.select('id', 'email', 'username', 'role').from('user').where({id}).first()
       .then((user) => { 
         done(null, user);
       })
