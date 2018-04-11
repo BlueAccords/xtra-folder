@@ -1,7 +1,11 @@
-const Model = require('objection').Model;
+const { Model } = require('objection');
 const knex = require('../db/connection');
+const { DbErrors } = require('objection-db-errors');
+const Sch = require('schwifty');
+const Joi = require('joi');
 
-class Chip_Code extends Model {
+
+class Chip_Code extends DbErrors(Sch.Model) {
   static get tableName() {
     return 'chip_code';
   }

@@ -1,8 +1,8 @@
 const Model = require('objection').Model;
 const bcrypt = require('bcryptjs');
+const { DbErrors } = require('objection-db-errors');
 const Sch = require('schwifty');
 const Joi = require('joi');
-const { DbErrors } = require('objection-db-errors');
 
 class User extends DbErrors(Sch.Model) {
   // require property

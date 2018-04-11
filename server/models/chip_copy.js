@@ -1,7 +1,10 @@
 const Model = require('objection').Model;
 const knex = require('../db/connection');
+const { DbErrors } = require('objection-db-errors');
+const Sch = require('schwifty');
+const Joi = require('joi');
 
-class Chip_Copy extends Model {
+class Chip_Copy extends DbErrors(Sch.Model) {
   static get tableName() {
     return 'chip_copy';
   }

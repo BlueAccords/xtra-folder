@@ -1,9 +1,10 @@
 const Model = require('objection').Model;
 const knex = require('../db/connection');
-const Joi = require('joi');
+const { DbErrors } = require('objection-db-errors');
 const Sch = require('schwifty');
+const Joi = require('joi');
 
-class Folder extends Sch.Model {
+class Folder extends DbErrors(Sch.Model) {
   static get tableName() {
     return 'folder';
   }
