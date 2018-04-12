@@ -58,7 +58,7 @@ module.exports = {
       req.logout();
       ctrlHelpers.handleResponse(true, res, 200, 'successfully logged out');
     } else {
-      ctrlHelpers.handleResponse(true, res, 403, 'no user is currently logged in');
+      ctrlHelpers.handleResponse(false, res, 400, 'no user is currently logged in');
     }
   }
 }
