@@ -37,48 +37,6 @@ class User extends DbErrors(Sch.Model) {
     });
   }
 
-  // schema model validation
-  // NOT the db schema, used only for input model validation
-  // more info here: http://json-schema.org/.
-  // static get jsonSchema() {
-  //   return {
-  //     type: 'object',
-  //     required: ['username', 'email', 'password_digest'],
-
-  //     properties: {
-  //       id: {
-  //         type: 'integer'
-  //       },
-  //       username: {
-  //         type: 'string',
-  //         minLength: 3,
-  //         maxLength: 40,
-  //         // pattern: /[a-z0-9\_\-]*/i,
-  //       },
-  //       email: {
-  //         type: 'string',
-  //         minLength: 5,
-  //         maxLength: 255,
-  //         format: 'email',
-  //       },
-  //       password: {
-  //         type: 'string',
-  //         minLength: 6,
-  //         maxLength: 100,
-  //       },
-  //       password_confirmation: {
-  //         type: 'string',
-  //         minLength: 6,
-  //         maxLength: 100,
-  //       },
-  //       role: {
-  //         type: 'string',
-  //         enum: ['regular', 'moderator', 'admin'],
-  //       },
-  //     }
-  //   }
-  // }
-
   async $beforeInsert(queryContext) {
     await super.$beforeInsert(queryContext);
     const salt = await bcrypt.genSalt();
