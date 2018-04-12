@@ -13,30 +13,16 @@ class Chip_Copy extends DbErrors(Sch.Model) {
     return 'id';
   }
   
-  // schema model validation
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['code', 'chip_id', 'folder_id'],
-      properties: {
-        id: {
-          type: 'integer'
-        },
-        code: {
-          type: 'string',
-          minLength: 1,
-          maxLength: 1,
-        },
-        chip_id: {
-          type: 'integer',
-          minimum: 0
-        },
-        folder_id: {
-          type: 'integer',
-          minimum: 0
-        },
-      }
-    }
+  // schema validation
+  static get joiSchema() {
+    return Joi.object({
+        id: Joi.number().integer().forbidden(),
+        code: Joi.string()
+          .regex(/^[a-zA-Z*]$/, 'alphabetical or asterix values only')
+          .required(),
+        chip_id: Joi.number().integer().required(),
+        folder_id: Joi.number().integer().required(),
+    });
   }
 
   static get relationMappings() {

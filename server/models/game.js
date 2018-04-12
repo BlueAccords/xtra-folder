@@ -13,32 +13,14 @@ class Game extends DbErrors(Sch.Model) {
     return 'id';
   }
   
-  // schema model validation
-  // NOT the db schema, used only for input model validation
-  // more info here: http://json-schema.org/.
-  static get jsonSchema() {
-    // TODO: add 'alias' column used in urls
-    return {
-      type: 'object',
-      required: ['title'],
-      properties: {
-        id: {
-          type: 'integer'
-        },
-        title: {
-          type: 'string',
-          minLength: 1,
-          maxLength: 200,
-        },
-        description: {
-          type: ['string', null],
-          maxLength: 500,
-        },
-        parent_game_id: {
-          type: ['integer', null],
-        },
-      }
-    }
+  // schema validation
+  static get joiSchema() {
+    return Joi.object({
+        id: Joi.number().integer().forbidden(),
+        title: Joi.string().min(1).max(200).required(),
+        description: Joi.string().max(500).optional(),
+        parent_game_id: Joi.number().integer().optional(),
+    });
   }
 
   static get relationMappings() {

@@ -13,24 +13,14 @@ class Chip_Code extends DbErrors(Sch.Model) {
   static get idColumn() {
     return ['chip_id', 'code'];
   }
-  
-  // schema model validation
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['code', 'chip_id'],
-      properties: {
-        code: {
-          type: 'string',
-          minLength: 1,
-          maxLength: 1,
-        },
-        chip_id: {
-          type: 'integer',
-          minimum: 0
-        },
-      }
-    }
+
+  static get joiSchema() {
+    return Joi.object({
+        code: Joi.string()
+          .regex(/^[a-zA-Z*]$/, 'alphabetical or asterix values only')
+          .required(),
+        chip_id: Joi.number().integer().required(),
+    });
   }
 
   static get relationMappings() {

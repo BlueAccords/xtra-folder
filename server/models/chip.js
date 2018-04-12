@@ -14,71 +14,30 @@ class Chip extends DbErrors(Sch.Model) {
   static get idColumn() {
     return 'id';
   }
-  
-  // schema model validation
-  // NOT the db schema, used only for input model validation
-  // more info here: http://json-schema.org/.
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['original_name'],
-      properties: {
-        id: {
-          type: 'integer'
-        },
-        original_name: {
-          type: 'string',
-          minLength: 1,
-          maxLength: 200,
-        },
-        long_name: {
-          type: ['string', null],
-          maxLength: 1000,
-        },
-        original_description: {
-          type: ['string', null],
-          maxLength: 200,
-        },
-        long_description: {
-          type: ['string', null],
-          maxLength: 200,
-        },
-        chip_number: {
-          type: ['integer', null],
-          minimum: 0
-        },
-        image_path: {
-          type: ['string', null],
-          maxLength: 200,
-        },
-        element: {
-          type: ['string', null],
-          enum: ['fire', 'aqua', 'elec', 'wood', 
-      'sword', 'wind', 'cursor', 'break', 'plus', 
-      'recovery', 'obstacle', 'invisible', 'ground_cracking']
-        },
-        'type': {
-          type: ['string', null],
-          enum: ['standard', 'mega', 'giga', 'dark']
-        },
-        damage: {
-          type: ['integer', null],
-          minimum: -1
-        },
-        memory: {
-          type: ['integer', null],
-          minimum: 0
-        },
-        primary_game_id: {
-          type: ['integer', null],
-          minimum: 0
-        },
-        sub_game_id: {
-          type: ['integer', null],
-          minimum: 0
-        },
-      }
-    }
+
+  // schema validation
+  static get joiSchema() {
+    return Joi.object({
+        id: Joi.number().integer().forbidden(),
+        original_name: Joi.string().min(1).max(200).required(),
+        long_name: Joi.string().max(200).optional(),
+        original_description: Joi.string().max(200).optional(),
+        long_description: Joi.string().max(500).optional(),
+        chip_number: Joi.number().integer().optional(),
+        image_path: Joi.string().max(200).optional(),
+        element: Joi.string().uppercase().valid(
+          'FIRE', 'AQUA', 'ELEC', 'WOOD', 
+          'SWORD', 'WIND', 'CURSOR', 'BREAK', 'PLUS', 
+        'RECOVERY', 'OBSTACLE', 'INVISIBLE', 'GROUND_CRACKING'
+        ).optional(),
+        type: Joi.string().uppercase().valid(
+          'STANDARD', 'MEGA', 'GIGA', 'DARK'
+        ).optional(),
+        damage: Joi.number().integer().min(-1).optional(),
+        memory: Joi.number().integer().min(0).optional(),
+        primary_game_id: Joi.number().integer().min(0).optional(),
+        sub_game_id: Joi.number().integer().min(0).optional(),
+    });
   }
 
   static get relationMappings() {

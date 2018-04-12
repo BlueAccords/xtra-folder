@@ -73,6 +73,7 @@ app.use(dbErrorHandler.errorHandler);
 
 // catch all error handler
 app.use(function (err, req, res, next) {
+  console.log(err);
   if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
