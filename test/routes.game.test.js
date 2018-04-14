@@ -8,6 +8,7 @@ chai.use(chaiHttp);
 const server = require('../server/index');
 const knex = require('../server/db/connection');
 let agent = chai.request.agent(server)
+let testHelper = require('./_helper');
 
 
 function login() {
@@ -39,8 +40,7 @@ describe.only('routes : game', () => {
  */
   describe('GET /api/game', () => {
     it('should return all games', (done) => {
-      login().then(() => {
-      // chai.request(server)
+      testHelper.login(agent, chai).then(() => {
       agent
       .get('/api/game')
       .end((err, res) => {
