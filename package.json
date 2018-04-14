@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "boom": "^7.2.0",
+    "connect-redis": "^3.3.3",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
@@ -28,6 +29,7 @@
     "objection-db-errors": "^1.0.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "redis": "^2.8.0",
     "schwifty": "^4.0.0"
   },
   "devDependencies": {

@@ -4,7 +4,6 @@ require('express-async-errors'); // middleware used to support async/await error
 
 const knex = require('./db/connection')
 const Model = require('objection').Model;
-
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
@@ -12,17 +11,15 @@ const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
 const Boom = require('boom');
+
+// redis imports
+const redis = require('redis');
+const redisStore = require('connect-redis')(session);
+const client = redis.createClient();
+let redisConfig = require('./../redisConfig')[process.env.NODE_ENV || 'development'];
+
 const dbErrorHandler = require('./middlewares/dbErrorHandler');
-
 const routes = require('./routes/v1');
-
-
-// const indexRoutes = require('./routes/index');
-// const userRoutes = require('./routes/user');
-// const folderRoutes = require('./routes/folder');
-// const gameRoutes = require('./routes/game');
-// const authRoutes = require('./routes/auth');
-// const chipRoutes = require('./routes/chip');
 
 const app = new express();
 const PORT = 3000;
@@ -35,8 +32,14 @@ if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   app.use(logger('dev'));
 }
 
+const redisConfigConcated = Object.assign(
+    redisConfig,
+    {
+      client: client
+    })
 // sessions
 app.use(session({
+  store: new redisStore(redisConfigConcated),
   secret: process.env.SESSION_SECRET_KEY,
   resave: false,
   saveUninitialized: true,
