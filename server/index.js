@@ -12,14 +12,11 @@ const passport = require('passport');
 const cors = require('cors');
 const Boom = require('boom');
 
-// redis imports
-const redis = require('redis');
-const redisStore = require('connect-redis')(session);
-const client = redis.createClient();
-let redisConfig = require('./../redisConfig')[process.env.NODE_ENV || 'development'];
+
 
 const dbErrorHandler = require('./middlewares/dbErrorHandler');
 const routes = require('./routes/v1');
+const redisStore = require('./db/redisStore');
 
 const app = new express();
 const PORT = 3000;
@@ -32,14 +29,9 @@ if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
   app.use(logger('dev'));
 }
 
-const redisConfigConcated = Object.assign(
-    redisConfig,
-    {
-      client: client
-    })
 // sessions
 app.use(session({
-  store: new redisStore(redisConfigConcated),
+  store: redisStore,
   secret: process.env.SESSION_SECRET_KEY,
   resave: false,
   saveUninitialized: true,

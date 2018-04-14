@@ -1,5 +1,5 @@
 // redis config settings
-var dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config();
 const path = require('path');
 const BASE_PATH = path.join(__dirname, 'server', 'db');
 
