@@ -7,8 +7,10 @@ chai.use(chaiHttp);
 
 const server = require('../server/index');
 const knex = require('../server/db/connection');
+let agent = chai.request.agent(server)
+let testHelper = require('./_helper');
 
-describe('routes : chip', () => {
+describe.only('routes : chip', () => {
   
   // seed before each test
   beforeEach(() => {
@@ -26,18 +28,20 @@ describe('routes : chip', () => {
  */
   describe('GET /api/chip', () => {
     it('should return all chips', (done) => {
-      chai.request(server)
-      .get('/api/chip')
-      .end((err, res) => {
-        should.not.exist(err);
-        res.status.should.equal(200);
-        res.type.should.equal('application/json');
-        res.body.message.should.eql('success');
-        res.body.data.length.should.eql(264);
-        res.body.data[0].should.include.keys(
-          'id', 'original_name', 'original_description', 'chip_number'
-        );
-        done();
+      testHelper.login(agent, chai).then(() => {
+      agent
+        .get('/api/chip')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.message.should.eql('success');
+          res.body.data.length.should.eql(264);
+          res.body.data[0].should.include.keys(
+            'id', 'original_name', 'original_description', 'chip_number'
+          );
+          done();
+        });
       });
     });
   });
@@ -48,7 +52,8 @@ describe('routes : chip', () => {
   describe('GET /api/chip/:id', () => {
     it('should return a single chip', (done) => {
       knex('chip').select('*').first().then((singleChip) => {
-        chai.request(server)
+      testHelper.login(agent, chai).then(() => {
+        agent
           .get('/api/chip/' + singleChip.id)
           .end((err, res) => {
           res.status.should.equal(200);
@@ -58,19 +63,22 @@ describe('routes : chip', () => {
           'id', 'original_name', 'original_description', 'chip_number'
           );
           done();
+          });
         });
       })
     });
 
     it('should throw an error if the chip does not exist', (done) => {
-      chai.request(server)
-      .get('/api/chip/999999')
-      .end((err, res) => {
-        // should.exist(err);
-        res.status.should.equal(404);
-        res.type.should.equal('application/json');
-        res.body.message.should.eql('NotFoundError');
-        done();
+      testHelper.login(agent, chai).then(() => {
+        agent
+        .get('/api/chip/999999')
+        .end((err, res) => {
+          // should.exist(err);
+          res.status.should.equal(404);
+          res.type.should.equal('application/json');
+          res.body.message.should.eql('NotFoundError');
+          done();
+        });
       });
     });
   });
@@ -79,23 +87,25 @@ describe('routes : chip', () => {
   // Create a new chip
   describe('POST /api/chip/', () => {
     it('should create a single NEW chip', (done) => {
-      chai.request(server)
-        .post('/api/chip')
-        .send({
-          original_name: 'my chip name',
-          original_description: 'a simple chip description',
-          chip_number: 999
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(201);
-          res.type.should.equal('application/json');
-          res.body.message.should.eql('success');
-          res.body.data.should.include.keys(
-          'id', 'original_name', 'original_description', 'chip_number'
-          );
-          res.body.data.original_name.should.equal('my chip name');
-          done();
+      testHelper.loginAsAdmin(agent, chai).then(() => {
+        agent
+          .post('/api/chip')
+          .send({
+            original_name: 'my chip name',
+            original_description: 'a simple chip description',
+            chip_number: 999
+          })
+          .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(201);
+            res.type.should.equal('application/json');
+            res.body.message.should.eql('success');
+            res.body.data.should.include.keys(
+            'id', 'original_name', 'original_description', 'chip_number'
+            );
+            res.body.data.original_name.should.equal('my chip name');
+            done();
+          });
         });
     });
   });
@@ -104,40 +114,45 @@ describe('routes : chip', () => {
   // update a chip
   describe('PUT /api/chip/', () => {
     it('should update a current chip', (done) => {
+
       knex('chip').select('*').first().then((singleChip) => {
-      chai.request(server)
-        .put(`/api/chip/${singleChip.id}`)
-        .send({
-          original_description: 'updated chip description',
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.type.should.equal('application/json');
-          res.body.message.should.eql('success');
-          res.body.data.should.include.keys(
-            'id', 'original_name', 'original_description', 'chip_number'
-          );
-          res.body.data.original_description.should.equal('updated chip description');
-          done();
+      testHelper.loginAsAdmin(agent, chai).then(() => {
+        agent
+          .put(`/api/chip/${singleChip.id}`)
+          .send({
+            original_description: 'updated chip description',
+          })
+          .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(200);
+            res.type.should.equal('application/json');
+            res.body.message.should.eql('success');
+            res.body.data.should.include.keys(
+              'id', 'original_name', 'original_description', 'chip_number'
+            );
+            res.body.data.original_description.should.equal('updated chip description');
+            done();
+          });
         });
       });
     });
 
     it('should throw an error if chip id does not exist', (done) => {
       const invalidId = 999999;
-      chai.request(server)
-        .put(`/api/chip/${invalidId}`)
-        .send({
-          original_description: 'updated chip description',
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(404);
-          res.type.should.equal('application/json');
-          res.body.message.should.eql('NotFoundError');
-          done();
+      testHelper.loginAsAdmin(agent, chai).then(() => {
+        agent
+          .put(`/api/chip/${invalidId}`)
+          .send({
+            original_description: 'updated chip description',
+          })
+          .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(404);
+            res.type.should.equal('application/json');
+            res.body.message.should.eql('NotFoundError');
+            done();
         });
-    })
+      });
+    });
   });
 });

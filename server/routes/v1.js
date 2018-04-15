@@ -64,12 +64,12 @@ router.get(chipBaseUrl,
   chipController.getAll);
 router.get(`${chipBaseUrl}/primary/:id`, 
   rbac(chipResource, 'read', false),
-chipController.getByPrimaryGame);
+  chipController.getByPrimaryGame);
 router.post(`${chipBaseUrl}`, 
   rbac(chipResource, 'create', false),
   chipController.create);
 router.get(`${chipBaseUrl}/:id`, 
-  rbac(chipResource, 'get', false),
+  rbac(chipResource, 'read', false),
   chipController.get);
 router.put(`${chipBaseUrl}/:id`, 
   rbac(chipResource, 'update', true),
