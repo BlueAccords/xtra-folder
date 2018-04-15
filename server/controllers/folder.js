@@ -23,11 +23,11 @@ module.exports = {
     }
   },
   create: async function(req, res) {
-    const folderParams = req.body;
+    let folderParams = req.body;
 
     // set folder user, author id if logged in
     if(req.isAuthenticated()) {
-      folderParams.author_id = ctx.state.user.id;
+      folderParams.author_id = req.user.id;
     }
     const folder = await Folder.query()
       .insert(folderParams);

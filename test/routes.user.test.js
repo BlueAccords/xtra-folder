@@ -12,7 +12,7 @@ const knex = require('../server/db/connection');
 let agent = chai.request.agent(server)
 let testHelper = require('./_helper');
 
-describe.only('routes : user', () => {
+describe('routes : user', () => {
   
   // seed before each test
   beforeEach(() => {

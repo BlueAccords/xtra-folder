@@ -7,8 +7,10 @@ chai.use(chaiHttp);
 
 const server = require('../server/index');
 const knex = require('../server/db/connection');
+let agent = chai.request.agent(server)
+let testHelper = require('./_helper');
 
-describe('routes : folder', () => {
+describe.only('routes : folder', () => {
   
   // seed before each test
   beforeEach(() => {
@@ -26,20 +28,22 @@ describe('routes : folder', () => {
  */
   describe('GET /api/folder', () => {
     it('should return all folders', (done) => {
-      chai.request(server)
-      .get('/api/folder')
-      .end((err, res) => {
-        should.not.exist(err);
-        res.status.should.equal(200);
-        res.type.should.equal('application/json');
-        res.body.statusCode.should.eql(200);
-        res.body.success.should.eql(true);
-        res.body.message.should.eql('success');
-        res.body.data.length.should.eql(3);
-        res.body.data[0].should.include.keys(
-          'id', 'title', 'description', 'author_id'
-        );
-        done();
+      testHelper.login(agent, chai).then(() => {
+      agent
+        .get('/api/folder')
+        .end((err, res) => {
+          should.not.exist(err);
+          res.status.should.equal(200);
+          res.type.should.equal('application/json');
+          res.body.statusCode.should.eql(200);
+          res.body.success.should.eql(true);
+          res.body.message.should.eql('success');
+          res.body.data.length.should.eql(3);
+          res.body.data[0].should.include.keys(
+            'id', 'title', 'description', 'author_id'
+          );
+          done();
+        });
       });
     });
   });
@@ -50,31 +54,35 @@ describe('routes : folder', () => {
   describe('GET /api/folder/:id', () => {
     it('should return a single folder', (done) => {
       knex('folder').select('*').first().then((singleFolder) => {
-        chai.request(server)
-          .get('/api/folder/' + singleFolder.id)
-          .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.type.should.equal('application/json');
-          res.body.statusCode.should.eql(200);
-          res.body.message.should.eql('success');
-          res.body.data.should.include.keys(
-            'id', 'title', 'description', 'author_id'
-          );
-          done();
-        });
+        testHelper.login(agent, chai).then(() => {
+          agent
+            .get('/api/folder/' + singleFolder.id)
+            .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(200);
+            res.type.should.equal('application/json');
+            res.body.statusCode.should.eql(200);
+            res.body.message.should.eql('success');
+            res.body.data.should.include.keys(
+              'id', 'title', 'description', 'author_id'
+            );
+            done();
+          });
+        })
       })
     });
 
     it('should throw an error if the folder does not exist', (done) => {
-      chai.request(server)
-      .get('/api/folder/999999')
-      .end((err, res) => {
-        res.status.should.equal(404);
-        res.type.should.equal('application/json');
-        res.body.statusCode.should.eql(404);
-        res.body.message.should.eql('No folder with that id was found');
-        done();
+        testHelper.login(agent, chai).then(() => {
+        agent
+        .get('/api/folder/999999')
+        .end((err, res) => {
+          res.status.should.equal(404);
+          res.type.should.equal('application/json');
+          res.body.statusCode.should.eql(404);
+          res.body.message.should.eql('No folder with that id was found');
+          done();
+        });
       });
     });
   });
@@ -83,62 +91,69 @@ describe('routes : folder', () => {
   // Create a new folder
   describe('POST /api/folder/', () => {
     it('should create a single NEW folder', (done) => {
-      chai.request(server)
-        .post('/api/folder')
-        .send({
-          title: 'my folder name',
-          description: 'a simple folder description',
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(201);
-          res.type.should.equal('application/json');
-          res.body.message.should.eql('success');
-          res.body.data.should.include.keys(
-            'id', 'title', 'description'
-          );
-          res.body.data.title.should.equal('my folder name');
-          done();
+      testHelper.login(agent, chai).then(() => {
+        agent
+          .post('/api/folder')
+          .send({
+            title: 'my folder name',
+            description: 'a simple folder description',
+          })
+          .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(201);
+            res.type.should.equal('application/json');
+            res.body.message.should.eql('success');
+            res.body.data.should.include.keys(
+              'id', 'title', 'description'
+            );
+            res.body.data.title.should.equal('my folder name');
+            done();
         });
+      });
     });
   });
 
   describe('PUT /api/folder/', () => {
     it('should update a current folder', (done) => {
-      knex('folder').select('*').first().then((singleFolder) => {
-      chai.request(server)
-        .put(`/api/folder/${singleFolder.id}`)
-        .send({
-          description: 'updated folder description',
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(200);
-          res.type.should.equal('application/json');
-          res.body.message.should.eql('success');
-          res.body.data.should.include.keys(
-            'id', 'title', 'description'
-          );
-          res.body.data.description.should.equal('updated folder description');
-          done();
+      testHelper.login(agent, chai).then(() => {
+        knex('folder').select('*').first().then((singleFolder) => {
+        // chai.request(server)
+        agent
+          .put(`/api/folder/${singleFolder.id}`)
+          .send({
+            description: 'updated folder description',
+          })
+          .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(200);
+            res.type.should.equal('application/json');
+            res.body.message.should.eql('success');
+            res.body.data.should.include.keys(
+              'id', 'title', 'description'
+            );
+            res.body.data.description.should.equal('updated folder description');
+            done();
+          });
         });
       });
     });
 
     it('should throw an error if folder id does not exist', (done) => {
       const invalidFolderId = 99999;
-      chai.request(server)
-        .put(`/api/folder/${invalidFolderId}`)
-        .send({
-          description: 'updated folder description',
-        })
-        .end((err, res) => {
-          should.not.exist(err);
-          res.status.should.equal(404);
-          res.type.should.equal('application/json');
-          res.body.message.should.eql('NotFoundError');
-          done();
+      testHelper.login(agent, chai).then(() => {
+        agent
+          .put(`/api/folder/${invalidFolderId}`)
+          .send({
+            description: 'updated folder description',
+          })
+          .end((err, res) => {
+            should.not.exist(err);
+            res.status.should.equal(404);
+            res.type.should.equal('application/json');
+            res.body.message.should.eql('NotFoundError');
+            done();
+          });
         });
-    })
+    });
   });
 });

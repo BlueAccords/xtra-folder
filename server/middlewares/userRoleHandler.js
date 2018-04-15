@@ -167,7 +167,7 @@ function checkPermissions(resource, action, isOwner) {
       }
     }
 
-    // console.log(`user role: ${role} on resource: ${resource} for action: ${action} is ${isAllowed.granted}`);
+    console.log(`user role: ${role} on resource: ${resource} for action: ${action} is ${isAllowed.granted}`);
     if(isAllowed.granted) {
       next();
     } else {
