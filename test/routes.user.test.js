@@ -18,7 +18,12 @@ describe('routes : user', () => {
   beforeEach(() => {
     return knex.migrate.rollback()
       .then(() => { return knex.migrate.latest(); })
-      .then(() => { return knex.seed.run(); });
+      .then(() => { return knex.seed.run(); })
+      .then(() => {
+        agent.close();
+        agent = chai.request.agent(server);
+      });
+
   });
   
   afterEach(() => {

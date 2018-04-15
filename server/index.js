@@ -68,10 +68,10 @@ app.use(dbErrorHandler.errorHandler);
 
 // catch all error handler
 app.use(function (err, req, res, next) {
-  if(process.env.NODE_ENV == 'development' || 
-    process.env.NODE_ENV == 'test') {
+  if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
+  console.log(err);
 
   if(Boom.isBoom(err)) {
     res.status(err.output.statusCode)

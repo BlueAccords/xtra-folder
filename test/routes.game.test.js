@@ -12,6 +12,7 @@ const knex = require('../server/db/connection');
 
 
 
+// TODO: remove this, use helper version instead
 function login() {
   return new Promise ((resolve, reject) => {
     agent = chai.request.agent(server);
@@ -30,6 +31,10 @@ describe('routes : game', () => {
     return knex.migrate.rollback()
       .then(() => { return knex.migrate.latest(); })
       .then(() => { return knex.seed.run(); })
+      .then(() => {
+        agent.close();
+        agent = chai.request.agent(server);
+      });
   });
   
   afterEach(() => {
