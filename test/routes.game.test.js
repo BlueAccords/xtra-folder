@@ -3,12 +3,13 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
-chai.use(chaiHttp);
-
 const server = require('../server/index');
-const knex = require('../server/db/connection');
+chai.use(chaiHttp);
 let agent = chai.request.agent(server)
 let testHelper = require('./_helper');
+
+const knex = require('../server/db/connection');
+
 
 
 function login() {
@@ -22,7 +23,7 @@ function login() {
   });
 }
 
-describe.only('routes : game', () => {
+describe('routes : game', () => {
   
   // seed before each test
   beforeEach(() => {
@@ -65,7 +66,6 @@ describe.only('routes : game', () => {
     it('should return a single game', (done) => {
       login().then(() => {
         knex('game').select('*').first().then((singleGame) => {
-          // chai.request(server)
           agent
             .get('/api/game/' + singleGame.id)
             .end((err, res) => {
@@ -85,7 +85,6 @@ describe.only('routes : game', () => {
     it('should throw an error if the game does not exist', (done) => {
       login().then(() => {
         agent
-        // chai.request(server)
         .get('/api/game/999999')
         .end((err, res) => {
           res.status.should.equal(404);
