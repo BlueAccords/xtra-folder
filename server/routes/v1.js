@@ -20,8 +20,6 @@ const acConfig = require('./../config/accessControlConfig');
 const ac = new AccessControl(acConfig);
 const isAllowed = new AccessControlMiddleware(ac, knexConnection);
 
-const rbac = require('./../middlewares/userRoleHandler').checkPermissions;
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.json({status:"success", message:"Parcel Pending API", data:{"version_number":"v1.0.0"}})
@@ -38,13 +36,22 @@ const gameBaseUrl = '/game';
 const gameResource = 'game'
 
 router.get(gameBaseUrl, 
-  rbac(gameResource, 'read', false),
+  isAllowed.check({
+    resource : gameResource,
+    action: 'read',
+   }),  
   gameController.getAll);
 router.get(`${gameBaseUrl}/subgames`, 
-  rbac(gameResource, 'read', false),
+  isAllowed.check({
+    resource : gameResource,
+    action: 'read',
+   }),  
   gameController.get);
 router.get(`${gameBaseUrl}/:id`, 
-  rbac(gameResource, 'read', false),
+  isAllowed.check({
+    resource : gameResource,
+    action: 'read',
+   }),  
   gameController.get);
 
 // folders
@@ -52,16 +59,24 @@ const folderBaseUrl = '/folder';
 const folderResource = 'folder';
 
 router.get(folderBaseUrl, 
-  rbac(folderResource, 'read', false),
+  isAllowed.check({
+    resource : folderResource,
+    action: 'read',
+   }),  
   folderController.getAll);
 router.post(`${folderBaseUrl}`, 
-  rbac(folderResource, 'create', false),
+  isAllowed.check({
+    resource : folderResource,
+    action: 'create',
+   }),  
   folderController.create);
 router.get(`${folderBaseUrl}/:id`, 
-  rbac(folderResource, 'read', false),
+  isAllowed.check({
+    resource : folderResource,
+    action: 'read',
+   }),  
   folderController.get);
 router.put(`${folderBaseUrl}/:id`, 
-  // rbac(folderResource, 'update', true),
   isAllowed.check({
     resource : folderResource,
     action: 'update',
@@ -78,41 +93,53 @@ router.put(`${folderBaseUrl}/:id`,
 const chipBaseUrl = '/chip';
 const chipResource = 'chip';
 router.get(chipBaseUrl, 
-  rbac(chipResource, 'read', false),
+  isAllowed.check({
+    resource : chipResource,
+    action: 'read',
+   }),  
   chipController.getAll);
 router.get(`${chipBaseUrl}/primary/:id`, 
-  rbac(chipResource, 'read', false),
+  isAllowed.check({
+    resource : chipResource,
+    action: 'read',
+   }),  
   chipController.getByPrimaryGame);
 router.post(`${chipBaseUrl}`, 
-  rbac(chipResource, 'create', false),
+  isAllowed.check({
+    resource : chipResource,
+    action: 'create',
+   }),  
   chipController.create);
 router.get(`${chipBaseUrl}/:id`, 
-  rbac(chipResource, 'read', false),
+  isAllowed.check({
+    resource : chipResource,
+    action: 'read',
+   }),  
   chipController.get);
 router.put(`${chipBaseUrl}/:id`, 
-  rbac(chipResource, 'update', true),
+  isAllowed.check({
+    resource : chipResource,
+    action: 'update',
+   }),
   chipController.update);
 
 // users
 const userBaseUrl = '/user';
 const userResource = 'user';
 router.get(userBaseUrl, 
-  rbac(userResource, 'read', false),
+  isAllowed.check({
+    resource : userResource,
+    action: 'read',
+   }),
   userController.getAll);
 router.get(`${userBaseUrl}/:id`, 
-  rbac(userResource, 'read', false),
+  isAllowed.check({
+    resource : userResource,
+    action: 'read',
+   }),
   userController.get);
-
-async function authenticate(req, res, next) {
-  next();
-}
 
 
 
 // router.get('/dash', passport.authenticate('jwt', {session:false}),HomeController.Dashboard)
-
-
-// //********* API DOCUMENTATION **********
-// router.use('/docs/api.json',            express.static(path.join(__dirname, '/../public/v1/documentation/api.json')));
-// router.use('/docs',                     express.static(path.join(__dirname, '/../public/v1/documentation/dist')));
 module.exports = router;

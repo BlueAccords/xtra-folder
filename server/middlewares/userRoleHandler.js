@@ -122,13 +122,8 @@ const ac = new AccessControl(grantsObject);
  */
 function checkPermissions(resource, action, isOwner) {
   return function testing(req, res, next) {
-    console.log('checking permissions.......');
 
     const user = req.user;
-    // console.log('user...============')
-    // console.log(user);
-    // console.log(authHelper.isAuthenticated(req));
-    // console.log('user...')
     let isAllowed = { granted: false };
     let role = '';
     if(authHelper.isAuthenticated(req)) {

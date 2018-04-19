@@ -161,6 +161,23 @@ describe('routes : chip', () => {
       });
     });
 
+    it('should NOT update a current chip if user is standard role', (done) => {
+      knex('chip').select('*').first().then((singleChip) => {
+      testHelper.login(agent, chai).then(() => {
+        agent
+          .put(`/api/chip/${singleChip.id}`)
+          .send({
+            original_description: 'updated chip description',
+          })
+          .end((err, res) => {
+            res.status.should.equal(403);
+            res.type.should.equal('application/json');
+            done();
+          });
+        });
+      });
+    });
+
 
   });
 });
