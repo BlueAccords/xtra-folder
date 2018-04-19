@@ -12,6 +12,14 @@ const path = require('path');
 const passport = require('./../authentication/local-strategy');
 
 // user role based permission
+
+const AccessControlMiddleware = require('accesscontrol-middleware');
+const AccessControl = require('accesscontrol');
+const knexConnection = require('./../db/connection') // used to make db calls to check for ownership
+const acConfig = require('./../config/accessControlConfig');
+const ac = new AccessControl(acConfig);
+const isAllowed = new AccessControlMiddleware(ac, knexConnection);
+
 const rbac = require('./../middlewares/userRoleHandler').checkPermissions;
 
 /* GET home page. */
@@ -53,7 +61,17 @@ router.get(`${folderBaseUrl}/:id`,
   rbac(folderResource, 'read', false),
   folderController.get);
 router.put(`${folderBaseUrl}/:id`, 
-  rbac(folderResource, 'update', true),
+  // rbac(folderResource, 'update', true),
+  isAllowed.check({
+    resource : folderResource,
+    action: 'update',
+    checkOwnerShip : true,
+    useModel: true,
+    operands : [
+      { source : 'user', key : 'id' },
+      { source : 'params', key : 'id', modelName: folderResource, modelKey: 'id', opKey: 'author_id' }
+      ]
+   }),  
   folderController.update);
 
 // chips

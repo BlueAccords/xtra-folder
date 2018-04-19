@@ -26,3 +26,7 @@
 - create queries file for SQL queries(if needed)
     - `server/db/queries/{model_name}`
 
+
+## Redid Server for session
+- Run server `redis-server`
+- Run CLI to check redis db `redis-cli`

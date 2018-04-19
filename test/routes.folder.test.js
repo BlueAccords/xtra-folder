@@ -154,7 +154,6 @@ describe('routes : folder', () => {
             should.not.exist(err);
             res.status.should.equal(404);
             res.type.should.equal('application/json');
-            res.body.message.should.eql('NotFoundError');
             done();
           });
         });

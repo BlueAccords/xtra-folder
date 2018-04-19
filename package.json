@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "accesscontrol": "^2.2.1",
+    "accesscontrol-middleware": "git+https://github.com/BlueAccords/accesscontrol-middleware.git",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "boom": "^7.2.0",

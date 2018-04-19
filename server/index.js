@@ -71,7 +71,6 @@ app.use(function (err, req, res, next) {
   if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
-  console.log(err);
 
   if(Boom.isBoom(err)) {
     res.status(err.output.statusCode)
@@ -79,8 +78,8 @@ app.use(function (err, req, res, next) {
   } else {
     res.status(500).json({
       success: false,
-      error: err,
-      data: err
+      error: err.message || err,
+      data: err,
     });
   }
 });
