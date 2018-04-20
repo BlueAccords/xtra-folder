@@ -46,7 +46,7 @@ module.exports = {
         'delete:own': ['*']
     },
     folder: {
-        'create:any': ['*'],
+        'create:own': ['*'],
         'read:any': ['*'],
         'update:own': ['*'],
         'delete:own': ['*']

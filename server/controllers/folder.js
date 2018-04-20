@@ -62,6 +62,8 @@ module.exports = {
   createChipCopy: async function(req, res) {
     const id = req.params.id;
     const chipCopyParams = req.body;
+    // IDEA: add better schema validation for updating values
+    chipCopyParams.folder_id = id; // override passed in folder id as needed
     const newChipCopy = await ChipCopy.query().insert(chipCopyParams);
 
     ctrlHelpers.handleResponse(true, res, 200, 'success', newChipCopy);
@@ -80,7 +82,11 @@ module.exports = {
       .andWhere('folder_id', folder.id);
 
     if(updatedChipCopy > 0) {
-      ctrlHelpers.handleResponse(true, res, 200, 'success');
+      const fetchedUpdatedChipCopy = await ChipCopy.query()
+        .where('id', copyId)
+        .andWhere('folder_id', folder.id)
+        .first();
+      ctrlHelpers.handleResponse(true, res, 200, 'success', fetchedUpdatedChipCopy);
     } else {
       throw Boom.notFound(`Chip copy with id of ${copyId} not found.`);
     }
@@ -104,46 +110,3 @@ module.exports = {
     }
   }
 }
-
-// router.get(BASE_URL, async (ctx) => {
-// });
-
-// // create a new chip copy for a folder
-// router.post(`${BASE_URL}/:id/chips`, async(ctx) => {
-//     const id = ctx.params.id;
-//     const chipCopyParams = ctx.request.body;
-//     const newChipCopy = await ChipCopy.query().insert(chipCopyParams);
-
-//     ctx.body = {
-//       status: 'success',
-//       data: newChipCopy
-//     };
-// });
-
-// // create a new chip copy for a folder
-// router.put(`${BASE_URL}/:folderId/chips/:chipCopyId`, async(ctx) => {
-//   const folderId = ctx.params.folderId;
-//   const chipCopyId = ctx.params.chipCopyId
-
-//   const chipCopyParams = ctx.request.body;
-//   const updatedChipCopy = await ChipCopy.query()
-//     .patchAndFetchById(chipCopyId, chipCopyParams);
-
-
-//   ctx.body = {
-//     status: 'success',
-//     data: updatedChipCopy
-//   };
-// });
-
-// router.del(`${BASE_URL}/:folderId/chips/:chipCopyId`, async(ctx) => {
-//   const chipCopyId = ctx.params.chipCopyId;
-//   const result = await ChipCopy.query()
-//     .delete()
-//     .where('id', chipCopyId);
-
-//   ctx.body = {
-//     status: 'success',
-//     data: result
-//   }; 
-// });

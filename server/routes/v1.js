@@ -110,6 +110,12 @@ router.post(`${folderBaseUrl}/:id/${chipCopyUrl}`,
   isAllowed.check({
     resource : folderResource,
     action: 'create',
+    checkOwnerShip : true,
+    useModel: true,
+    operands : [
+      { source : 'user', key : 'id' },
+      { source : 'params', key : 'id', modelName: folderResource, modelKey: 'id', opKey: 'author_id' }
+      ]
    }),  
   folderController.createChipCopy);
 
