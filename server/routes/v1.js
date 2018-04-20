@@ -58,24 +58,31 @@ router.get(`${gameBaseUrl}/:id`,
 const folderBaseUrl = '/folder';
 const folderResource = 'folder';
 
+// GET#All folders
 router.get(folderBaseUrl, 
   isAllowed.check({
     resource : folderResource,
     action: 'read',
    }),  
   folderController.getAll);
+
+// POST#Create a new folder
 router.post(`${folderBaseUrl}`, 
   isAllowed.check({
     resource : folderResource,
     action: 'create',
    }),  
   folderController.create);
+
+// GET#get single folder by id
 router.get(`${folderBaseUrl}/:id`, 
   isAllowed.check({
     resource : folderResource,
     action: 'read',
    }),  
   folderController.get);
+
+// PUT#update single folder by id
 router.put(`${folderBaseUrl}/:id`, 
   isAllowed.check({
     resource : folderResource,
@@ -88,6 +95,52 @@ router.put(`${folderBaseUrl}/:id`,
       ]
    }),  
   folderController.update);
+
+// folder chip copies
+const chipCopyUrl = 'chips'
+// GET#get all chip copies of a folder by id
+router.get(`${folderBaseUrl}/:id/${chipCopyUrl}`, 
+  isAllowed.check({
+    resource : folderResource,
+    action: 'read',
+   }),  
+  folderController.getChipCopiesOfFolder);
+// POST#Create a new chip copy
+router.post(`${folderBaseUrl}/:id/${chipCopyUrl}`, 
+  isAllowed.check({
+    resource : folderResource,
+    action: 'create',
+   }),  
+  folderController.createChipCopy);
+
+// PUT#update a chip copy
+router.put(`${folderBaseUrl}/:id/${chipCopyUrl}/:copyId`, 
+  isAllowed.check({
+    resource : folderResource,
+    action: 'update',
+    checkOwnerShip : true,
+    useModel: true,
+    operands : [
+      { source : 'user', key : 'id' },
+      { source : 'params', key : 'id', modelName: folderResource, modelKey: 'id', opKey: 'author_id' }
+      ]
+   }),  
+  folderController.updateChipCopy);
+
+// DELETE#Delete a chip copy
+router.delete(`${folderBaseUrl}/:id/${chipCopyUrl}/:copyId`, 
+  isAllowed.check({
+    resource : folderResource,
+    action: 'delete',
+    checkOwnerShip : true,
+    useModel: true,
+    operands : [
+      { source : 'user', key : 'id' },
+      { source : 'params', key : 'id', modelName: folderResource, modelKey: 'id', opKey: 'author_id' }
+      ]
+   }),  
+  folderController.deleteChipCopy);
+
 
 // chips
 const chipBaseUrl = '/chip';
