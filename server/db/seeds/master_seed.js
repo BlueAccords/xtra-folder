@@ -4,6 +4,7 @@ const folderData = require('./data/folder_data');
 const gameData = require('./data/game_data');
 const chipData = require('./data/chip_data');
 const chipCodeData = require('./data/chip_data_with_codes');
+const chipCopyData = require('./data/chip_copy_data');
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
@@ -98,6 +99,10 @@ exports.seed = function(knex, Promise) {
       // insert entire list of chip_code objects generated
       return knex('chip_code').insert(listOfCodes);
     });
+  })
+  .then(function() {
+    // insert chip copy data
+    return knex('chip_copy').insert(chipCopyData());
   })
   
 };

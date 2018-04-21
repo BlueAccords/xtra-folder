@@ -9,7 +9,7 @@ module.exports = function(user) {
     {
       title: '2nd folder',
       description: 'a folder focused on pvp',
-      author_id: user.id,
+      author_id: 2,
     },
     {
       title: 'third folder, no desc',
