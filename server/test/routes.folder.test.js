@@ -164,45 +164,103 @@ describe('# routes : folder', () => {
     });
   });
   
-  describe.skip('## Folder : Child Copies routes', () => {
-    describe(' /api/folder/:id/chips/:chipId', () => {
+  describe('## Folder : Child Copies routes', () => {
+    describe('/api/folder/:id/chips/', () => {
       it('should create a new chip copy', (done) => {
         testHelper.login(agent, chai).then(() => {
           knex('folder').select('*').first().then((singleFolder) => {
-            // TODO
             agent
-            .put(`/api/folder/${singleFolder.id}`)
+            .post(`/api/folder/${singleFolder.id}/chips`)
             .send({
-              description: 'updated folder description',
+              code: 'Z',
+              folder_id: 1,
+              chip_id: 1
             })
             .end((err, res) => {
-              should.not.exist(err);
               res.status.should.equal(200);
               res.type.should.equal('application/json');
               res.body.message.should.eql('success');
               res.body.data.should.include.keys(
-                'id', 'title', 'description'
+                'code', 'folder_id', 'chip_id'
               );
-              res.body.data.description.should.equal('updated folder description');
+              res.body.data.folder_id.should.equal(singleFolder.id);
               done();
             });
           });
         });
       });
-      
-      it('should throw an error if folder id does not exist', (done) => {
-        const invalidFolderId = 99999;
+    });
+    describe('/api/folder/:id/chips/:chipId WITH user as owner of folder', () => {
+      const existingChipCopyId = 1;
+      it('should update an existing chip copy', (done) => {
         testHelper.login(agent, chai).then(() => {
-          agent
-          .put(`/api/folder/${invalidFolderId}`)
-          .send({
-            description: 'updated folder description',
-          })
-          .end((err, res) => {
-            should.not.exist(err);
-            res.status.should.equal(404);
-            res.type.should.equal('application/json');
-            done();
+          knex('folder').select('*').where('author_id', 1).first().then((singleFolder) => {
+            agent
+            .put(`/api/folder/${singleFolder.id}/chips/${existingChipCopyId}`)
+            .send({
+              code: 'V',
+              folder_id: 1,
+            })
+            .end((err, res) => {
+              res.status.should.equal(200);
+              res.type.should.equal('application/json');
+              res.body.message.should.eql('success');
+              res.body.data.should.include.keys(
+                'code', 'folder_id', 'chip_id'
+              );
+              res.body.data.folder_id.should.equal(singleFolder.id);
+              res.body.data.id.should.equal(existingChipCopyId);
+              res.body.data.code.should.equal('V');
+              done();
+            });
+          });
+        });
+      });
+      it('should delete an existing chip copy', (done) => {
+        testHelper.login(agent, chai).then(() => {
+          knex('folder').select('*').where('author_id', 1).first().then((singleFolder) => {
+            agent
+            .delete(`/api/folder/${singleFolder.id}/chips/${existingChipCopyId}`)
+            .end((err, res) => {
+              res.status.should.equal(200);
+              res.type.should.equal('application/json');
+              res.body.message.should.eql('success');
+              done();
+            });
+          });
+        });
+      });
+    });
+
+    describe('/api/folder/:id/chips/:chipId WITHOUT user as owner of folder', () => {
+      const existingChipCopyId = 1;
+      it('should NOT update an existing chip copy', (done) => {
+        testHelper.login(agent, chai).then(() => {
+          knex('folder').select('*').where('author_id', 2).first().then((singleFolder) => {
+            agent
+            .put(`/api/folder/${singleFolder.id}/chips/${existingChipCopyId}`)
+            .send({
+              code: 'V',
+              folder_id: 1,
+            })
+            .end((err, res) => {
+              res.status.should.equal(403);
+              res.type.should.equal('application/json');
+              done();
+            });
+          });
+        });
+      });
+      it('should NOT delete an existing chip copy', (done) => {
+        testHelper.login(agent, chai).then(() => {
+          knex('folder').select('*').where('author_id', 2).first().then((singleFolder) => {
+            agent
+            .delete(`/api/folder/${singleFolder.id}/chips/${existingChipCopyId}`)
+            .end((err, res) => {
+              res.status.should.equal(403);
+              res.type.should.equal('application/json');
+              done();
+            });
           });
         });
       });

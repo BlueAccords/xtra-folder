@@ -61,7 +61,7 @@ module.exports = {
   },
   createChipCopy: async function(req, res) {
     const id = req.params.id;
-    const chipCopyParams = req.body;
+    let chipCopyParams = req.body;
     // IDEA: add better schema validation for updating values
     chipCopyParams.folder_id = id; // override passed in folder id as needed
     const newChipCopy = await ChipCopy.query().insert(chipCopyParams);
@@ -71,7 +71,8 @@ module.exports = {
   updateChipCopy: async function(req, res) {
     const folderId = req.params.id;
     const copyId = req.params.copyId;
-    const chipCopyParams = req.body;
+    let chipCopyParams = req.body;
+    chipCopyParams.folder_id = folderId; // override folderid so users can't update chip copies of other folders
     const folder = await Folder.query().findById(folderId)
       .throwIfNotFound(); // throws error if not found and passes to error handler
 

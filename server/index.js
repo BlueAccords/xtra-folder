@@ -26,7 +26,7 @@ const PORT = 3000;
 Model.knex(knex)
 
 // server logger
-if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
+if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'production') {
   app.use(logger('dev'));
 }
 
