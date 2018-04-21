@@ -17,5 +17,13 @@ Knex:warning - migration failed with error: alter table `chip` modify `element` 
 - Still not 100% sure on koajs + objectionjs. Expressjs and sequelize may have been a better choice due to their maturity and adoption rate.
 - It is difficult to find a community to ask koajs questions about, besides their github issues page
 
+## General Backend
+- Use mature, popular, regularly updated libraries. They will have the most resources available, best documentation, and issues already solved in comparison to other libraries.
+- From the get go, have a way to standardize outputting errors so its easier to consume by the front end.
+  - Look up restful api design patterns in terms of nesting child elements
+- Designing database diagram was a good idea and helped thinking through how everything worked.
+- separate controller actions from routes.
+- when writing tests, try to mock database calls to make the tests run faster.
+
 ## General Development
 - After the first few models, I ended up repeating the CRUD actions for a lot of my models. Maybe use yaml or some other tool to auto generate these models after the first few if they are really similar.
