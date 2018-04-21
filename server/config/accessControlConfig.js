@@ -1,3 +1,4 @@
+// user permissions for each role
 
 module.exports = {
   admin: {
@@ -46,7 +47,7 @@ module.exports = {
         'delete:own': ['*']
     },
     folder: {
-        'create:own': ['*'],
+        'create:any': ['*'],
         'read:any': ['*'],
         'update:own': ['*'],
         'delete:own': ['*']
@@ -58,7 +59,7 @@ module.exports = {
         'read:any': ['*'],
     },
     chip_copy: {
-        'create:any': ['*'],
+        'create:own': ['*'],
         'read:any': ['*'],
         'update:own': ['*'],
         'delete:own': ['*']

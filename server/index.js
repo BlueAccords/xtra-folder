@@ -1,5 +1,6 @@
 // environment variables from .env file
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({path: './../.env'});
 require('express-async-errors'); // middleware used to support async/await error propogation in routes
 
 const knex = require('./db/connection')

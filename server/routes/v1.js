@@ -98,17 +98,21 @@ router.put(`${folderBaseUrl}/:id`,
 
 // folder chip copies
 const chipCopyUrl = 'chips'
+const chipCopyResource = 'chip_copy';
+
+// NOTE: chip copies DO NOT have a foreign key reference to users,
+// thus, ownership checking is done by checking the author_id of the FOLDER the chip_copy belongs to.
 // GET#get all chip copies of a folder by id
 router.get(`${folderBaseUrl}/:id/${chipCopyUrl}`, 
   isAllowed.check({
-    resource : folderResource,
+    resource : chipCopyResource,
     action: 'read',
    }),  
   folderController.getChipCopiesOfFolder);
 // POST#Create a new chip copy
 router.post(`${folderBaseUrl}/:id/${chipCopyUrl}`, 
   isAllowed.check({
-    resource : folderResource,
+    resource : chipCopyResource,
     action: 'create',
     checkOwnerShip : true,
     useModel: true,
@@ -122,7 +126,7 @@ router.post(`${folderBaseUrl}/:id/${chipCopyUrl}`,
 // PUT#update a chip copy
 router.put(`${folderBaseUrl}/:id/${chipCopyUrl}/:copyId`, 
   isAllowed.check({
-    resource : folderResource,
+    resource : chipCopyResource,
     action: 'update',
     checkOwnerShip : true,
     useModel: true,

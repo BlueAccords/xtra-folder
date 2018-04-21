@@ -1,7 +1,8 @@
 // Update with your config settings.
-var dotenv = require('dotenv').config();
+var dotenv = require('dotenv').config({path: './../.env'});
+// var dotenv = require('dotenv').config();
 const path = require('path');
-const BASE_PATH = path.join(__dirname, 'server', 'db');
+const BASE_PATH = path.join(__dirname, 'db');
 
 module.exports = {
 

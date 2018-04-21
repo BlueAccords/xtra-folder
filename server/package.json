@@ -1,0 +1,42 @@
+{
+  "name": "xtra-redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "test": "./node_modules/mocha/bin/_mocha",
+    "seed": "knex seed:run --env development"
+  },
+  "author": "Ryan Tran",
+  "license": "MIT",
+  "dependencies": {
+    "accesscontrol": "^2.2.1",
+    "accesscontrol-middleware": "git+https://github.com/BlueAccords/accesscontrol-middleware.git",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "boom": "^7.2.0",
+    "connect-redis": "^3.3.3",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-async-errors": "^2.1.2",
+    "express-session": "^1.15.6",
+    "joi": "^13.1.2",
+    "knex": "^0.14.4",
+    "morgan": "^1.9.0",
+    "mysql2": "^1.5.3",
+    "objection": "^1.0.1",
+    "objection-db-errors": "^1.0.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "redis": "^2.8.0",
+    "schwifty": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.0.5",
+    "sinon": "^4.5.0"
+  }
+}

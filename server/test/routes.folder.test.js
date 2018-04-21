@@ -5,8 +5,9 @@ const should = chai.should();
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-const server = require('../server/index');
-const knex = require('../server/db/connection');
+const server = require('./../index');
+const knex = require('./../db/connection');
+
 let agent = chai.request.agent(server)
 let testHelper = require('./_helper');
 

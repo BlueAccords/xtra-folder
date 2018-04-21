@@ -3,12 +3,13 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
-const server = require('../server/index');
+const server = require('./../index');
+const knex = require('./../db/connection');
+
 chai.use(chaiHttp);
 let agent = chai.request.agent(server)
 let testHelper = require('./_helper');
 
-const knex = require('../server/db/connection');
 
 
 
