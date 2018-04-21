@@ -166,7 +166,7 @@ describe('# routes : folder', () => {
   
   describe('## Folder : Child Copies routes', () => {
     describe('/api/folder/:id/chips/', () => {
-      it('should create a new chip copy', (done) => {
+      it('OWNER should create a new chip copy', (done) => {
         testHelper.login(agent, chai).then(() => {
           knex('folder').select('*').first().then((singleFolder) => {
             agent
@@ -187,6 +187,23 @@ describe('# routes : folder', () => {
               done();
             });
           });
+        });
+      });
+      it('user who is NOT OWNER should NOT be able to create a new chip copy', (done) => {
+        const folderIdWithoutOwnership = 2
+        testHelper.login(agent, chai).then(() => {
+            agent
+            .post(`/api/folder/${folderIdWithoutOwnership}/chips`)
+            .send({
+              code: 'Z',
+              folder_id: 2,
+              chip_id: 1
+            })
+            .end((err, res) => {
+              res.status.should.equal(403);
+              res.type.should.equal('application/json');
+              done();
+            });
         });
       });
     });
