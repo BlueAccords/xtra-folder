@@ -10,7 +10,7 @@
     "server:test": "npm run test --prefix server",
     "server:start": "node ./server/index.js",
     "server:seed": "npm run seed --prefix server",
-    "client:start": "npm run start --prefix client", 
+    "client:start": "npm run start --prefix client",
     "client:build": "npm run build --prefix client"
   },
   "repository": {
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/BlueAccords/xtra-folder/issues"
   },
-  "homepage": "https://github.com/BlueAccords/xtra-folder#readme"
+  "homepage": "https://github.com/BlueAccords/xtra-folder#readme",
+  "dependencies": {
+    "prop-types": "^15.6.1"
+  }
 }
