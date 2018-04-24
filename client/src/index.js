@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './theme.scss';
 
 class BasicComponent extends React.Component {
   render() {
