@@ -1,4 +1,9 @@
 import React from 'react';
+import { Link, Route } from 'react-router-dom'
+
+import HomePage from './../pages/home.jsx';
+import AboutPage from './../pages/about.jsx';
+import ContactPage from './../pages/contact.jsx';
 
 class MainLayout extends React.Component {
   constructor(props) {
@@ -18,7 +23,8 @@ class MainLayout extends React.Component {
   render() {
     const isActiveClassName = this.state.isActive ? 'is-active' : '';
     return (
-       <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div>
+       <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
        <div className="container">
          <div className="navbar-brand">
           <a href="#" className="navbar-item">
@@ -35,19 +41,21 @@ class MainLayout extends React.Component {
           </div> 
         </div>
 
-        {/* desktop menu */}
+        {/* desktop menu, is hidden by default on mobile */}
         <div className={`navbar-menu ${this.state.isActive ? 'is-active' : null}`}
           role="navigation" aria-label="main navigation">
           <div className="navbar-end">
-            <a href="#" className="navbar-item">Home</a> 
-            <a href="#" className="navbar-item">About</a> 
-            <a href="#" className="navbar-item">Contact</a> 
+            <Link to="/" className="navbar-item">Home</Link>
+            <Link to="/about" className="navbar-item">About</Link>
+            <Link to="/contact" className="navbar-item">Contact</Link>
           </div>
         </div>      
        </div>
-
       </nav>     
-
+        <Route exact path="/" component={HomePage}/>
+        <Route path="/about" component={AboutPage}/>
+        <Route path="/contact" component={ContactPage}/>
+      </div>
     )
   }
 }
