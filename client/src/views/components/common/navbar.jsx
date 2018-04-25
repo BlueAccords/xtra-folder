@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom'
 
 const NavBar = (props) => {
-  const { isActive, toggleActive } = props;
+  const { isActive, toggleActive, toggleLoginMenu } = props;
   return (
        <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
        <div className="container">
@@ -30,6 +30,9 @@ const NavBar = (props) => {
             <Link to="/" className="navbar-item">Home</Link>
             <Link to="/about" className="navbar-item">About</Link>
             <Link to="/contact" className="navbar-item">Contact</Link>
+            <div className="navbar-item">
+              <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
+            </div>
           </div>
         </div>      
        </div>
