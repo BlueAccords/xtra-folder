@@ -14,9 +14,20 @@ const TextInput = (props) => {
     handleBlur,
     handleOnChange
     } = props;
+  
+  function classNames() {
+    let returnName;
+    if(touched && !error) {
+      returnName = 'is-success';
+    } else if(touched && error) {
+      returnName = 'is-danger';
+    } else {
+      returnName = 'is-info'
+    }
 
+    return returnName;
+  }
 
-  const classNames = touched && !error ? 'is-success' : 'is-info';
   return (
     <div className="field">
       <label htmlFor={name} className="label">{displayName}</label> 
@@ -24,12 +35,16 @@ const TextInput = (props) => {
         <input 
           name={name} 
           type={type} 
-          className={`input ${classNames}`}
+          className={`input ${classNames()}`}
           placeholder={placeholder || null}
           onChange={handleOnChange}
           onBlur={handleBlur}
           value={value}/> 
       </div>
+      {touched && error ?
+        <div className="help is-danger">{error}</div> 
+        : null
+      }
     </div>
   )
 }

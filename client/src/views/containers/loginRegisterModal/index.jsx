@@ -72,7 +72,6 @@ class LoginRegisterModal extends React.Component {
         return (
           <RegisterForm toggleActive={this.props.toggleActive} />
         );
-    
       default:
         return (
           <div>Invalid Form Tab</div>
