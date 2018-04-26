@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 
 
 import NavBar from './../components/common/navbar.jsx';
-import LoginForm from './../containers/loginForm/index.jsx';
+import LoginRegisterModal from './../containers/loginRegisterModal/index.jsx';
 import HomePage from './../pages/home.jsx';
 import AboutPage from './../pages/about.jsx';
 import ContactPage from './../pages/contact.jsx';
@@ -40,7 +40,7 @@ class MainLayout extends React.Component {
           isActive={this.state.isMobileMenuActive} 
           toggleActive={this.toggleMobileMenu} 
           toggleLoginMenu={this.toggleLoginMenu}/>
-        <LoginForm isActive={this.state.isLoginMenuActive} toggleActive={this.toggleLoginMenu}/>
+        <LoginRegisterModal isActive={this.state.isLoginMenuActive} toggleActive={this.toggleLoginMenu}/>
         <Route exact path="/" component={HomePage}/>
         <Route path="/about" component={AboutPage}/>
         <Route path="/contact" component={ContactPage}/>
