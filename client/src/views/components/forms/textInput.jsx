@@ -16,14 +16,13 @@ const TextInput = (props) => {
     } = props;
   
   function classNames() {
-    let returnName;
+    let returnName = '';
     if(touched && !error) {
       returnName = 'is-success';
     } else if(touched && error) {
       returnName = 'is-danger';
-    } else {
-      returnName = 'is-info'
     }
+    
 
     return returnName;
   }
