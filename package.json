@@ -23,7 +23,5 @@
     "url": "https://github.com/BlueAccords/xtra-folder/issues"
   },
   "homepage": "https://github.com/BlueAccords/xtra-folder#readme",
-  "dependencies": {
-    "prop-types": "^15.6.1"
-  }
+  "dependencies": {}
 }
