@@ -12,45 +12,10 @@ class LoginRegisterModal extends React.Component {
       activeTab: 'loginForm'
     };
 
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
     this.setActiveTab = this.setActiveTab.bind(this);
   }
 
-  // handles input blur event by updating touched state.
-  handleBlur(event) {
-    const name = event.target.name;
-    const currentForm = this.state.activeTab
-    const newState = {
-      ...this.state[currentForm], 
-      touched: {...this.state[currentForm].touched, [name]: true},
-      values: this.state[currentForm].values,
-      errors: this.state[currentForm].errors,
-    }
 
-    this.setState({
-      ...this.state,
-      [currentForm]: newState
-    });
-  }
-
-  // generic update for all inputs by their name
-  handleOnChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    const currentForm = this.state.activeTab
-    const newState = {
-      ...this.state[currentForm], 
-      values: {...this.state[currentForm].values, [name]: value},
-      touched: this.state[currentForm].touched,
-      errors: this.state[currentForm].errors,
-    }
-
-    this.setState({
-      ...this.state,
-      [currentForm]: newState
-    });
-  }
 
   // sets active tab by string
   setActiveTab = param => e => {
@@ -65,7 +30,10 @@ class LoginRegisterModal extends React.Component {
     switch (activeTab) {
       case 'loginForm':
         return (
-          <LoginForm toggleActive={this.props.toggleActive} />
+          <LoginForm 
+          handleLogin={(values) => {console.log('handle login')}}
+          toggleActive={this.props.toggleActive} 
+          />
         );
         break;
       case 'registerForm':
