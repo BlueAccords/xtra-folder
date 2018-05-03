@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
         }}
         onSubmit={(values, actions) => {
           alert(JSON.stringify(values));
-          // this.props.handleLogin(values);
+          // this.props.handleRegister(values);
         }}
         render={({
           values,
@@ -117,7 +117,7 @@ class LoginForm extends React.Component {
                 type="submit"
                 className={this.getSubmitBtnClasses(isSubmitting, isValid)}
                 disabled={!isValid || isSubmitting}>
-                Login
+                Register
               </button> 
               <button className="button" onClick={(e) => {
                 e.preventDefault();

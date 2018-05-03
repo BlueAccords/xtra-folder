@@ -38,7 +38,9 @@ class LoginRegisterModal extends React.Component {
         break;
       case 'registerForm':
         return (
-          <RegisterForm toggleActive={this.props.toggleActive} />
+          <RegisterForm 
+            toggleActive={this.props.toggleActive} 
+          />
         );
       default:
         return (
