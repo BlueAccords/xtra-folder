@@ -24,17 +24,30 @@ const NavBar = (props) => {
         </div>
 
         {/* desktop menu, is hidden by default on mobile */}
-        <div className={`navbar-menu ${isActive ? 'is-active' : null}`}
+        <div className='navbar-menu'
           role="navigation" aria-label="main navigation">
-          <div className="navbar-end">
+          <div className="navbar-start">
             <Link to="/" className="navbar-item">Home</Link>
             <Link to="/about" className="navbar-item">About</Link>
             <Link to="/contact" className="navbar-item">Contact</Link>
+          </div>
+          <div className="navbar-end">
             <div className="navbar-item">
               <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
             </div>
           </div>
-        </div>      
+        </div>
+
+        {/* mobile menu, is hidden by default on mobile */}
+        <div className={`navbar-menu ${isActive ? 'is-active' : 'is-hidden-desktop'}`}
+          role="navigation" aria-label="main navigation">
+          <div className="navbar-item">
+            <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
+          </div>
+          <Link to="/" className="navbar-item">Home</Link>
+          <Link to="/about" className="navbar-item">About</Link>
+          <Link to="/contact" className="navbar-item">Contact</Link>
+        </div>
        </div>
       </nav>
   )

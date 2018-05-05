@@ -22,7 +22,7 @@ export function* watchUserRegisterRequest() {
 
 // export only watcher sagas in one variable
 export const sagas = [
-  watchGetAllArticlesAsync
+  watchUserRegisterRequest
 ];
 
 

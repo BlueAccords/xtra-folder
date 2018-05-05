@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RegisterForm from './registerForm.jsx';
 import LoginForm from './loginForm.jsx';
+import { actions as authActions } from '../../../state/authentication'
 
 class LoginRegisterModal extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class LoginRegisterModal extends React.Component {
     };
 
     this.setActiveTab = this.setActiveTab.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
 
@@ -26,7 +28,7 @@ class LoginRegisterModal extends React.Component {
   }
 
   handleRegister(params) {
-
+    this.props.actions.userRegisterRequest(params);
   }
 
   // chooses which form to render
@@ -45,7 +47,7 @@ class LoginRegisterModal extends React.Component {
         return (
           <RegisterForm 
             toggleActive={this.props.toggleActive} 
-            handleRegister={}
+            handleRegister={this.handleRegister}
           />
         );
       default:
@@ -98,16 +100,11 @@ class LoginRegisterModal extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    data: state.article.articles
-  }
-}
 
 const mapDispatchToProps = (dispatch) => {
   return {
       actions: bindActionCreators({
-        requestArticles: actions.requestArticles
+        userRegisterRequest: authActions.userRegisterRequest
       }, dispatch)
   }
 }

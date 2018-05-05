@@ -3,12 +3,13 @@
 /* === dont forget to import scss to main.js file === */
 /* ===> import './main.scss'; <=== */
 
+require('babel-polyfill');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: ['babel-polyfill', './src/index.jsx'],
 
   output: {
     path: path.resolve('dist'),

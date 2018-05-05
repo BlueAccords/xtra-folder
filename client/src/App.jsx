@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 
 import MainLayout from './views/layouts/main.jsx';
+import store from './state/configureStore';
 
 
-const App = ({store}) => {
+const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
