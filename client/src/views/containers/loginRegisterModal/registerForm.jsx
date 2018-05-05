@@ -37,8 +37,8 @@ class LoginForm extends React.Component {
           password_confirmation: '',
         }}
         onSubmit={(values, actions) => {
-          alert(JSON.stringify(values));
-          // this.props.handleRegister(values);
+          // alert(JSON.stringify(values));
+          this.props.handleRegister(values);
         }}
         render={({
           values,

@@ -5,13 +5,21 @@ This file contains the rough design documentation for the front end of this site
 - Webpack 4.0
 - React
 - Redux
+  - Global store for state shared among multiple components
 - Redux Sagas
-  - Used for asynchronous actions
+  - Used for asynchronous action management in redux store
 - CSS
-  - TBA
+  - Bulma CSS Framework
 
-## Login Flow
-- User opens login form
-- User hits submit button to submit data
-- dispatch api request via action
-- change store via reducer
+## Register Account Flow
+- User Opens Register modal
+- User enters information
+- User hits submit button
+  - Submit button dispatches `REQUEST_REGISTER` ACTION
+  - `watchRegisterSaga` saga receives `REQUEST_REGISTER` Action and runs `submitRegisterForm` SAGA
+  - `submitRegisterForm` saga runs makes API call with register form data
+  - `submitRegisterForm` saga receives response from API call
+  - `submitRegisterForm` saga dispatches `RECEIVE_REGISTER` action with API response
+  - `RECEIVE_REGISTER` reducer receives the action and payload, and sets user information/session token
+  - Redux store is changed
+- User is redirected to a dashboard/home page after successful register

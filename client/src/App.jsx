@@ -9,9 +9,9 @@ import MainLayout from './views/layouts/main.jsx';
 const App = ({store}) => {
   return (
     <Provider store={store}>
-    <BrowserRouter>
-      <MainLayout/>
-    </BrowserRouter>
+      <BrowserRouter>
+        <MainLayout/>
+      </BrowserRouter>
     </Provider>
   )
 }

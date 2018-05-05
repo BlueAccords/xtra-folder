@@ -1,7 +1,8 @@
 // This modal will have a tab view for both login AND register
 
 import React from 'react';
-import TextInput from '../../components/forms/textInput.jsx';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import RegisterForm from './registerForm.jsx';
 import LoginForm from './loginForm.jsx';
 
@@ -24,6 +25,10 @@ class LoginRegisterModal extends React.Component {
     })
   }
 
+  handleRegister(params) {
+
+  }
+
   // chooses which form to render
   getForm() {
     const activeTab = this.state.activeTab;
@@ -40,6 +45,7 @@ class LoginRegisterModal extends React.Component {
         return (
           <RegisterForm 
             toggleActive={this.props.toggleActive} 
+            handleRegister={}
           />
         );
       default:
@@ -92,4 +98,18 @@ class LoginRegisterModal extends React.Component {
   }
 }
 
-export default LoginRegisterModal;
+const mapStateToProps = (state) => {
+  return {
+    data: state.article.articles
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      actions: bindActionCreators({
+        requestArticles: actions.requestArticles
+      }, dispatch)
+  }
+}
+
+export default connect(null,  mapDispatchToProps)(LoginRegisterModal);
