@@ -26,7 +26,12 @@ function __promisifiedPassportAuthentication(req, res, successMsg, successCode) 
             if(err){
               reject(Boom.badRequest(err));
             }
-            ctrlHelpers.handleResponse(true, res, successCode, successMsg);
+
+            let cleanedUser = user;
+            delete cleanedUser.password_digest;
+            delete cleanedUser.role;
+            delete cleanedUser.created_at;
+            ctrlHelpers.handleResponse(true, res, successCode, successMsg, cleanedUser);
           });
         } else if(info) {
           // TODO: add better handling here to tell user api request was formatted wrong, maybe use joi

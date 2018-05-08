@@ -2,8 +2,8 @@ import * as types from './types';
 
 export default function(
   state = {
-    user: {},
-    error: {}
+    user: null,
+    error: null
   },
   action) {
   switch(action.type) {

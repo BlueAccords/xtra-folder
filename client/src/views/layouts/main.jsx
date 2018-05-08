@@ -1,18 +1,17 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 
 import NavBar from './../components/common/navbar.jsx';
 import LoginRegisterModal from './../containers/loginRegisterModal/index.jsx';
-import HomePage from './../pages/home.jsx';
-import AboutPage from './../pages/about.jsx';
-import ContactPage from './../pages/contact.jsx';
+
 
 class MainLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isMobileMenuActive: false,
+      isLoginMenuActive: false,
     };
 
     this.toggleMobileMenu = this.toggleMobileMenu.bind(this);
@@ -39,14 +38,18 @@ class MainLayout extends React.Component {
         <NavBar 
           isActive={this.state.isMobileMenuActive} 
           toggleActive={this.toggleMobileMenu} 
-          toggleLoginMenu={this.toggleLoginMenu}/>
-        <LoginRegisterModal isActive={this.state.isLoginMenuActive} toggleActive={this.toggleLoginMenu}/>
-        <Route exact path="/" component={HomePage}/>
-        <Route path="/about" component={AboutPage}/>
-        <Route path="/contact" component={ContactPage}/>
+          toggleLoginMenu={this.toggleLoginMenu}
+          user={this.props.user}/>
+        { this.state.isLoginMenuActive && <LoginRegisterModal toggleActive={this.toggleLoginMenu}/>}
       </div>
     )
   }
 }
 
-export default MainLayout;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user
+  }
+}
+
+export default connect(mapStateToProps, null)(MainLayout);

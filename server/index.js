@@ -35,7 +35,7 @@ app.use(session({
   store: redisStore,
   secret: process.env.SESSION_SECRET_KEY,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   // TODO: set this to true once https is enabled
   // cookie: { secure: true } 
 }))
@@ -72,6 +72,9 @@ app.use(function (err, req, res, next) {
   if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
+
+  console.error(err);
+
 
   if(Boom.isBoom(err)) {
     res.status(err.output.statusCode)

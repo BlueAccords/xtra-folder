@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, Route } from 'react-router-dom'
 
 const NavBar = (props) => {
-  const { isActive, toggleActive, toggleLoginMenu } = props;
+  const { user, isActive, toggleActive, toggleLoginMenu } = props;
   return (
        <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
        <div className="container">
@@ -33,7 +33,11 @@ const NavBar = (props) => {
           </div>
           <div className="navbar-end">
             <div className="navbar-item">
-              <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
+            {
+              user ? 
+              <div>Welcome! {user.username}</div>
+              : <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
+            }
             </div>
           </div>
         </div>
@@ -41,9 +45,13 @@ const NavBar = (props) => {
         {/* mobile menu, is hidden by default on mobile */}
         <div className={`navbar-menu ${isActive ? 'is-active' : 'is-hidden-desktop'}`}
           role="navigation" aria-label="main navigation">
-          <div className="navbar-item">
-            <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
-          </div>
+            {
+              user ? 
+              <div className="navbar-item">Welcome! {user.username}</div>
+              : <div className="navbar-item">
+                <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
+              </div>
+            }
           <Link to="/" className="navbar-item">Home</Link>
           <Link to="/about" className="navbar-item">About</Link>
           <Link to="/contact" className="navbar-item">Contact</Link>

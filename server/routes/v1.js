@@ -60,10 +60,10 @@ const folderResource = 'folder';
 
 // GET#All folders
 router.get(folderBaseUrl, 
-  isAllowed.check({
-    resource : folderResource,
-    action: 'read',
-   }),  
+  // isAllowed.check({
+  //   resource : folderResource,
+  //   action: 'read',
+  //  }),  
   folderController.getAll);
 
 // POST#Create a new folder

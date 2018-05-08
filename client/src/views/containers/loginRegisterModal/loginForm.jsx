@@ -7,9 +7,10 @@ class LoginForm extends React.Component {
 
   getSubmitBtnClasses(isSubmitting, isValid) {
     let names = ['button', 'is-primary'];
-      if(isSubmitting) {
-        names.push('is-loading');
-      } else if(isValid) {
+      // if(isSubmitting) {
+      //   names.push('is-loading');
+      // } else if(isValid) {
+      if(isValid) {
         names.push('is-primary');
       }
       return names.join(' ');

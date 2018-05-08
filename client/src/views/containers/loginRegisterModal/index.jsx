@@ -18,8 +18,6 @@ class LoginRegisterModal extends React.Component {
     this.handleRegister = this.handleRegister.bind(this);
   }
 
-
-
   // sets active tab by string
   setActiveTab = param => e => {
     this.setState({
@@ -59,10 +57,9 @@ class LoginRegisterModal extends React.Component {
   }
 
   render() {
-    const { isActive, toggleActive } = this.props;
-    const isActiveClassName = isActive ? 'is-active' : '';
+    const { toggleActive } = this.props;
     return (
-      <div className={`modal ${isActive ? 'is-active' : null}`}>
+      <div className={'modal is-active'}>
         <div onClick={toggleActive} className="modal-background"></div>
         <div className="modal-card has-background-white">
           <header className="modal-card-head">

@@ -34,6 +34,7 @@ module.exports = {
   },
   devServer: {
     contentBase: "./dist",
+    historyApiFallback: true,
     host: process.env.HOST,
     port: process.env.PORT,
     open: true, // open in browser
@@ -41,6 +42,13 @@ module.exports = {
       errors: true,
       warnings: true
     }, // show fullscreen error in browser on error
+    proxy: {
+      "/api/**" : {
+        target: "http://localhost:3000",
+        secure: false,
+        changeOrigin: true
+      }
+    }
   },
 
   plugins: [
