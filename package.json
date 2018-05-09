@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/BlueAccords/xtra-folder#readme",
   "dependencies": {
+    "react-router-redux": "^5.0.0-alpha.9",
     "redux-saga-thunk": "^0.7.1"
   }
 }

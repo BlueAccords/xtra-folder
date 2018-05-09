@@ -65,5 +65,14 @@ module.exports = {
     } else {
       ctrlHelpers.handleResponse(false, res, 400, 'no user is currently logged in');
     }
+  },
+  // used to check if client has a session cookie and if it is validate.
+  validateSession: async function(req, res) {
+    if(req.user && req.isAuthenticated()) {
+      console.log(req.user);
+      ctrlHelpers.handleResponse(true, res, 200, 'success', req.user);
+    } else {
+      throw Boom.badRequest('User is not logged in');
+    }
   }
 }

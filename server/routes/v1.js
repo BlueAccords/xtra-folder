@@ -30,6 +30,7 @@ const authBaseUrl = '/auth';
 router.post(`${authBaseUrl}/register`, authController.register);
 router.post(`${authBaseUrl}/login`, authController.login);
 router.get(`${authBaseUrl}/logout`, authController.logout);
+router.get(`${authBaseUrl}/validate`, authController.validateSession);
 
 // game
 const gameBaseUrl = '/game';

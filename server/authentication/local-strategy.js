@@ -28,7 +28,7 @@ passport.use(new LocalStrategy({
       if(authHelpers.comparePassword(password, user.password_digest)) {
         return done(null, user, 'success');
       } else {
-        return done(null, false, 'passwords do not match');
+        return done(null, false, 'Invalid password');
       }
     })
     .catch((err) => { return done(err); });
