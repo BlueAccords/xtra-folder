@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
 import auth from './authentication';
-// import article from './article';
-// import counter from './counter';
+
+// allow redux to manage browser history
+import { routerReducer } from 'react-router-redux';
+
 
 export default combineReducers({
-  auth
-  // article,
-  // counter
+  auth,
+  router: routerReducer
 });

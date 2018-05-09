@@ -25,10 +25,10 @@ class LoginRegisterModal extends React.Component {
     })
   }
 
+  // returns a promise function to child form
+  // child form can then handle state changes on success/failure
   handleRegister(params) {
-    console.log('handling register');
     return this.props.actions.userRegisterRequest(params)
-
   }
 
   // chooses which form to render

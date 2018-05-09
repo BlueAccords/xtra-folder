@@ -2,6 +2,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import history from './state/historyConfig';
 
 import HomePage from './views/pages/home.jsx';
 import AboutPage from './views/pages/about.jsx';
@@ -14,14 +16,14 @@ import store from './state/configureStore';
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <div>
           <MainLayout/>
           <Route exact path="/" component={HomePage}/>
           <Route path="/about" component={AboutPage}/>
           <Route path="/contact" component={ContactPage}/>
         </div>
-      </BrowserRouter>
+      </ConnectedRouter>
     </Provider>
   )
 }

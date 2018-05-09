@@ -40,8 +40,7 @@ class LoginForm extends React.Component {
           // alert(JSON.stringify(values));
           this.props.handleRegister(values)
           .then((response) => {
-            console.log('success?');
-            console.log(response);
+            this.props.toggleActive();
           })
           .catch((err) => {
             console.log('failure?');
