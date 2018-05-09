@@ -5,13 +5,13 @@ import * as types from './types';
 import api from './api';
 
 export function* userRegister(action) {
-  // { var1, var2, } = action.payload.params;
+  const { payload, meta } = action;
   try {
     const data = yield call(api.registerUser, action.payload);
-    yield put(actions.userRegisterSuccess(data));
+    yield put(actions.userRegisterSuccess(data, meta));
   } catch(err) {
     console.log(err);
-    yield put(actions.userRegisterFailure(err));
+    yield put(actions.userRegisterFailure(err, meta));
   }
 }
 

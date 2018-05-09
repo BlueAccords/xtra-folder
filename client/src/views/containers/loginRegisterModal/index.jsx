@@ -26,7 +26,9 @@ class LoginRegisterModal extends React.Component {
   }
 
   handleRegister(params) {
-    this.props.actions.userRegisterRequest(params);
+    console.log('handling register');
+    return this.props.actions.userRegisterRequest(params)
+
   }
 
   // chooses which form to render
@@ -88,7 +90,7 @@ class LoginRegisterModal extends React.Component {
 
         </div>
         <button 
-          className="modal-close is-large" 
+          className="modal-close is-large is-hidden-mobile" 
           aria-label="close"
           onClick={toggleActive}>
         </button>

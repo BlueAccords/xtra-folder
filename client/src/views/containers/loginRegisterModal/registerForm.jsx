@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import Yup from 'yup';
 import { Form, Formik } from 'formik';
 
@@ -38,22 +38,42 @@ class LoginForm extends React.Component {
         }}
         onSubmit={(values, actions) => {
           // alert(JSON.stringify(values));
-          // this.props.handleRegister(values);
-
+          this.props.handleRegister(values)
+          .then((response) => {
+            console.log('success?');
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log('failure?');
+            console.log(err);
+            actions.setSubmitting(false);
+            actions.setStatus('Username is already taken');
+          })
         }}
         render={({
           values,
           errors,
           touched,
+          status,
           handleChange,
           handleBlur,
           handleSubmit,
           isSubmitting,
           isValid
         }) => (
-          <div>
-            <form onSubmit={handleSubmit}>
+          <Fragment>
             <section className="modal-card-body">
+            {status && 
+              <article className="message is-danger">
+                <div className="message-header">
+                  <p>Error</p> 
+                </div> 
+                <div className="message-body">
+                {status} 
+                </div>
+              </article>
+            }
+            <form onSubmit={handleSubmit}>
               {/* form body */}
                 <div className="field">
                   <label htmlFor="username">Username</label> 
@@ -111,11 +131,17 @@ class LoginForm extends React.Component {
                   </div>
                   {touched.password_confirmation && errors.password_confirmation && <div className="help is-danger">{errors.password_confirmation}</div> }
                 </div>
+                <input type="submit"
+                  style = {
+                    {display: 'none'} // invisible input, so we can submit form by hitting enter
+                  }/>
+            </form>
               </section>
             {/* footer */}
             <footer className="modal-card-foot">
               <button 
-                type="submit"
+                onClick={handleSubmit}
+                type="button"
                 className={this.getSubmitBtnClasses(isSubmitting, isValid)}
                 disabled={!isValid || isSubmitting}>
                 Register
@@ -127,8 +153,7 @@ class LoginForm extends React.Component {
                 Cancel
                 </button> 
             </footer>
-            </form>
-          </div>
+          </Fragment>
         )}
       />
     )

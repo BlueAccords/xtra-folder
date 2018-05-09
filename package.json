@@ -23,5 +23,7 @@
     "url": "https://github.com/BlueAccords/xtra-folder/issues"
   },
   "homepage": "https://github.com/BlueAccords/xtra-folder#readme",
-  "dependencies": {}
+  "dependencies": {
+    "redux-saga-thunk": "^0.7.1"
+  }
 }
