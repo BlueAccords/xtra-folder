@@ -14,6 +14,18 @@ const registerUser = async (params) => {
   }
 }
 
+const loginUser = async (params) => {
+  try {
+    const response = await axios.post(
+      BASE_URL.concat('/auth/login'),
+      params);
+    return response.data;
+  } catch(err) {
+    throw err.response;
+  }
+}
+
 export default {
-  registerUser
+  registerUser,
+  loginUser
 }

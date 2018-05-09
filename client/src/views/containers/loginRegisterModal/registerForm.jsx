@@ -37,14 +37,11 @@ class LoginForm extends React.Component {
           password_confirmation: '',
         }}
         onSubmit={(values, actions) => {
-          // alert(JSON.stringify(values));
           this.props.handleRegister(values)
           .then((response) => {
             this.props.toggleActive();
           })
           .catch((err) => {
-            console.log('failure?');
-            console.log(err);
             actions.setSubmitting(false);
             actions.setStatus('Username is already taken');
           })

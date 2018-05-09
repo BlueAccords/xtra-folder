@@ -27,6 +27,7 @@ const NavBar = (props) => {
         <div className='navbar-menu'
           role="navigation" aria-label="main navigation">
           <div className="navbar-start">
+            {user && <Link to="/dashboard" className="navbar-item">Dashboard</Link>}
             <Link to="/" className="navbar-item">Home</Link>
             <Link to="/about" className="navbar-item">About</Link>
             <Link to="/contact" className="navbar-item">Contact</Link>

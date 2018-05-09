@@ -17,6 +17,16 @@ export default function(
         ...state,
         error: action.payload.error
       }
+    case types.USER_LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.data
+      }
+    case types.USER_LOGIN_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error
+      }
     default:
       return state;
   }

@@ -27,3 +27,30 @@ export const userRegisterFailure = function(error, meta) {
     meta
   }
 }
+
+export const userLoginRequest = function(params) {
+  return {
+    type: types.USER_LOGIN_REQUEST,
+    payload: params,
+    meta: {
+      thunk: true 
+    }
+  }
+}
+
+export const userLoginSuccess = function(params, meta) {
+  return {
+    type: types.USER_LOGIN_SUCCESS,
+    payload: params,
+    meta
+  }
+}
+
+export const userLoginFailure = function(error, meta) {
+  return {
+    type: types.USER_LOGIN_FAILURE,
+    payload: error,
+    error: true,
+    meta
+  }
+}

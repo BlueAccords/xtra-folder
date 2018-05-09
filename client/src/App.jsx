@@ -8,6 +8,7 @@ import history from './state/historyConfig';
 import HomePage from './views/pages/home.jsx';
 import AboutPage from './views/pages/about.jsx';
 import ContactPage from './views/pages/contact.jsx';
+import Dashboard from './views/pages/dashboard.jsx';
 import MainLayout from './views/layouts/main.jsx';
 import store from './state/configureStore';
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route exact path="/" component={HomePage}/>
           <Route path="/about" component={AboutPage}/>
           <Route path="/contact" component={ContactPage}/>
+          <Route path="/dashboard" component={Dashboard}/>
         </div>
       </ConnectedRouter>
     </Provider>

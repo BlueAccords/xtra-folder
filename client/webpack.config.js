@@ -53,7 +53,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Webpack demo",
+      title: "Xtra-Folder Megaman Battle Network Folder Builder",
       template: './src/index.html',
       filename: 'index.html'
     }),

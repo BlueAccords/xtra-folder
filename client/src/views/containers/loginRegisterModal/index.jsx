@@ -16,6 +16,7 @@ class LoginRegisterModal extends React.Component {
 
     this.setActiveTab = this.setActiveTab.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   // sets active tab by string
@@ -31,6 +32,10 @@ class LoginRegisterModal extends React.Component {
     return this.props.actions.userRegisterRequest(params)
   }
 
+  handleLogin(params) {
+    return this.props.actions.userLoginRequest(params)
+  }
+
   // chooses which form to render
   getForm() {
     const activeTab = this.state.activeTab;
@@ -38,7 +43,7 @@ class LoginRegisterModal extends React.Component {
       case 'loginForm':
         return (
           <LoginForm 
-          handleLogin={(values) => {console.log('handle login')}}
+          handleLogin={this.handleLogin}
           toggleActive={this.props.toggleActive} 
           />
         );
@@ -103,7 +108,8 @@ class LoginRegisterModal extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
       actions: bindActionCreators({
-        userRegisterRequest: authActions.userRegisterRequest
+        userRegisterRequest: authActions.userRegisterRequest,
+        userLoginRequest: authActions.userLoginRequest
       }, dispatch)
   }
 }

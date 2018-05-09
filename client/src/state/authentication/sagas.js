@@ -11,7 +11,7 @@ export function* userRegister(action) {
   try {
     const data = yield call(api.registerUser, action.payload);
     yield put(actions.userRegisterSuccess(data, meta));
-    yield put(push('/')); // redirect back to dashboard
+    yield put(push('/dashboard'));
   } catch(err) {
     console.log(err);
     yield put(actions.userRegisterFailure(err, meta));
@@ -24,9 +24,26 @@ export function* watchUserRegisterRequest() {
   yield takeEvery(types.USER_REGISTER_REQUEST, userRegister);
 }
 
+export function* userLogin(action) {
+  const { payload, meta } = action;
+  try {
+    const data = yield call(api.loginUser, action.payload);
+    yield put(actions.userLoginSuccess(data, meta));
+    yield put(push('/dashboard')); // redirect back to dashboard
+  } catch(err) {
+    console.log(err);
+    yield put(actions.userLoginFailure(err, meta));
+  }
+}
+
+export function* watchUserLoginRequest() {
+  yield takeEvery(types.USER_LOGIN_REQUEST, userLogin);
+}
+
 // export only watcher sagas in one variable
 export const sagas = [
-  watchUserRegisterRequest
+  watchUserRegisterRequest,
+  watchUserLoginRequest
 ];
 
 
