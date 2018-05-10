@@ -6,5 +6,10 @@ module.exports = {
       message: statusMsg,
       data: data || null
     });
+  },
+  clearCookie: function(res, name, cookiePath) {
+    res.clearCookie(name, {
+      path: cookiePath
+    })
   }
 }

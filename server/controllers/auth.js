@@ -61,9 +61,16 @@ module.exports = {
   logout: async function(req, res) {
     if(req.isAuthenticated()) {
       req.logout();
-      ctrlHelpers.handleResponse(true, res, 200, 'successfully logged out');
+      req.session.destroy((err) => {
+        if (!err) {
+          ctrlHelpers.clearCookie(res, 'connect.sid', '/');
+          ctrlHelpers.handleResponse(true, res, 200, 'successfully logged out');
+        } else {
+          throw Boom.internal('Failed to logout user or user session no longer exists.');
+        }
+      })
     } else {
-      ctrlHelpers.handleResponse(false, res, 400, 'no user is currently logged in');
+      ctrlHelpers.handleResponse(false, res, 400, 'No user is currently logged in');
     }
   },
   // used to check if client has a session cookie and if it is validate.
