@@ -10,7 +10,6 @@ export const userRegisterRequest = function(params) {
     }
   }
 }
-
 export const userRegisterSuccess = function(params, meta) {
   return {
     type: types.USER_REGISTER_SUCCESS,
@@ -52,5 +51,19 @@ export const userLoginFailure = function(error, meta) {
     payload: error,
     error: true,
     meta
+  }
+}
+
+export const sessionLoadSuccess = function(user) {
+  return {
+    type: types.SESSION_LOAD_SUCCESS,
+    payload: user,
+  }
+}
+
+export const sessionLoadFailure = function(error) {
+  return {
+    type: types.SESSION_LOAD_FAILURE,
+    payload: error,
   }
 }

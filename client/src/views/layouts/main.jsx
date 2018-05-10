@@ -39,7 +39,9 @@ class MainLayout extends React.Component {
           isActive={this.state.isMobileMenuActive} 
           toggleActive={this.toggleMobileMenu} 
           toggleLoginMenu={this.toggleLoginMenu}
-          user={this.props.user}/>
+          user={this.props.user}
+          isSessionLoaded={this.props.isSessionLoaded} 
+          />
         { this.state.isLoginMenuActive && <LoginRegisterModal toggleActive={this.toggleLoginMenu}/>}
       </div>
     )
@@ -48,7 +50,8 @@ class MainLayout extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    isSessionLoaded: state.auth.isInitialSessionLoaded
   }
 }
 

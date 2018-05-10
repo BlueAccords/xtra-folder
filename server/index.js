@@ -38,6 +38,10 @@ app.use(session({
   saveUninitialized: false,
   // TODO: set this to true once https is enabled
   // cookie: { secure: true } 
+  cookie: {
+    httpOnly: false,
+    secure: false
+  }
 }))
 
 // body parser
@@ -54,10 +58,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // cors
+// IDEA: re examine what options are needed in production
 const corsOptions = {
-  origin: '*',
-  methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: true,
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'X-PINGOTHER', 'X-Requested-With', 
+    'Accept', 'Origin', 'X-HTTP-Method-Override', 'Authorization', 'Cookie'],
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  exposedHeaders: ['Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Cookie'],
+  credentials: true
 }
 app.use(cors(corsOptions));
 
@@ -72,9 +81,6 @@ app.use(function (err, req, res, next) {
   if(process.env.NODE_ENV == 'development') {
     console.error(err.stack)
   }
-
-  console.error(err);
-
 
   if(Boom.isBoom(err)) {
     res.status(err.output.statusCode)

@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { Link, Route } from 'react-router-dom'
+import UserNavbar from './userNavbar.jsx';
 
 const NavBar = (props) => {
-  const { user, isActive, toggleActive, toggleLoginMenu } = props;
+  const { user, isActive, toggleActive, toggleLoginMenu, isSessionLoaded } = props;
   return (
        <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
        <div className="container">
@@ -33,13 +34,11 @@ const NavBar = (props) => {
             <Link to="/contact" className="navbar-item">Contact</Link>
           </div>
           <div className="navbar-end">
-            <div className="navbar-item">
-            {
-              user ? 
-              <div>Welcome! {user.username}</div>
-              : <button className="button is-info" onClick={toggleLoginMenu}>Login/Register</button> 
-            }
-            </div>
+          <UserNavbar 
+            user={user}
+            isSessionLoaded={isSessionLoaded}
+            toggleMenu={toggleLoginMenu}
+          />
           </div>
         </div>
 

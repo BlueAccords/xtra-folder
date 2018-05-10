@@ -2,6 +2,9 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './rootReducer';
 
+// used to initialize user session from cookie
+import { loadUserSession, executeLoadUserSession } from './authentication/sagas';
+
 // used to make redux saga calls that can return promises
 import { middleware as thunkMiddleware } from 'redux-saga-thunk' 
 import rootSaga from './rootSaga';
@@ -38,6 +41,9 @@ const store = createStore(
 )
  */
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
+
+// load user session from cookie on app start
+sagaMiddleware.run(executeLoadUserSession);
 
 export default store;

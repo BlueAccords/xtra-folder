@@ -10,6 +10,8 @@ import AboutPage from './views/pages/about.jsx';
 import ContactPage from './views/pages/contact.jsx';
 import Dashboard from './views/pages/dashboard.jsx';
 import MainLayout from './views/layouts/main.jsx';
+import Profile from './views/pages/profile.jsx';
+import Settings from './views/pages/settings.jsx';
 import store from './state/configureStore';
 
 
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/about" component={AboutPage}/>
           <Route path="/contact" component={ContactPage}/>
           <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/profile" component={Profile}/>
+          <Route path="/settings" component={Settings}/>
         </div>
       </ConnectedRouter>
     </Provider>
