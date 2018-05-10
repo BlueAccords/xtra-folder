@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
 import React from 'react';
+import { Link } from 'react-router-dom'
+import PT from 'prop-types';
 
-const UserNavbar = ({user, isSessionLoaded, toggleMenu, requestUserLogout }) => {
+const UserMenu = ({user, isSessionLoaded, toggleMenu, requestUserLogout }) => {
   async function requestLogout() {
     try {
       await requestUserLogout();
@@ -47,4 +48,11 @@ const UserNavbar = ({user, isSessionLoaded, toggleMenu, requestUserLogout }) => 
   }
 }
 
-export default UserNavbar;
+UserMenu.propTypes = {
+  user: PT.object,
+  isSessionLoaded: PT.bool.isRequired,
+  toggleMenu: PT.func.isRequired,
+  requestUserLogout: PT.func.isRequired 
+}
+
+export default UserMenu;

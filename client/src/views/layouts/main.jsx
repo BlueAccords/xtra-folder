@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavBar from './../components/common/navbar.jsx';
+import NavBar from './../containers/NavBar/index.jsx';
 import LoginRegisterModal from './../containers/loginRegisterModal/index.jsx';
 
 
