@@ -1,6 +1,7 @@
 // reusable navbar for header
 
 import React from 'react';
+import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
@@ -62,5 +63,12 @@ const mapStateToProps = (state) => {
     isSessionLoaded: state.auth.isInitialSessionLoaded
   }
 }
+
+NavBar.propTypes = {
+  isActive: PT.bool.isRequired,
+  toggleActive: PT.func.isRequired,
+  toggleLoginMenu: PT.func.isRequired,
+  isSessionLoaded: PT.bool.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
