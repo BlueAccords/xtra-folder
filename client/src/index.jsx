@@ -7,9 +7,7 @@ import App from './App.jsx';
 class BasicComponent extends React.Component {
   render() {
     return (
-      <div>
-        <App/>
-      </div>
+      <App/>
     )
   }
 }

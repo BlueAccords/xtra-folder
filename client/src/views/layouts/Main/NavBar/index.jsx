@@ -1,4 +1,5 @@
-// reusable navbar for header
+// Nav bar, supports desktop and mobile menu
+// used in main layout
 
 import React from 'react';
 import PT from 'prop-types';
@@ -6,7 +7,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux';
 
-import { actions as authActions } from './../../../state/authentication';
+import { actions as authActions } from '../../../../state/authentication';
 import DesktopMenu from './DesktopMenu.jsx';
 import MobileMenu from './MobileMenu.jsx';
 import Brand from './Brand.jsx';

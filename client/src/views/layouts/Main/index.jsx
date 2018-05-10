@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-import NavBar from './../containers/NavBar/index.jsx';
-import LoginRegisterModal from './../containers/loginRegisterModal/index.jsx';
+import NavBar from './NavBar/index.jsx';
+import Footer from './Footer/index.jsx';
+import LoginRegisterModal from './../../containers/loginRegisterModal/index.jsx';
 
 
 class MainLayout extends React.Component {
@@ -32,14 +33,18 @@ class MainLayout extends React.Component {
   render() {
     const isActiveClassName = this.state.isMobileMenuActive ? 'is-active' : '';
     return (
-      <div>
+      <Fragment>
         <NavBar 
           isActive={this.state.isMobileMenuActive} 
           toggleActive={this.toggleMobileMenu} 
           toggleLoginMenu={this.toggleLoginMenu}
           />
         { this.state.isLoginMenuActive && <LoginRegisterModal toggleActive={this.toggleLoginMenu}/>}
-      </div>
+        <div className='primary-content'>
+          {this.props.children}
+        </div>
+        <Footer/>
+      </Fragment>
     )
   }
 }

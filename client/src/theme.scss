@@ -3,4 +3,12 @@
 
 
 // override bulma + add custom scss here
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
 
+.primary-content {
+  flex: 1;
+}
