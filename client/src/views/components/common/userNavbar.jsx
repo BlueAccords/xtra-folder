@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
 import React from 'react';
 
-const UserNavbar = ({user, isSessionLoaded, toggleMenu}) => {
+const UserNavbar = ({user, isSessionLoaded, toggleMenu, requestUserLogout }) => {
+  async function requestLogout() {
+    try {
+      await requestUserLogout();
+    } catch(err) {
+      // TODO: flash message here to notify user of logout failure
+      console.log(err);
+    }
+  }
   if(!isSessionLoaded) {
     return (
       // TODO: load font awesome into html file to use icons
@@ -28,7 +36,11 @@ const UserNavbar = ({user, isSessionLoaded, toggleMenu}) => {
           <Link to="/profile" className="navbar-item">Profile</Link>
           <Link to="/settings" className="navbar-item">Settings</Link>
           <hr className="navbar-divider"/>
-          <a href="#" className="navbar-item">Logout</a>
+          <a
+            href="#"
+            className="navbar-item"
+            onClick={requestLogout} 
+            >Logout</a>
         </div>
       </div>
     ) 

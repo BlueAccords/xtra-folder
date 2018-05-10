@@ -61,6 +61,7 @@ module.exports = {
   logout: async function(req, res) {
     if(req.isAuthenticated()) {
       req.logout();
+      // clear session on client side by overwriting it with an expired cookie with the same name
       req.session.destroy((err) => {
         if (!err) {
           ctrlHelpers.clearCookie(res, 'connect.sid', '/');

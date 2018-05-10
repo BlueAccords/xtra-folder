@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from './rootReducer';
 
 // used to initialize user session from cookie
-import { loadUserSession, executeLoadUserSession } from './authentication/sagas';
+import { executeLoadUserSession } from './authentication/sagas';
 
 // used to make redux saga calls that can return promises
 import { middleware as thunkMiddleware } from 'redux-saga-thunk' 

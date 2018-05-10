@@ -24,6 +24,7 @@ export function* watchUserRegisterRequest() {
   yield takeEvery(types.USER_REGISTER_REQUEST, userRegister);
 }
 
+// user login sagas
 export function* userLogin(action) {
   const { payload, meta } = action;
   try {
@@ -38,6 +39,23 @@ export function* userLogin(action) {
 
 export function* watchUserLoginRequest() {
   yield takeEvery(types.USER_LOGIN_REQUEST, userLogin);
+}
+
+// user logout sagas
+export function* userLogout(action) {
+  const { meta } = action;
+  try {
+    yield call(api.logoutUser);
+    yield put(actions.userLogoutSuccess(meta));
+    yield put(push('/'));
+  } catch(err) {
+    console.log(err);
+    yield put(actions.userLogoutFailure(err, meta));
+  }
+}
+
+export function* watchUserLogoutRequest() {
+  yield takeEvery(types.USER_LOGOUT_REQUEST, userLogout);
 }
 
 // saga to load user session from cookie, if possible
@@ -58,7 +76,8 @@ export function* executeLoadUserSession() {
 // export only watcher sagas in one variable
 export const sagas = [
   watchUserRegisterRequest,
-  watchUserLoginRequest
+  watchUserLoginRequest,
+  watchUserLogoutRequest
 ];
 
 

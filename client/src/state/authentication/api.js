@@ -26,6 +26,18 @@ const loginUser = async (params) => {
   }
 }
 
+const logoutUser = async () => {
+  try {
+    const response = await axios.get(
+      BASE_URL.concat('/auth/logout')
+    );
+
+    return response.data;
+  } catch(err) {
+    throw err.response;
+  }
+}
+
 const getUserFromSession = async () => {
   try {
     const response = await axios.get(
@@ -45,5 +57,6 @@ const getUserFromSession = async () => {
 export default {
   registerUser,
   loginUser,
-  getUserFromSession
+  getUserFromSession,
+  logoutUser
 }

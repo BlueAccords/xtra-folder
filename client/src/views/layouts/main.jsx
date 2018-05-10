@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
 
 import NavBar from './../components/common/navbar.jsx';
 import LoginRegisterModal from './../containers/loginRegisterModal/index.jsx';
@@ -39,8 +37,6 @@ class MainLayout extends React.Component {
           isActive={this.state.isMobileMenuActive} 
           toggleActive={this.toggleMobileMenu} 
           toggleLoginMenu={this.toggleLoginMenu}
-          user={this.props.user}
-          isSessionLoaded={this.props.isSessionLoaded} 
           />
         { this.state.isLoginMenuActive && <LoginRegisterModal toggleActive={this.toggleLoginMenu}/>}
       </div>
@@ -48,11 +44,4 @@ class MainLayout extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.auth.user,
-    isSessionLoaded: state.auth.isInitialSessionLoaded
-  }
-}
-
-export default connect(mapStateToProps, null)(MainLayout);
+export default MainLayout;

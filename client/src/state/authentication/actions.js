@@ -54,6 +54,31 @@ export const userLoginFailure = function(error, meta) {
   }
 }
 
+export const userLogoutRequest = function() {
+  return {
+    type: types.USER_LOGOUT_REQUEST,
+    meta: {
+      thunk: true 
+    }
+  }
+}
+
+export const userLogoutSuccess = function(meta) {
+  return {
+    type: types.USER_LOGOUT_SUCCESS,
+    meta
+  }
+}
+
+export const userLogoutFailure = function(error, meta) {
+  return {
+    type: types.USER_LOGOUT_FAILURE,
+    payload: error,
+    error: true,
+    meta
+  }
+}
+
 export const sessionLoadSuccess = function(user) {
   return {
     type: types.SESSION_LOAD_SUCCESS,

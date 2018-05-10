@@ -30,6 +30,17 @@ export default function(
         ...state,
         error: action.payload.error
       }
+    // user logout
+    case types.USER_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        user: null
+      }
+    case types.USER_LOGOUT_FAILURE:
+      return {
+        ...state,
+        error: action.payload.message
+      }
     // loading user data from cookie session
     case types.SESSION_LOAD_SUCCESS:
       return {

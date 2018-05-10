@@ -41,4 +41,10 @@ This file contains the rough design documentation for the front end of this site
   - `submitRegisterForm` saga dispatches `RECEIVE_REGISTER` action with API response
   - `RECEIVE_REGISTER` reducer receives the action and payload, and sets user information/session token
   - Redux store is changed
-- User is redirected to a dashboard/home page after successful register
+- react component listening to redux store updates ui
+- User is redirected to a dashboard after successful register
+
+## Redux, Components, Design Patterns
+- Problem: child components are nested inside of a container and need actions/state from redux store
+  - This means we would have to pass state/actions through multiple child components who don't use the action/state we're passing through until it reaches the nested child that actually uses it.
+- Solution: ???
