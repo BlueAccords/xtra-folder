@@ -28,8 +28,6 @@ This file contains the rough design documentation for the front end of this site
   - We can store JWT on the client side in either localStorage or cookies. localStorage is vulnerable to XSS(Cross-Site Scripting) attacks, while cookies are vulnerable to CSRF(Cross Site Request Forgery) attacks. After doing some research on this it seems like storing the JWT in cookies is the better option as CSRF is easier to mitigate than XSS.
 
 ## Flows
-
-
 ### Register Account Flow
 - User Opens Register modal
 - User enters information
@@ -44,7 +42,12 @@ This file contains the rough design documentation for the front end of this site
 - react component listening to redux store updates ui
 - User is redirected to a dashboard after successful register
 
+### Hide buttons, depending on if user has ownership of resource
+#### User Story
+1. User navigates to individual folder page
+2. User should NOT see edit/delete options UNLESS they are the owner of the folder
+
 ## Redux, Components, Design Patterns
 - Problem: child components are nested inside of a container and need actions/state from redux store
   - This means we would have to pass state/actions through multiple child components who don't use the action/state we're passing through until it reaches the nested child that actually uses it.
-- Solution: ???
+- Solution: Organize by feature, if passing child props through too many components then consider adding the props directly to the needed container

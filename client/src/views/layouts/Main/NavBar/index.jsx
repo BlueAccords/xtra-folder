@@ -18,22 +18,20 @@ class NavBar extends React.Component {
   }
 
   render() {
-    const { actions, user, isActive, toggleActive, toggleLoginMenu, isSessionLoaded } = this.props;
+    const { actions, user, isActive, toggleMobileMenu, toggleLoginMenu, isSessionLoaded } = this.props;
     return (
         <nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
         <div className="container">
           <Brand
-            toggleActive={toggleActive}
+            toggleMobileMenu={toggleMobileMenu}
             isActive={isActive}
           />
-
           <DesktopMenu
               user={user}
               isSessionLoaded={isSessionLoaded}
               toggleLoginMenu={toggleLoginMenu}
               userLogoutRequest={actions.userLogoutRequest}
           />
-
           {/* mobile menu, is hidden by default on mobile */}
           <MobileMenu
             user={user}
@@ -67,7 +65,7 @@ const mapStateToProps = (state) => {
 
 NavBar.propTypes = {
   isActive: PT.bool.isRequired,
-  toggleActive: PT.func.isRequired,
+  toggleMobileMenu: PT.func.isRequired,
   toggleLoginMenu: PT.func.isRequired,
   isSessionLoaded: PT.bool.isRequired
 };

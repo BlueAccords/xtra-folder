@@ -1,7 +1,7 @@
 import PT from 'prop-types';
 import React from 'react';
 
-const Brand = ({ toggleActive, isActive }) => {
+const Brand = ({ toggleMobileMenu, isActive }) => {
   return (
     <div className="navbar-brand">
       <a href="#" className="navbar-item">
@@ -11,7 +11,7 @@ const Brand = ({ toggleActive, isActive }) => {
       {/* hamburger button*/}
       <div role="button" className={`navbar-burger ${isActive ? 'is-active' : null}`} 
         aria-label="menu" aria-expanded="false"
-        onClick={toggleActive}>
+        onClick={toggleMobileMenu}>
         <span aria-hidden="true"></span> 
         <span aria-hidden="true"></span> 
         <span aria-hidden="true"></span> 
@@ -21,7 +21,7 @@ const Brand = ({ toggleActive, isActive }) => {
 }
 
 Brand.propTypes = {
-  toggleActive: PT.func,
+  toggleMobileMenu: PT.func,
   isActive: PT.bool
 }
 

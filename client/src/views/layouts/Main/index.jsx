@@ -36,7 +36,7 @@ class MainLayout extends React.Component {
       <Fragment>
         <NavBar 
           isActive={this.state.isMobileMenuActive} 
-          toggleActive={this.toggleMobileMenu} 
+          toggleMobileMenu={this.toggleMobileMenu} 
           toggleLoginMenu={this.toggleLoginMenu}
           />
         { this.state.isLoginMenuActive && <LoginRegisterModal toggleActive={this.toggleLoginMenu}/>}
