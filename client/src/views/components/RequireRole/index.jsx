@@ -4,6 +4,23 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import PT from 'prop-types';
 
+/**
+ * This class is a higher order component, which wraps
+ * around a component, and will conditionally render the component, or redirect the user
+ * to a login/forbidden page depending on if they meet the requirements to view the page.
+ * 
+ * More details near the bottom of the file
+ * 
+ * Example usage:
+ * 
+ * import RequireRole from './RequireRole/index.jsx'
+ * import SomeComponent from './SomeComponent';
+ * render() {
+ *   return (
+ *     { RequireRole(SomeComponent, {requiredRole: 'admin'})}
+ *   )
+ * }
+ */
 class RequireRoleBase extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +47,7 @@ class RequireRoleBase extends React.Component {
     return !requiredRole || requiredRole === currentUserRole;
   }
 
+  // used to check auth roles after user session is loaded on app start
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.ensureAuth(this.props);
   }
@@ -78,6 +96,14 @@ const mapDispatchToProps = (dispatch) => {
 
 const RequiredRoleConnected = connect(mapStateToProps, mapDispatchToProps)(RequireRoleBase);
 
+/**
+ * A higher order component that will conditionally render its wrapped component
+ * OR will redirect to login/forbidden page if role is not correct, or user is not logged in
+ * 
+ * @param {React.Component} WrappedComponent component to be conditionally rendered if requirements are met
+ * @param {object} requireRoleProps object containing 'requiredRole' property, 
+ *  an optional string to match against the user's role from redux store
+ */
 const RequireRole = (WrappedComponent, requireRoleProps = {}) => {
   return function(props) {
     return (

@@ -12,7 +12,9 @@ module.exports = {
   entry: ['babel-polyfill', './src/index.jsx'],
 
   output: {
-    path: path.resolve('dist'),
+    // path: path.resolve('dist'),
+    path: path.join(__dirname, 'dist'), 
+    publicPath: '/',
     filename: 'bundle.js',
     // publicPath: "/dist"
   },
@@ -53,6 +55,10 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
+      files: {
+        js: ['/bundle.js'],
+        css: ['/css/styles.css']
+      },
       title: "Xtra-Folder Megaman Battle Network Folder Builder",
       template: './src/index.html',
       filename: 'index.html'

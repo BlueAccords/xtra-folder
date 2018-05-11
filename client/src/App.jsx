@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import history from './state/historyConfig';
 
@@ -15,6 +15,7 @@ import Profile from './views/pages/profile.jsx';
 import Settings from './views/pages/settings.jsx';
 import Login from './views/pages/Login.jsx';
 import Forbidden from './views/pages/Forbidden.jsx';
+import NotFound from './views/pages/NotFound.jsx';
 
 import RequireRole from './views/components/RequireRole/index.jsx';
 
@@ -23,14 +24,18 @@ const App = () => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <MainLayout>
-          <Route exact path="/" component={HomePage}/>
-          <Route path="/about" component={AboutPage}/>
-          <Route path="/contact" component={RequireRole(ContactPage, { requiredRole: 'admin'})}/>
-          <Route path="/dashboard" component={RequireRole(Dashboard)}/>
-          <Route path="/profile" component={Profile}/>
-          <Route path="/settings" component={Settings}/>
-          <Route path="/login" component={Login}/>
-          <Route path="/forbidden" component={Forbidden}/>
+          <Switch>
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/about" component={AboutPage}/>
+            <Route path="/contact" component={RequireRole(ContactPage, { requiredRole: 'admin'})}/>
+            <Route path="/dashboard" component={RequireRole(Dashboard)}/>
+            <Route path="/profile" component={Profile}/>
+            <Route path="/settings" component={RequireRole(Settings)}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/forbidden" component={Forbidden}/>
+            <Route exact path="/404" component={NotFound}/>
+            <Redirect to="/404" component={NotFound}/>
+          </Switch>
         </MainLayout>
       </ConnectedRouter>
     </Provider>
