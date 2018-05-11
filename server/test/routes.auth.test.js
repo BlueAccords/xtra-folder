@@ -76,7 +76,7 @@ describe('routes : auth', () => {
           should.not.exist(err);
           res.status.should.equal(400);
           res.type.should.equal('application/json');
-          res.body.message.should.eql('passwords do not match');
+          res.body.message.should.eql('Invalid password');
           done();
       });
     });

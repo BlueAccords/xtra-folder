@@ -14,7 +14,7 @@ module.exports = {
   output: {
     // path: path.resolve('dist'),
     path: path.join(__dirname, 'dist'), 
-    publicPath: '/',
+    publicPath: '/', // included to client doesn't fail to serve files on nested routes
     filename: 'bundle.js',
     // publicPath: "/dist"
   },
