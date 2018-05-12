@@ -11,6 +11,7 @@ const DesktopMenu = ({ user, isSessionLoaded, toggleLoginMenu, userLogoutRequest
         <Link to="/" className="navbar-item">Home</Link>
         <Link to="/about" className="navbar-item">About</Link>
         <Link to="/contact" className="navbar-item">Contact</Link>
+        <Link to="/folders" className="navbar-item">Folders</Link>
       </div>
       <div className="navbar-end">
       <UserMenu 
