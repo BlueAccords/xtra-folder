@@ -12,13 +12,16 @@ const path = require('path');
 const passport = require('./../authentication/local-strategy');
 
 // user role based permission
-
 const AccessControlMiddleware = require('accesscontrol-middleware');
 const AccessControl = require('accesscontrol');
 const knexConnection = require('./../db/connection') // used to make db calls to check for ownership
 const acConfig = require('./../config/accessControlConfig');
 const ac = new AccessControl(acConfig);
 const isAllowed = new AccessControlMiddleware(ac, knexConnection);
+
+// request, query validation
+const validateRequest = require('express-validation');
+const folderReqSchema = require('./requestValidationSchemas/folder');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -61,10 +64,7 @@ const folderResource = 'folder';
 
 // GET#All folders
 router.get(folderBaseUrl, 
-  // isAllowed.check({
-  //   resource : folderResource,
-  //   action: 'read',
-  //  }),  
+  validateRequest(folderReqSchema.getAll),
   folderController.getAll);
 
 // POST#Create a new folder
