@@ -6,6 +6,7 @@ const Boom = require('boom');
 
 module.exports = {
   getAll: async function(req, res) {
+    const { sortKey, sortDirection } = req.query;
     try {
       const folders = await Folder.query();
       ctrlHelpers.handleResponse(true, res, 200, 'success', folders);

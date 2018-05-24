@@ -35,7 +35,7 @@ describe('# routes : folder', () => {
     it('should return all folders', (done) => {
       testHelper.login(agent, chai).then(() => {
         agent
-        .get('/api/folder')
+        .get('/api/folder?sortKey=id&sortDirection=ASC')
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);
@@ -47,6 +47,21 @@ describe('# routes : folder', () => {
           res.body.data[0].should.include.keys(
             'id', 'title', 'description', 'author_id'
           );
+          done();
+        });
+      });
+    });
+
+    // test query validation
+    it.only('should return return error on get folders if given incorrect query parameters', (done) => {
+      testHelper.login(agent, chai).then(() => {
+        agent
+        .get('/api/folder')
+        .end((err, res) => {
+          res.status.should.equal(400);
+          res.type.should.equal('application/json');
+          res.body.message.should.eql('Invalid query parameters');
+          res.body.error.length.should.eql(2);
           done();
         });
       });

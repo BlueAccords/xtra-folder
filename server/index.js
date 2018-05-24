@@ -13,8 +13,7 @@ const passport = require('passport');
 const cors = require('cors');
 const Boom = require('boom');
 
-
-
+const requestErrorHandler = require('./middlewares/requestValidationErrorHandler');
 const dbErrorHandler = require('./middlewares/dbErrorHandler');
 const routes = require('./routes/v1');
 const redisStore = require('./db/redisStore');
@@ -72,6 +71,9 @@ app.use(cors(corsOptions));
 
 // v1 api routes
 app.use('/api', routes);
+
+// request object validation error handler
+app.use(requestErrorHandler.errorHandler);
 
 // db error handler
 app.use(dbErrorHandler.errorHandler);
