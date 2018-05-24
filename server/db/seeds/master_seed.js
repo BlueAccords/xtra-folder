@@ -55,8 +55,8 @@ exports.seed = function(knex, Promise) {
     })
   })
   .then(function() {
-    return knex.select('id').from('user').first().then(function(oneUser) {
-      return knex('folder').insert(folderData(oneUser));
+    return knex.select('id').from('user').then(function(users) {
+      return knex('folder').insert(folderData(users));
     });
   })
   .then(function() {
