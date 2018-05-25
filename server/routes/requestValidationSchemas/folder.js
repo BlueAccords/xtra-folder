@@ -17,7 +17,7 @@ module.exports = {
         .valid(['ASC', 'DESC'])
         .required(),
       page: Joi.number()
-        .integer().optional(),
+        .integer().min(1).optional(),
       limit: Joi.number()
         .integer().optional(),
     }

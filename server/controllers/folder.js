@@ -6,9 +6,24 @@ const Boom = require('boom');
 
 module.exports = {
   getAll: async function(req, res) {
-    const { sortKey, sortDirection } = req.query;
+    const { q, sortKey='id', sortDirection='ASC', page=1, limit=25 } = req.query;
+
     try {
-      const folders = await Folder.query();
+      // const folders = await Folder.query();
+      const folders = await Folder.query()
+        .modify((builder) => {
+          if(q) {
+            builder.where('title', 'like', `%${q}%`);
+            builder.orWhere('description', 'like', `%${q}%`);
+          }
+
+          return builder;
+        })
+        .orderBy(sortKey, sortDirection)
+        .page(page - 1, limit);
+      
+      // set last page property
+      folders.lastPage = Math.ceil(folders.total / limit);
       ctrlHelpers.handleResponse(true, res, 200, 'success', folders);
     } catch (err) {
       throw Boom.badRequest(err);
