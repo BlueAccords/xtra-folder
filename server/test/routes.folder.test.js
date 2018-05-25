@@ -43,8 +43,9 @@ describe('# routes : folder', () => {
           res.body.statusCode.should.eql(200);
           res.body.success.should.eql(true);
           res.body.message.should.eql('success');
-          res.body.data.length.should.eql(203);
-          res.body.data[0].should.include.keys(
+          res.body.data.total.should.eql(203);
+          res.body.data.results.length.should.eql(25);
+          res.body.data.results[0].should.include.keys(
             'id', 'title', 'description', 'author_id'
           );
           done();

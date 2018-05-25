@@ -28,7 +28,7 @@ class Folder extends DbErrors(Sch.Model) {
 
   static get relationMappings() {
     return {
-      owner: {
+      author: {
         relation: Model.BelongsToOneRelation,
         // The related model. This can be either a Model subclass constructor or an
         // absolute file path to a module that exports one. We use the file path version
