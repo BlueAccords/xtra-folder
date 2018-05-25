@@ -1,6 +1,8 @@
 import React from 'react';
 import PT from 'prop-types';
 
+import FoldersList from './../containers/FoldersList/index.jsx'
+
 class SearchFolders extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ class SearchFolders extends React.Component {
         </section>   
         <div className="section">
           <div className="container">
-            <p>Search folders</p>
+            <FoldersList/>
           </div>
         </div>
       </div>
