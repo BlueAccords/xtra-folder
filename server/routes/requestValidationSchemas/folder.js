@@ -19,7 +19,7 @@ module.exports = {
       page: Joi.number()
         .integer().min(1).optional(),
       limit: Joi.number()
-        .integer().optional(),
+        .integer().max(100).optional(),
     }
   }
 }
