@@ -11,7 +11,7 @@ module.exports = {
         .max(100)
         .optional(),
       sortKey: Joi.string()
-        .valid(['id', 'title', 'description', 'author_id'])
+        .valid(['id', 'title', 'description', 'username'])
         .required(),
       sortDirection: Joi.string()
         .valid(['ASC', 'DESC'])
