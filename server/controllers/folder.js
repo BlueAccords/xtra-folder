@@ -19,6 +19,7 @@ module.exports = {
 
           return builder;
         })
+        .eager('author')
         .orderBy(sortKey, sortDirection)
         .page(page - 1, limit);
       

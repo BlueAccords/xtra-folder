@@ -34,6 +34,7 @@ class Folder extends DbErrors(Sch.Model) {
         // absolute file path to a module that exports one. We use the file path version
         // here to prevent require loops.
         modelClass: __dirname + '/user',
+        filter: query => query.select('id', 'username'),
         join: {
           from: 'folder.author_id',
           to: 'user.id'
