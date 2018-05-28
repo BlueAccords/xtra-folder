@@ -76,8 +76,6 @@ module.exports = {
   },
   // used to check if client has a session cookie and if it is validate.
   validateSession: async function(req, res) {
-    console.log(req.user);
-    console.log(req.isAuthenticated());
     if(req.user && req.isAuthenticated()) {
       ctrlHelpers.handleResponse(true, res, 200, 'success', req.user);
     } else {

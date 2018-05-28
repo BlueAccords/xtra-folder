@@ -1,9 +1,11 @@
 import { sagas as authenticationSagas } from './authentication';
+import { sagas as allFoldersSagas } from './allFolders';
 import { takeEvery, takeLatest, fork, all } from 'redux-saga/effects';
 
 
 const allSagas = [
-  ...authenticationSagas
+  ...authenticationSagas,
+  ...allFoldersSagas
 ]
 
 

@@ -27,3 +27,6 @@ Knex:warning - migration failed with error: alter table `chip` modify `element` 
 
 ## General Development
 - After the first few models, I ended up repeating the CRUD actions for a lot of my models. Maybe use yaml or some other tool to auto generate these models after the first few if they are really similar.
+
+
+## Server

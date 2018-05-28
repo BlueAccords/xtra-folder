@@ -6,7 +6,7 @@ const Boom = require('boom');
 
 module.exports = {
   getAll: async function(req, res) {
-    const { q, sortKey='id', sortDirection='ASC', page=1, limit=25 } = req.query;
+    const { q, sortBy='id', order='ASC', page=1, limit=25 } = req.query;
 
     try {
       // const folders = await Folder.query();
@@ -20,7 +20,7 @@ module.exports = {
           return builder;
         })
         .joinEager('author')
-        .orderBy(sortKey, sortDirection)
+        .orderBy(sortBy, order)
         .page(page - 1, limit);
       
       // set last page property

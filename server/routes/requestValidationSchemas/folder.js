@@ -10,10 +10,10 @@ module.exports = {
       q: Joi.string()
         .max(100)
         .optional(),
-      sortKey: Joi.string()
+      sortBy: Joi.string()
         .valid(['id', 'title', 'description', 'username'])
         .required(),
-      sortDirection: Joi.string()
+      order: Joi.string()
         .valid(['ASC', 'DESC'])
         .required(),
       page: Joi.number()
