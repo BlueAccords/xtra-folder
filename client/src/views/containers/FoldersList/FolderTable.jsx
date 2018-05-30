@@ -23,6 +23,7 @@ const FolderTable = ({ columnNames, isLoading, foldersList }) => {
             id={folderItem.id}
             title={folderItem.title}
             description={folderItem.description}
+            author={folderItem.author}
           />
         })
       }

@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FolderTable from './FolderTable.jsx';
+import withPaginated from './../../components/common/withPaginated.jsx';
 import { actions as allFoldersActions } from './../../../state/allFolders';
 import { selectors as allFoldersSelectors } from './../../../state/allFolders';
 
 
 const columnNames = ['Id', 'Title', 'Description', 'Author'];
+
+const FolderTableWithPagination = withPaginated(FolderTable);
 
 /**
  * Folder list component, displays a table of folders and supports
@@ -23,6 +26,8 @@ class FoldersList extends React.Component {
       sortDirection: 'ASC',
       searchFilter: null,
     }
+
+    this.handlePageJump = this.handlePageJump.bind(this);
   }
 
   componentDidMount() {
@@ -31,13 +36,28 @@ class FoldersList extends React.Component {
     fetchFolders(this.state);
   }
 
+  handlePageJump(pageNum) {
+    const { fetchFolders } = this.props.actions;
+    return () => {
+      fetchFolders({
+        ...this.state,
+        page: pageNum
+      });
+    }
+  }
+
   render() {
+    const { isLoading, currentPageFolders, currentPage, lastPage } = this.props;
     return (
       <Fragment>
-        <FolderTable 
+        <FolderTableWithPagination
           columnNames={columnNames}
-          isLoading={this.props.isLoading}
-          foldersList={this.props.currentPageFolders}/>
+          isLoading={isLoading}
+          foldersList={currentPageFolders}
+          itemsCurrentPage={currentPage}
+          itemsLastPage={lastPage}
+          onJump={this.handlePageJump}
+          />
       </Fragment>
     )
   }
@@ -45,10 +65,10 @@ class FoldersList extends React.Component {
 
 const mapDispatchToProps = function(dispatch) {
   return {
-      actions: bindActionCreators({
-        fetchFolders: allFoldersActions.foldersFetchRequest,
-        changeSearchFilter: allFoldersActions.foldersFilterRequest
-      }, dispatch)
+    actions: bindActionCreators({
+      fetchFolders: allFoldersActions.foldersFetchRequest,
+      changeSearchFilter: allFoldersActions.foldersFilterRequest
+    }, dispatch)
   }
 }
 

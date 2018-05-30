@@ -18,7 +18,6 @@ const foldersFetch = async (params) => {
       // folder_type: optionsFilter, can be set leter via checkbox options
     });
 
-    console.log(queryString);
     const url = BASE_URL.concat('folder', '?', queryString);
     const response = await axios.get(url);
     // const totalCount = response.headers['x-total-count'];

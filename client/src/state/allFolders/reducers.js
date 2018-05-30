@@ -29,7 +29,6 @@ const error = (state = null, action) => {
 
 // object containing all the items, with folder keys as the object properties
 const byId  = (state = {}, action) => {
-  console.log(action.payload);
   const foldersList = {};
   switch(action.type) {
     case types.FOLDERS_FETCH_SUCCESS:

@@ -7,7 +7,7 @@ const Folder = ({ id, title, description, author }) => {
       <td>{id}</td>
       <td>{title}</td>
       <td>{description}</td>
-      <td>{author}</td>
+      <td>{author.username}</td>
     </tr>
   )
 }
