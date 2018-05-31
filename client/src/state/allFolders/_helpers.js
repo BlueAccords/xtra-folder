@@ -13,7 +13,7 @@ export const concatParams = function(params) {
       });
 
       return acc;
-    } else if(params[val] !== undefined && params[val] !== null) {
+    } else if(params[val] !== undefined && params[val] !== '') {
       acc.push(val.concat('=', params[val]));
       return acc;
     } else {

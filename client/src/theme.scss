@@ -15,3 +15,11 @@
 .primary-content {
   flex: 1;
 }
+
+.field.sort-options-right {
+  display: flex;
+
+  @include from($tablet) {
+    justify-content: flex-end;
+  }
+}

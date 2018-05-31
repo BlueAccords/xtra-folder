@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FolderTable from './FolderTable.jsx';
+import FolderSortOptions from './FolderSortOptions.jsx';
+import FolderSearchOption from './FolderSearchOption.jsx';
 import withPaginated from './../../components/common/withPaginated.jsx';
 import { actions as allFoldersActions } from './../../../state/allFolders';
 import { selectors as allFoldersSelectors } from './../../../state/allFolders';
@@ -24,10 +26,12 @@ class FoldersList extends React.Component {
     this.state = {
       sortKey: 'id',
       sortDirection: 'ASC',
-      searchFilter: null,
+      searchFilter: '',
     }
 
     this.handlePageJump = this.handlePageJump.bind(this);
+    this.handleQueryParamChange = this.handleQueryParamChange.bind(this);
+    this.handleSearchFilterChange = this.handleSearchFilterChange.bind(this);
   }
 
   componentDidMount() {
@@ -46,10 +50,52 @@ class FoldersList extends React.Component {
     }
   }
 
+    // returns a function that changes query param based on the passed param.
+    handleQueryParamChange(keyName) {
+      return (e) => {
+        this.setState({
+          [keyName]: e.target.value
+        }, () => {
+          this.props.actions.fetchFolders({
+            ...this.state,
+            clearCache: true
+          });
+        });
+      }
+    }
+  
+    // special version for filter to add a debounce delay while user is typing
+    handleSearchFilterChange(e) {
+      this.setState({
+        searchFilter: e.target.value
+      }, () => {
+        this.props.actions.changeSearchFilter({
+          ...this.state,
+          clearCache: true
+        });
+      });
+    }
+
   render() {
     const { isLoading, currentPageFolders, currentPage, lastPage } = this.props;
     return (
       <Fragment>
+        <div className="columns">
+          <div className="column field">
+            <FolderSearchOption
+              onSearchFilterChange={this.handleSearchFilterChange}
+              searchFilter={this.state.searchFilter}
+            /> 
+          </div>
+          <div className="column field is-grouped sort-options-right">
+            <FolderSortOptions
+              sortKey={this.state.sortKey}
+              sortDirection={this.state.sortDirection}
+              onSortKeyChange={this.handleQueryParamChange('sortKey')} 
+              onSortDirectionChange={this.handleQueryParamChange('sortDirection')} 
+            />
+          </div>       
+        </div>
         <FolderTableWithPagination
           columnNames={columnNames}
           isLoading={isLoading}
