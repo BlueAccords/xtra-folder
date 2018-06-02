@@ -101,8 +101,13 @@ exports.seed = function(knex, Promise) {
     });
   })
   .then(function() {
-    // insert chip copy data
-    return knex('chip_copy').insert(chipCopyData());
+    return knex('folder').count('id')
+      .then((folderCount) => {
+        return knex('chip').count('id').where({ primary_game_id: 1})
+          .then((chipCount) => {
+            return knex('chip_copy').insert(chipCopyData(folderCount, chipCount));
+          })
+      })
   })
   
 };

@@ -1,50 +1,36 @@
-module.exports = function() {
-  return [
-    {
-      code: 'A',
-      folder_id: 1,
-      chip_id: 1
-    },
-    {
-      code: 'B',
-      folder_id: 1,
-      chip_id: 2
-    },
-    {
-      code: 'C',
-      folder_id: 1,
-      chip_id: 3
-    },
-    {
-      code: 'D',
-      folder_id: 1,
-      chip_id: 4
-    },
-    {
-      code: 'E',
-      folder_id: 1,
-      chip_id: 5
-    },
-    {
-      code: 'F',
-      folder_id: 2,
-      chip_id: 6
-    },    {
-      code: 'G',
-      folder_id: 2,
-      chip_id: 7
-    },    {
-      code: 'H',
-      folder_id: 2,
-      chip_id: 8
-    },    {
-      code: 'I',
-      folder_id: 2,
-      chip_id: 9
-    },    {
-      code: 'J',
-      folder_id: 2,
-      chip_id: 10
-    },
+module.exports = function(folderCountObj, chipCountObj) {
+  let chip_codes = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+    'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+    'X', 'Y', 'Z'
   ];
+
+  let allChipCopies = [];
+  const folderCount = (folderCountObj[0]['count(`id`)']);
+  const chipCount = (chipCountObj[0]['count(`id`)']);
+
+  for(let i = 1; i < folderCount; i++) {
+    for(let j = 0; j < 30; j++) {
+      let chipIdNum = Math.floor(Math.random() * chipCount) + 1; 
+      if(chipIdNum == 0) {
+        console.log('AAA')
+      }
+      allChipCopies.push({
+        code: chip_codes[Math.floor(Math.random() * chip_codes.length)],
+        folder_id: i,
+        chip_id: chipIdNum
+      });
+    }
+  }
+
+  // console.log(allChipCopies);
+
+  return allChipCopies;
+
+  /**
+   * - Iterate through every folder
+   * - pick 30 random chips by id #, give them a code
+   * - add a new chip_copy to the main list
+   *  - includes code, folder_id, chip_id
+   */
 }
