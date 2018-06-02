@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 // HoC to add pagination buttons (1- lastPage)
 const withPaginated = (Component) => (props) => {
-  const { itemsCurrentPage, itemsLastPage, onJump  } = props;
+  const { itemsCurrentPage, itemsLastPage, onJump, isLoading  } = props;
 
   function getPaginatedArray(currentPage, lastPage) {
     let delta = 2;
@@ -89,17 +89,10 @@ const withPaginated = (Component) => (props) => {
     )
   }
 
-  function renderFirstButton() {
-
-  }
-
-  function renderLastButton() {
-
-  }
   
   return (
     <Fragment>
-      <nav className="pagination is-centered" role="navigation" aria-label="pagination">
+      <nav className="pagination" role="navigation" aria-label="pagination">
         {renderPreviousButton()}
         {renderNextButton()}
         <ul className='pagination-list'>
@@ -107,7 +100,7 @@ const withPaginated = (Component) => (props) => {
         </ul>
       </nav>
         <Component {...props}/>
-      <nav className="pagination is-centered" role="navigation" aria-label="pagination">
+      <nav className="pagination" role="navigation" aria-label="pagination">
         {renderPreviousButton()}
         {renderNextButton()}
         <ul className='pagination-list'>

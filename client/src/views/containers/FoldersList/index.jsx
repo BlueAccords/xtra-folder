@@ -32,6 +32,8 @@ class FoldersList extends React.Component {
     this.handlePageJump = this.handlePageJump.bind(this);
     this.handleQueryParamChange = this.handleQueryParamChange.bind(this);
     this.handleSearchFilterChange = this.handleSearchFilterChange.bind(this);
+    this.handleSearchFilterSubmit = this.handleSearchFilterSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
@@ -68,8 +70,25 @@ class FoldersList extends React.Component {
     handleSearchFilterChange(e) {
       this.setState({
         searchFilter: e.target.value
+      });
+    }
+
+    handleSearchFilterSubmit(e) {
+      e.preventDefault();
+      this.props.actions.fetchFolders({
+        ...this.state,
+        clearCache: true
+      });
+    }
+
+    handleReset(e) {
+      e.preventDefault();
+      this.setState({
+        sortKey: 'id',
+        sortDirection: 'ASC',
+        searchFilter: '',
       }, () => {
-        this.props.actions.changeSearchFilter({
+        this.props.actions.fetchFolders({
           ...this.state,
           clearCache: true
         });
@@ -84,7 +103,9 @@ class FoldersList extends React.Component {
           <div className="column field">
             <FolderSearchOption
               onSearchFilterChange={this.handleSearchFilterChange}
+              onSearchFilterSubmit={this.handleSearchFilterSubmit}
               searchFilter={this.state.searchFilter}
+              onReset={this.handleReset}
             /> 
           </div>
           <div className="column field is-grouped sort-options-right">
@@ -96,7 +117,7 @@ class FoldersList extends React.Component {
             />
           </div>       
         </div>
-        <FolderTableWithPagination
+          <FolderTableWithPagination
           columnNames={columnNames}
           isLoading={isLoading}
           foldersList={currentPageFolders}
