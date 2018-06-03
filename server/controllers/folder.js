@@ -32,7 +32,9 @@ module.exports = {
   },
   get: async function(req, res) {
     const id = req.params.id;
-    const folder = await Folder.query().findById(id);
+    const folder = await Folder.query()
+      .findById(id)
+      .eager('[author, child_chips]');
     if(folder) {
       ctrlHelpers.handleResponse(true, res, 200, 'success', folder);
     } else {
