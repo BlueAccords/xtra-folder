@@ -28,6 +28,38 @@ This file contains the rough design documentation for the front end of this site
   - We can store JWT on the client side in either localStorage or cookies. localStorage is vulnerable to XSS(Cross-Site Scripting) attacks, while cookies are vulnerable to CSRF(Cross Site Request Forgery) attacks. After doing some research on this it seems like storing the JWT in cookies is the better option as CSRF is easier to mitigate than XSS.
 
 ## Flows
+### Get single folder
+#### Router
+- User should be able to navigate to single folder page
+- react router should support this under `/folders/:id` route
+
+#### Page component
+- `componentDidMount()` should fetch individual folder information.
+- storage should be done in REDUX store
+  - This is so when the user wants to edit the page(if they have permission) the information will already be fetched.
+- `fetchSingleFolder(folderId)` action, should get `folderId` from react-router `:id` parameter.
+  - dispatch fetch `action`
+  - `saga` should perform api call, and dispatch `folderGetSuccess` or `folderGetFailure`
+  - `reducer` should handle following entities:
+    - `folder` data
+    - `chip_copies` data
+    - `author` data(may not be necessary, only 1 author)
+  - `reducer` state should be normalized
+
+  #### Chip Order
+  - For chip order, there will be an `index` column for each chip copy
+  - the SERVER will be returning the order of the chip copies, by their id
+  - the client will store the order as an array of ids
+  - the client will IGNORE the `index` column for each chip_copy, and instead will order by the returned array of ids.
+  - on EDIT SUCCESS
+    - update item in byId list
+    - update order property: array of ids
+  - on DELETE SUCCESS
+    - remote item from byId list
+    - update order property: array of ids
+
+
+
 ### Register Account Flow
 - User Opens Register modal
 - User enters information
@@ -51,3 +83,4 @@ This file contains the rough design documentation for the front end of this site
 - Problem: child components are nested inside of a container and need actions/state from redux store
   - This means we would have to pass state/actions through multiple child components who don't use the action/state we're passing through until it reaches the nested child that actually uses it.
 - Solution: Organize by feature, if passing child props through too many components then consider adding the props directly to the needed container
+

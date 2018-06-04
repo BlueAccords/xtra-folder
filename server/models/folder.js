@@ -43,6 +43,7 @@ class Folder extends DbErrors(Sch.Model) {
       child_chips: {
         relation: Model.ManyToManyRelation,
         modelClass: __dirname + '/chip',
+        filter: query => query.select('chip_copy.code'),
         join: {
           from: 'folder.id',
           // ManyToMany relation needs the `through` object

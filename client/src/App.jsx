@@ -17,6 +17,7 @@ import Login from './views/pages/Login.jsx';
 import Forbidden from './views/pages/Forbidden.jsx';
 import NotFound from './views/pages/NotFound.jsx';
 import SearchFolders from './views/pages/SearchFolders.jsx';
+import Folder from './views/pages/Folder.jsx';
 import RequireRole from './views/components/RequireRole/index.jsx';
 
 const App = () => {
@@ -31,7 +32,8 @@ const App = () => {
             <Route path="/dashboard" component={RequireRole(Dashboard)}/>
             <Route path="/profile" component={Profile}/>
             <Route path="/settings" component={RequireRole(Settings)}/>
-            <Route path="/folders" component={SearchFolders}/>
+            <Route exact path="/folders/:id" component={Folder}/>
+            <Route exact path="/folders" component={SearchFolders}/>
             <Route path="/login" component={Login}/>
             <Route path="/forbidden" component={Forbidden}/>
             <Route exact path="/404" component={NotFound}/>

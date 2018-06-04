@@ -35,7 +35,7 @@ describe('# routes : folder', () => {
     it('should return all folders', (done) => {
       testHelper.login(agent, chai).then(() => {
         agent
-        .get('/api/folder?sortKey=id&sortDirection=ASC')
+        .get('/api/folder?sortBy=id&order=ASC')
         .end((err, res) => {
           should.not.exist(err);
           res.status.should.equal(200);

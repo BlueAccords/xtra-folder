@@ -4,6 +4,43 @@
 
 // override bulma + add custom scss here
 
+// single folder 
+.single-folder-container {
+  @include until($desktop) {
+    padding: 1rem;
+  }
+
+  @include from($desktop) {
+    padding: 1.5rem 0;
+  }
+}
+
+.chip-body-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  p:not(:last-child){
+    padding-right: 1rem;
+  }
+}
+
+.card-content {
+  @include until($tablet) {
+    padding: 1rem;
+  }
+}
+
+.card:not(:last-child) {
+  @include until($desktop) {
+    margin-bottom: 1rem;
+  }
+
+  @include from($desktop) {
+    margin-bottom: 1.5rem;
+  }
+}
+
 // sticky footer
 // TODO: re examine to ensure maximum browser compatibility
 #app {

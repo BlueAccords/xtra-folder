@@ -77,10 +77,6 @@ router.post(`${folderBaseUrl}`,
 
 // GET#get single folder by id
 router.get(`${folderBaseUrl}/:id`, 
-  isAllowed.check({
-    resource : folderResource,
-    action: 'read',
-   }),  
   folderController.get);
 
 // PUT#update single folder by id
