@@ -19,10 +19,11 @@ const ChipTable = ({chips}) => {
       <tbody>
         {
           chips.map((chip) => {
-            return (<tr>
+            return (
+            <tr key={chip.id}>
               <td>{chip.chip_number}</td>
               <td>{chip.original_name}</td>
-              <td>{chip.element}</td>
+              <td>{chip.element || 'null'}</td>
               <td>{chip.damage}</td>
               <td>{chip.code}</td>
               <td>{chip.memory}</td>
