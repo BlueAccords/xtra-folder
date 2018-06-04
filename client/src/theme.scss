@@ -4,6 +4,14 @@
 
 // override bulma + add custom scss here
 
+// misc css
+
+.container-space-between {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 // single folder 
 .single-folder-container {
   @include until($desktop) {

@@ -24,7 +24,10 @@ class SingleFolder extends React.Component {
         </div>
       </section>
       <div className="container single-folder-container">
-        <h2 className='title'>Chips</h2>
+        <div className="container-space-between">
+          <h2 className='title'>Chips</h2>
+          <button className="button">Edit</button>
+        </div>
         <ChipTable chips = {child_chips}/>
       </div>
       </Fragment>
